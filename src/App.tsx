@@ -7,11 +7,6 @@ import './App.css';
 
 function App() {
   const [count, setCount] = useState(0);
-  let a: boolean = 10;
-
-  a = 'dfsdfsdf';
-  a = {};
-  console.log('err');
 
   return (
     <>
