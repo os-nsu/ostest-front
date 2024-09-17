@@ -9,7 +9,6 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "prepare": "husky",
-    "precommit": "lint-staged",
     "prepush": "tsc --noEmit -p tsconfig.json --composite false"
   },
   "lint-staged": {
