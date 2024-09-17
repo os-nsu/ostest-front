@@ -7,6 +7,9 @@ import './App.css'
 
 function App() {
   const [count, setCount] = useState(0)
+    let a = 10;
+
+  a = 'dfsdfsdf'
 
   return (
     <>
