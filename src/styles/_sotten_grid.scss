@@ -1,0 +1,106 @@
+$break_xxl: 1920px;
+$break_xxlg: 1620px;
+$break_xlg: 1366px;
+$break_lg: 1024px;
+$break_md: 920px;
+$break_smd: 800px;
+$break_sm: 768px;
+$break_s: 600px;
+$break_xs: 480px;
+$break_xxs: 375px;
+$break_xxxs: 360px;
+$gutter: 0;
+
+@mixin xxl {
+  @media screen and (max-width: $break_xxl) {
+    @content;
+  }
+}
+
+@mixin xxlg {
+  @media screen and (max-width: $break_xxlg) {
+    @content;
+  }
+}
+
+@mixin xlg {
+  @media screen and (max-width: $break_xlg) {
+    @content;
+  }
+}
+
+@mixin lg {
+  @media screen and (max-width: $break_lg) {
+    @content;
+  }
+}
+
+@mixin md {
+  @media screen and (max-width: $break_md) {
+    @content;
+  }
+}
+
+@mixin smd {
+  @media screen and (max-width: $break_smd) {
+    @content;
+  }
+}
+
+@mixin sm {
+  @media screen and (max-width: $break_sm) {
+    @content;
+  }
+}
+
+@mixin s {
+  @media screen and (max-width: $break_s) {
+    @content;
+  }
+}
+
+@mixin xs {
+  @media screen and (max-width: $break_xs) {
+    @content;
+  }
+}
+
+@mixin xxs {
+  @media screen and (max-width: $break_xxs) {
+    @content;
+  }
+}
+
+@mixin xxxs {
+  @media screen and (max-width: $break_xxxs) {
+    @content;
+  }
+}
+
+@mixin xsLandscape {
+  @media screen and (orientation: landscape) and (max-height: $break_xs) {
+    @content;
+  }
+}
+
+:root {
+  --content-width: 1448px;
+  --gutter: 10px;
+  --mob-padding: 60px;
+
+  @include lg {
+    --mob-padding: 20px;
+    --gutter: 8px;
+  }
+
+  @include sm {
+    --mob-padding: 16px;
+  }
+}
+
+.container {
+  width: 100%;
+  max-width: calc(var(--content-width) + var(--mob-padding) * 2);
+  padding: 0 var(--mob-padding);
+  margin: 0 auto;
+}
