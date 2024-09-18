@@ -1,6 +1,8 @@
+import HomePage from '../pages/HomePage.tsx';
+
 export const routes = [
   {
     path: '/',
-    element: <div>Hello world!</div>,
+    element: <HomePage />,
   },
 ];
