@@ -7,6 +7,7 @@ interface DefaultDropdownProps {
   label?: string;
   options: SelectItem[];
   value?: string;
+  placeholder?: string;
 
   onSelect?: (value?: string) => void;
 }
@@ -15,6 +16,7 @@ export default function DefaultDropdown({
   label,
   options,
   value,
+  placeholder,
   onSelect,
 }: DefaultDropdownProps) {
   const { selectedOption, onChange } = useDefaultDropdown(value, onSelect);
@@ -22,7 +24,12 @@ export default function DefaultDropdown({
   return (
     <div className="container">
       {label ? <label>{label}</label> : null}
-      <Dropdown value={selectedOption} options={options} onChange={onChange} />
+      <Dropdown
+        value={selectedOption}
+        options={options}
+        placeholder={placeholder}
+        onChange={onChange}
+      />
     </div>
   );
 }
