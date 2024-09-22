@@ -1,6 +1,6 @@
 import { InputText } from 'primereact/inputtext';
 import { useInput } from './hooks/useInput.ts';
-import '../../../styles/components/DefaultInput.scss';
+import '@styles/components/DefaultInput.scss';
 
 interface DefaultInputProps {
   label?: string;

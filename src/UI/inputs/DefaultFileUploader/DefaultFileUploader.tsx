@@ -1,5 +1,5 @@
 import { FileUpload, FileUploadSelectEvent } from 'primereact/fileupload';
-import '../../../styles/components/DefaultFileUploader.scss';
+import '@styles/components/DefaultFileUploader.scss';
 
 interface DefaultFileUploaderProps {
   label?: string;
