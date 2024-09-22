@@ -18,7 +18,7 @@ export default function DefaultFileUploader({
   placeholder,
   onSelect,
 }: DefaultFileUploaderProps) {
-  const fieldRef = useRef(null);
+  const fieldRef = useRef<FileUpload | null>(null);
 
   return (
     <div className="container">
