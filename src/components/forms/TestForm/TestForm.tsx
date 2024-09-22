@@ -33,7 +33,12 @@ export default function TestForm() {
         placeholder="Выберите файл"
         onSelect={files => onFieldChange('files', files)}
       />
-      <Button disabled={isButtonDisabled} label="Создать" onClick={onSubmit} />
+      <Button
+        className={styles.submitButton}
+        disabled={isButtonDisabled}
+        label="Создать"
+        onClick={onSubmit}
+      />
     </div>
   );
 }
