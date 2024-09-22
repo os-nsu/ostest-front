@@ -1,6 +1,7 @@
 import { Dropdown } from 'primereact/dropdown';
 import { SelectItem } from 'primereact/selectitem';
 import { useDefaultDropdown } from '@UI/inputs/DefaultDropdown/hooks/useDefaultDropdown.ts';
+import '@styles/components/DefaultDropdown.scss';
 
 interface DefaultDropdownProps {
   label?: string;
@@ -19,7 +20,7 @@ export default function DefaultDropdown({
   const { selectedOption, onChange } = useDefaultDropdown(value, onSelect);
 
   return (
-    <div>
+    <div className="container">
       {label ? <label>{label}</label> : null}
       <Dropdown value={selectedOption} options={options} onChange={onChange} />
     </div>
