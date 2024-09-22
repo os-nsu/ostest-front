@@ -1,5 +1,6 @@
 import { FileUpload, FileUploadSelectEvent } from 'primereact/fileupload';
 import '@styles/components/DefaultFileUploader.scss';
+import { useRef } from 'react';
 
 interface DefaultFileUploaderProps {
   label?: string;
@@ -17,15 +18,20 @@ export default function DefaultFileUploader({
   placeholder,
   onSelect,
 }: DefaultFileUploaderProps) {
+  const fieldRef = useRef(null);
+
   return (
     <div className="container">
       {label ? <label>{label}</label> : null}
       <FileUpload
+        ref={fieldRef}
+        customUpload
         mode="basic"
         accept={accept}
         multiple={multiple}
         chooseLabel={placeholder}
         onSelect={(e: FileUploadSelectEvent) => onSelect && onSelect(e.files)}
+        uploadHandler={() => fieldRef.current?.clear()}
       />
     </div>
   );
