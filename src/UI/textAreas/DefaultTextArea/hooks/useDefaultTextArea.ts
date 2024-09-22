@@ -4,7 +4,7 @@ export const useDefaultTextArea = (
   defaultValue?: string,
   onChange?: (value: string) => void,
 ) => {
-  const [fieldValue, setValue] = useState(defaultValue);
+  const [fieldValue, setValue] = useState(defaultValue || '');
 
   const onInput = (newValue: string) => {
     setValue(newValue);
