@@ -1,10 +1,10 @@
-import TestForm from '@/components/forms/TestForm/TestForm.tsx';
+import ModalCreateTest from '@/components/modals/ModalCreateTest/ModalCreateTest.tsx';
 
 export default function TestsPage() {
   return (
     <div>
       TestPage
-      <TestForm />
+      <ModalCreateTest />
     </div>
   );
 }
