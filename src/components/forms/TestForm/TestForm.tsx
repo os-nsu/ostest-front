@@ -19,8 +19,8 @@ export default function TestForm() {
       />
       <DefaultDropdown
         options={testOptions}
-        label="Категория"
-        placeholder="Выберите категорию теста"
+        label="Тип теста"
+        placeholder="Выберите тип тестирования"
         onSelect={value => onFieldChange('type', value || '')}
       />
       <DefaultTextArea
