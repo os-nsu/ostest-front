@@ -1,6 +1,6 @@
 import { InputTextarea } from 'primereact/inputtextarea';
 import { useDefaultTextArea } from '@UI/textAreas/DefaultTextArea/hooks/useDefaultTextArea.ts';
-import '@styles/components/DefaultTextArea.scss';
+import styles from '@styles/components/DefaultTextArea.module.scss';
 
 interface DefaultTextAreaProps {
   value?: string;
@@ -21,9 +21,10 @@ export default function DefaultTextArea({
   const { fieldValue, onInput } = useDefaultTextArea(value, onChange);
 
   return (
-    <div className="container">
+    <div className={styles.container}>
       {label ? <label>{label}</label> : null}
       <InputTextarea
+        className={styles.textarea}
         value={fieldValue}
         placeholder={placeholder}
         autoResize={autoresize}
