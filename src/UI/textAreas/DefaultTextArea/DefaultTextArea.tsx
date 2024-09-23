@@ -7,6 +7,7 @@ interface DefaultTextAreaProps {
   placeholder?: string;
   label?: string;
   autoresize?: boolean;
+  required?: boolean;
 
   onChange?: (value: string) => void;
 }
@@ -16,13 +17,19 @@ export default function DefaultTextArea({
   label,
   placeholder,
   autoresize,
+  required,
   onChange,
 }: DefaultTextAreaProps) {
   const { fieldValue, onInput } = useDefaultTextArea(value, onChange);
 
   return (
     <div className={styles.container}>
-      {label ? <label>{label}</label> : null}
+      {label ? (
+        <label>
+          {label}{' '}
+          {required ? <span style={{ color: '#EC4256' }}> * </span> : null}
+        </label>
+      ) : null}
       <InputTextarea
         className={styles.textarea}
         value={fieldValue}

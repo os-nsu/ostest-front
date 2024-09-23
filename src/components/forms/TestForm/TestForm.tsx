@@ -15,12 +15,14 @@ export default function TestForm() {
       <DefaultInput
         label="Название"
         placeholder="Введите название"
+        required
         onChange={value => onFieldChange('name', value)}
       />
       <DefaultDropdown
         options={testOptions}
         label="Тип теста"
         placeholder="Выберите тип тестирования"
+        required
         onSelect={value => onFieldChange('type', value || '')}
       />
       <DefaultTextArea
@@ -31,6 +33,7 @@ export default function TestForm() {
       <DefaultFileUploader
         label="Файл теста"
         placeholder="Выберите файл"
+        required
         onSelect={files => onFieldChange('files', files)}
       />
       <Button

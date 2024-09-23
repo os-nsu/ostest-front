@@ -7,6 +7,7 @@ interface DefaultInputProps {
   value?: string;
   placeholder?: string;
   disabled?: boolean;
+  required?: boolean;
 
   onChange?: (value: string) => void;
 }
@@ -16,13 +17,19 @@ export default function DefaultInput({
   label,
   placeholder,
   disabled,
+  required,
   onChange,
 }: DefaultInputProps) {
   const { defaultValue, onInput } = useInput(value, onChange);
 
   return (
     <div className="container">
-      {label ? <label>{label}</label> : null}
+      {label ? (
+        <label>
+          {label}{' '}
+          {required ? <span style={{ color: '#EC4256' }}> * </span> : null}
+        </label>
+      ) : null}
       <InputText
         placeholder={placeholder}
         value={defaultValue}
