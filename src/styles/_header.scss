@@ -1,0 +1,36 @@
+.main__header {
+    margin-inline: 48px;
+    margin-block: 48px 106px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.main__header-logo {
+    max-width: 240px;
+}
+
+.main__header-buttons {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+
+.main__header-button {
+    border-radius: 14px;
+    padding-inline: 16px;
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 43.27px;
+    letter-spacing: -0.017em;
+    text-align: center;
+}
+
+.main__header-button-checked {
+    background-color: #593780;
+    color: #fff;
+}
+
+.main__header-avatar {
+    max-width: 97px;
+}
