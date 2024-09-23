@@ -4,7 +4,7 @@ export default function TestsPage() {
   return (
     <div>
       TestPage
-      <ModalCreateTest />
+      <ModalCreateTest displayed />
     </div>
   );
 }
