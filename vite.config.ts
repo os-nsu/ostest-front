@@ -9,6 +9,7 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url)),
       '@styles': fileURLToPath(new URL('./src/styles', import.meta.url)),
       '@UI': fileURLToPath(new URL('./src/UI', import.meta.url)),
+      '@public': fileURLToPath(new URL('./public', import.meta.url)),
     },
   }
 })
