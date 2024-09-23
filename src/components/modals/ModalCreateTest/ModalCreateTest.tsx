@@ -14,7 +14,13 @@ export default function ModalCreateTest() {
         <div className={styles.container}>
           <span className={styles.title}>Создать тест</span>
           <TestForm />
-          <Button icon={IconClose} />
+          <Button
+            className={styles.close}
+            icon={<img src={IconClose} alt="" />}
+            severity="secondary"
+            raised={false}
+            rounded
+          />
         </div>
       )}
     />
