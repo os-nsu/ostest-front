@@ -1,7 +1,7 @@
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { getLabs } from './getLabs';
-import { Laboratory } from './types';
+import { Laboratory } from '../../types/labratory';
 
 export default function Labs() {
   const labs: Laboratory[] = getLabs();
