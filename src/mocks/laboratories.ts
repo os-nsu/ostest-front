@@ -1,4 +1,4 @@
-import { Laboratory } from '../types/labratory';
+import { Laboratory } from '../types/laboratory';
 
 export const laboratories: Laboratory[] = [
   {
