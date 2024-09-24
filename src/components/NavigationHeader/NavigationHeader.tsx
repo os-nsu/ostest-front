@@ -1,4 +1,6 @@
 import styles from '@styles/components/NavigationHeader.module.scss';
+import IconLogo from '@public/logo.svg';
+import avatar from '@public/avatar.png';
 
 interface NavigationHeaderProps {
   activeTab: string;
@@ -10,7 +12,7 @@ function NavigationHeader({ activeTab, onSelectTab }: NavigationHeaderProps) {
     <header className={styles.main__header}>
       <img
         className={styles.main__header_logo}
-        src="@public/logo.svg"
+        src={IconLogo}
         alt="Логотип ostest"
       />
       <div className={styles.main__header_buttons}>
@@ -27,7 +29,7 @@ function NavigationHeader({ activeTab, onSelectTab }: NavigationHeaderProps) {
           Рейтинг
         </button>
       </div>
-      <img className={styles.main__header_avatar} src="@public/avatar.png" />
+      <img className={styles.main__header_avatar} src={avatar} />
     </header>
   );
 }
