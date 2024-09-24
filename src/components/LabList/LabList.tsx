@@ -1,11 +1,11 @@
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
-import { getLabs } from './getLabs';
+import { laboratories } from '../../mocks/laboratories';
 import { Laboratory } from '../../types/labratory';
-import '../../styles/Labs.module.scss';
+import styles from '../../styles/components/LabList.module.scss';
 
 export default function Labs() {
-  const labs: Laboratory[] = getLabs();
+  const labs: Laboratory[] = laboratories;
 
   const deadlineTemplate = (rowData: Laboratory) => {
     const formattedDate = new Date(rowData.deadline).toLocaleDateString(
@@ -20,7 +20,7 @@ export default function Labs() {
   };
 
   return (
-    <div className="labs-table">
+    <div className={styles.labs_table}>
       <DataTable value={labs}>
         <Column field="name" header="Название" />
         <Column

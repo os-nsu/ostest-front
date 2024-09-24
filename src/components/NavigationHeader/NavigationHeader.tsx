@@ -1,4 +1,4 @@
-import '../styles/NavigationHeader.module.scss';
+import styles from '../../styles/components/NavigationHeader.module.scss';
 
 interface NavigationHeaderProps {
   activeTab: string;
@@ -7,27 +7,30 @@ interface NavigationHeaderProps {
 
 function NavigationHeader({ activeTab, setActiveTab }: NavigationHeaderProps) {
   return (
-    <header className="main__header">
+    <header className={styles.main__header}>
       <img
-        className="main__header-logo"
+        className={styles.main__header_logo}
         src="../../public/logo.svg"
         alt="Логотип ostest"
       />
-      <div className="main__header-buttons">
+      <div className={styles.main__header_buttons}>
         <button
           type="button"
-          className={`main__header-button ${activeTab === 'labs' ? 'main__header-button-checked' : ''}`}
+          className={`${styles.main__header_button} ${activeTab === 'labs' ? styles.main__header_button_checked : ''}`}
           onClick={() => setActiveTab('labs')}>
           Лабораторные
         </button>
         <button
           type="button"
-          className={`main__header-button ${activeTab === 'rating' ? 'main__header-button-checked' : ''}`}
+          className={`${styles.main__header_button} ${activeTab === 'rating' ? styles.main__header_button_checked : ''}`}
           onClick={() => setActiveTab('rating')}>
           Рейтинг
         </button>
       </div>
-      <img className="main__header-avatar" src="../../public/avatar.png" />
+      <img
+        className={styles.main__header_avatar}
+        src="../../public/avatar.png"
+      />
     </header>
   );
 }
