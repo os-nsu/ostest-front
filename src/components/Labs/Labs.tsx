@@ -1,12 +1,12 @@
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { getLabs } from './getLabs';
-import { LabType } from './types';
+import { Laboratory } from './types';
 
 export default function Labs() {
-  const labs: LabType[] = getLabs();
+  const labs: Laboratory[] = getLabs();
 
-  const deadlineTemplate = (rowData: LabType) => {
+  const deadlineTemplate = (rowData: Laboratory) => {
     const formattedDate = new Date(rowData.deadline).toLocaleDateString(
       'ru-RU',
       {
