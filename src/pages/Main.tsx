@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Labs from '../components/Labs/Labs';
 // import Rating from './Rating';
-import Header from '../components/Header';
+import Header from '../components/NavigationHeader';
 
 export default function Main() {
   const [activeTab, setActiveTab] = useState('labs');

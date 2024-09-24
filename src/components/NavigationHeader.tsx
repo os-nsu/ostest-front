@@ -1,9 +1,11 @@
-type Props = {
+import '../styles/NavigationHeader.module.scss';
+
+interface NavigationHeaderProps {
   activeTab: string;
   setActiveTab: (tab: string) => void;
-};
+}
 
-function Header({ activeTab, setActiveTab }: Props) {
+function NavigationHeader({ activeTab, setActiveTab }: NavigationHeaderProps) {
   return (
     <header className="main__header">
       <img
@@ -30,4 +32,4 @@ function Header({ activeTab, setActiveTab }: Props) {
   );
 }
 
-export default Header;
+export default NavigationHeader;
