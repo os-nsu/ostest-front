@@ -2,7 +2,7 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { laboratories } from '../../mocks/laboratories';
 import { Laboratory } from '../../types/laboratory';
-import styles from '../../styles/components/LabList.module.scss';
+import styles from '@styles/components/LabList.module.scss';
 
 export default function Labs() {
   const labs: Laboratory[] = laboratories;
