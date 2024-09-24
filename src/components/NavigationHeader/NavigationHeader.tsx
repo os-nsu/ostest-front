@@ -2,10 +2,10 @@ import styles from '../../styles/components/NavigationHeader.module.scss';
 
 interface NavigationHeaderProps {
   activeTab: string;
-  setActiveTab: (tab: string) => void;
+  onSelectTab: (tab: string) => void;
 }
 
-function NavigationHeader({ activeTab, setActiveTab }: NavigationHeaderProps) {
+function NavigationHeader({ activeTab, onSelectTab }: NavigationHeaderProps) {
   return (
     <header className={styles.main__header}>
       <img
@@ -17,13 +17,13 @@ function NavigationHeader({ activeTab, setActiveTab }: NavigationHeaderProps) {
         <button
           type="button"
           className={`${styles.main__header_button} ${activeTab === 'labs' ? styles.main__header_button_checked : ''}`}
-          onClick={() => setActiveTab('labs')}>
+          onClick={() => onSelectTab('labs')}>
           Лабораторные
         </button>
         <button
           type="button"
           className={`${styles.main__header_button} ${activeTab === 'rating' ? styles.main__header_button_checked : ''}`}
-          onClick={() => setActiveTab('rating')}>
+          onClick={() => onSelectTab('rating')}>
           Рейтинг
         </button>
       </div>

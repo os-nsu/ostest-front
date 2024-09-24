@@ -8,7 +8,7 @@ export default function HomePage() {
 
   return (
     <div>
-      <Header activeTab={activeTab} setActiveTab={setActiveTab} />
+      <Header activeTab={activeTab} onSelectTab={setActiveTab} />
       <main>
         {activeTab === 'labs' && <Labs />}
         {activeTab === 'rating'}
