@@ -3,7 +3,7 @@ import { laboratories } from '../mocks/laboratories';
 import { Laboratory } from '../types/laboratory';
 import Header from '../components/NavigationHeader/NavigationHeader';
 import Lab from '../components/Laboratory/Laboratory';
-import styles from '@styles/components/LabPage.module.scss';
+import styles from '@styles/components/LaboratoryPage.module.scss';
 import ButtonBack from '@public/button_back.svg';
 
 export default function LabPage() {
