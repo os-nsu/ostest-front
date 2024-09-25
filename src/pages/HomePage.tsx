@@ -8,7 +8,11 @@ export default function HomePage() {
 
   return (
     <div>
-      <Header activeTab={activeTab} onSelectTab={setActiveTab} />
+      <Header
+        activeTab={activeTab}
+        onSelectTab={setActiveTab}
+        showButtons={true}
+      />
       <main>
         {activeTab === 'labs' && <Labs />}
         {activeTab === 'rating'}
