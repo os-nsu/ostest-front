@@ -1,6 +1,6 @@
 import HomePage from '@/pages/HomePage.tsx';
 import TestsPage from '@/pages/TestsPage.tsx';
-import LabPage from '@/pages/LabPage.tsx';
+import LaboratoryPage from '@/pages/LaboratoryPage.tsx';
 
 export const routes = [
   {
@@ -13,6 +13,6 @@ export const routes = [
   },
   {
     path: '/lab/:id',
-    element: <LabPage />,
+    element: <LaboratoryPage />,
   },
 ];
