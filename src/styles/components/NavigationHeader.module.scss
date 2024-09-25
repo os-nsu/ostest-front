@@ -1,6 +1,6 @@
 .main__header {
     padding-inline: 48px;
-    padding-block: 48px 106px;
+    padding-block-start: 48px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -32,5 +32,5 @@
 }
 
 .main__header_avatar {
-    max-width: 97px;
+    max-width: 77px;
 }
