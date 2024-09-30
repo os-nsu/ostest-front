@@ -1,7 +1,7 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { routes } from './routes/routes.tsx';
 import 'primereact/resources/themes/bootstrap4-light-blue/theme.css';
-import { redirect } from 'react-router-dom';
+// import { redirect } from 'react-router-dom';
 
 // const token = sessionStorage.getItem('accessToken');
 const router = createBrowserRouter(routes);
