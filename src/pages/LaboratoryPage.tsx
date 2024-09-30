@@ -21,7 +21,7 @@ export default function LabPage() {
 
   return (
     <div>
-      <Header activeTab="labs" onSelectTab={() => {}} showButtons={false} />
+      <Header activeTab="labs" onSelectTab={() => {}} tabs={false} />
       <main className={styles.labpage__main}>
         <button
           type="button"

@@ -5,13 +5,13 @@ import avatar from '@public/avatar.png';
 interface NavigationHeaderProps {
   activeTab: string;
   onSelectTab: (tab: string) => void;
-  showButtons: boolean;
+  tabs?: boolean;
 }
 
 function NavigationHeader({
   activeTab,
   onSelectTab,
-  showButtons,
+  tabs,
 }: NavigationHeaderProps) {
   return (
     <header className={styles.main__header}>
@@ -20,7 +20,7 @@ function NavigationHeader({
         src={IconLogo}
         alt="Логотип ostest"
       />
-      {showButtons && (
+      {tabs && (
         <div className={styles.main__header_buttons}>
           <button
             type="button"
