@@ -1,8 +1,8 @@
 import styles from '@styles/components/Lab.module.scss';
-import { LaboratoryType } from '../../types/LaboratoryType';
+import { Laboratory } from '../../types/Laboratory.ts';
 
 interface LabProps {
-  laboratory: LaboratoryType;
+  laboratory: Laboratory;
 }
 
 export default function Laboratory({ laboratory }: LabProps) {

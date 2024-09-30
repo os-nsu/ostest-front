@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
-import { LaboratoryType } from '../../../../types/LaboratoryType';
+import { Laboratory } from '../../../../types/Laboratory.ts';
 
 interface LabElementWrapperProps {
-  rowData: LaboratoryType;
+  rowData: Laboratory;
 }
 
 export default function LabElementWrapper({ rowData }: LabElementWrapperProps) {

@@ -1,6 +1,6 @@
-import { LaboratoryType } from '../types/LaboratoryType';
+import { Laboratory } from '../types/Laboratory.ts';
 
-export const laboratories: LaboratoryType[] = [
+export const laboratories: Laboratory[] = [
   {
     id: 1,
     name: 'Лабораторная работа №1',
