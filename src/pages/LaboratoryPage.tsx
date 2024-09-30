@@ -2,7 +2,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { laboratories } from '../mocks/laboratories';
 import { Laboratory } from '../types/Laboratory.ts';
 import Header from '../components/NavigationHeader/NavigationHeader';
-import Lab from '../components/Laboratory/Laboratory';
+import Lab from '@/components/LaboratoryPageComponents/LaboratoryPageContent/LaboratoryPageContent.tsx';
 import styles from '@styles/components/LaboratoryPage.module.scss';
 import ButtonBack from '@public/button_back.svg';
 
