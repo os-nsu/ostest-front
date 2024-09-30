@@ -1,15 +1,15 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { laboratories } from '../mocks/laboratories';
-import { Laboratory } from '../types/laboratory';
+import { LaboratoryType } from '../types/LaboratoryType';
 import Header from '../components/NavigationHeader/NavigationHeader';
 import Lab from '../components/Laboratory/Laboratory';
 import styles from '@styles/components/LaboratoryPage.module.scss';
 import ButtonBack from '@public/button_back.svg';
 
-export default function LabPage() {
+export default function LaboratoryPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const lab = laboratories.find((lab: Laboratory) => lab.id === Number(id));
+  const lab = laboratories.find((lab: LaboratoryType) => lab.id === Number(id));
 
   if (!lab) {
     return <div>Лабораторная работа не найдена</div>;

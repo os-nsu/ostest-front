@@ -1,11 +1,11 @@
 import styles from '@styles/components/Lab.module.scss';
-import { Laboratory } from '../../types/laboratory';
+import { LaboratoryType } from '../../types/LaboratoryType';
 
 interface LabProps {
-  laboratory: Laboratory;
+  laboratory: LaboratoryType;
 }
 
-export default function Lab({ laboratory }: LabProps) {
+export default function Laboratory({ laboratory }: LabProps) {
   return (
     <div>
       <div className={styles.lab__info}>
