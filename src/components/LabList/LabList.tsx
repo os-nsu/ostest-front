@@ -1,13 +1,10 @@
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { laboratories } from '../../mocks/laboratories';
-import { LaboratoryType } from '../../types/LaboratoryType';
 import LabElementWrapper from './components/LabElementWrapper/LabElementWrapper';
 import styles from '@styles/components/LabList.module.scss';
 
 export default function LabList() {
-  const labs: LaboratoryType[] = laboratories;
-
   const formatDeadline = (deadline: string) => {
     return new Date(deadline).toLocaleDateString('ru-RU', {
       day: '2-digit',
@@ -18,7 +15,7 @@ export default function LabList() {
 
   return (
     <div className={styles.labs_table}>
-      <DataTable value={labs}>
+      <DataTable value={laboratories}>
         <Column
           field="name"
           header="Название"
