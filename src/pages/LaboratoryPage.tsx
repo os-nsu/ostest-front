@@ -15,10 +15,6 @@ export default function LabPage() {
     return <div>Лабораторная работа не найдена</div>;
   }
 
-  const handleBackClick = () => {
-    navigate('/');
-  };
-
   return (
     <div>
       <Header activeTab="labs" onSelectTab={() => {}} tabs={false} />
@@ -26,7 +22,7 @@ export default function LabPage() {
         <button
           type="button"
           className={styles.labpage__button_back}
-          onClick={handleBackClick}>
+          onClick={() => navigate('/')}>
           <img
             src={ButtonBack}
             alt="Кнопка назад"
