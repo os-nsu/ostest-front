@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import Labs from '../components/LabList/LabList';
-// import Rating from './Rating';
 import Header from '../components/NavigationHeader/NavigationHeader';
 
 export default function HomePage() {
@@ -8,7 +7,7 @@ export default function HomePage() {
 
   return (
     <div>
-      <Header activeTab={activeTab} onSelectTab={setActiveTab} />
+      <Header activeTab={activeTab} onSelectTab={setActiveTab} tabs />
       <main>
         {activeTab === 'labs' && <Labs />}
         {activeTab === 'rating'}
