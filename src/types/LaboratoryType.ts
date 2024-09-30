@@ -1,4 +1,4 @@
-export interface Laboratory {
+export interface LaboratoryType {
   id: number;
   name: string;
   description: string;
