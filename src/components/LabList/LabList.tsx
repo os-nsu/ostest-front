@@ -1,42 +1,33 @@
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { laboratories } from '../../mocks/laboratories';
-import { Laboratory } from '../../types/laboratory';
-import { useNavigate } from 'react-router-dom';
+import { LaboratoryType } from '../../types/LaboratoryType';
+import LabElementWrapper from './components/LabElementWrapper/LabElementWrapper';
 import styles from '@styles/components/LabList.module.scss';
 
-export default function Labs() {
-  const labs: Laboratory[] = laboratories;
-  const navigate = useNavigate();
+export default function LabList() {
+  const labs: LaboratoryType[] = laboratories;
 
-  const deadlineTemplate = (rowData: Laboratory) => {
-    const formattedDate = new Date(rowData.deadline).toLocaleDateString(
-      'ru-RU',
-      {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric',
-      },
-    );
-    return <span>{formattedDate}</span>;
-  };
-
-  const nameTemplate = (rowData: Laboratory) => {
-    return (
-      <a onClick={() => navigate(`/lab/${rowData.id}`)} className={styles.link}>
-        {rowData.name}
-      </a>
-    );
+  const formatDeadline = (deadline: string) => {
+    return new Date(deadline).toLocaleDateString('ru-RU', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+    });
   };
 
   return (
     <div className={styles.labs_table}>
       <DataTable value={labs}>
-        <Column field="name" header="Название" body={nameTemplate} />
+        <Column
+          field="name"
+          header="Название"
+          body={rowData => <LabElementWrapper rowData={rowData} />}
+        />
         <Column
           field="deadline"
           header="Дэдлайн"
-          body={deadlineTemplate}
+          body={rowData => <span>{formatDeadline(rowData.deadline)}</span>}
           style={{ width: '25%' }}
         />
       </DataTable>
