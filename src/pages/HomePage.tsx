@@ -1,17 +1,17 @@
 import { useState } from 'react';
 import Labs from '../components/LabList/LabList';
-import Header from '../components/NavigationHeader/NavigationHeader';
+import DefaultPageLayout from '@/components/DefaultPageLayout/DefaultPageLayout';
 
 export default function HomePage() {
   const [activeTab, setActiveTab] = useState('labs');
 
   return (
-    <div>
-      <Header activeTab={activeTab} onSelectTab={setActiveTab} tabs />
+    <DefaultPageLayout activeTab={activeTab} onSelectTab={setActiveTab}>
       <main>
         {activeTab === 'labs' && <Labs />}
         {activeTab === 'rating'}
+        {activeTab === 'tests'}
       </main>
-    </div>
+    </DefaultPageLayout>
   );
 }
