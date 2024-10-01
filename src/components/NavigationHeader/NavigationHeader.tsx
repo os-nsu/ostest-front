@@ -1,5 +1,7 @@
 import styles from '@styles/components/NavigationHeader.module.scss';
-import IconLogo from '@public/logo.svg';
+import IconLabs from '@public/labs.svg';
+import IconTests from '@public/tests.svg';
+import IconRating from '@public/rating.svg';
 import avatar from '@public/avatar.png';
 
 interface NavigationHeaderProps {
@@ -14,30 +16,37 @@ function NavigationHeader({
   tabs,
 }: NavigationHeaderProps) {
   return (
-    <header className={styles.main__header}>
-      <img
-        className={styles.main__header_logo}
-        src={IconLogo}
-        alt="Логотип ostest"
-      />
-      {tabs && (
-        <div className={styles.main__header_buttons}>
-          <button
-            type="button"
-            className={`${styles.main__header_button} ${activeTab === 'labs' ? styles.main__header_button_checked : ''}`}
-            onClick={() => onSelectTab('labs')}>
-            Лабораторные
-          </button>
-          <button
-            type="button"
-            className={`${styles.main__header_button} ${activeTab === 'rating' ? styles.main__header_button_checked : ''}`}
-            onClick={() => onSelectTab('rating')}>
-            Рейтинг
-          </button>
-        </div>
-      )}
-      <img className={styles.main__header_avatar} src={avatar} />
-    </header>
+    <div className={styles.header}>
+      <div className={styles.header_navigation}>
+        <p className={styles.header_logo}>NSU OS TEST</p>
+        {tabs && (
+          <div className={styles.header_buttons}>
+            <button
+              type="button"
+              className={`${styles.header_button} ${activeTab === 'labs' ? styles.header_button_checked : ''}`}
+              onClick={() => onSelectTab('labs')}>
+              <img src={IconLabs} />
+              <span>Лабораторные</span>
+            </button>
+            <button
+              type="button"
+              className={`${styles.header_button} ${activeTab === 'tests' ? styles.header_button_checked : ''}`}
+              onClick={() => onSelectTab('tests')}>
+              <img src={IconTests} />
+              <span>Тесты</span>
+            </button>
+            <button
+              type="button"
+              className={`${styles.header_button} ${activeTab === 'rating' ? styles.header_button_checked : ''}`}
+              onClick={() => onSelectTab('rating')}>
+              <img src={IconRating} />
+              <span>Рейтинг</span>
+            </button>
+          </div>
+        )}
+      </div>
+      <img className={styles.header_avatar} src={avatar} alt="Аватар" />
+    </div>
   );
 }
 
