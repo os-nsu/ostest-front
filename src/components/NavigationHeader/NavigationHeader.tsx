@@ -2,7 +2,7 @@ import styles from '@styles/components/NavigationHeader.module.scss';
 import IconLabs from '@public/labs.svg';
 import IconTests from '@public/tests.svg';
 import IconRating from '@public/rating.svg';
-import avatar from '@public/avatar.png';
+import IconAvatar from '@public/avatar.svg';
 
 interface NavigationHeaderProps {
   activeTab: string;
@@ -45,7 +45,7 @@ function NavigationHeader({
           </div>
         )}
       </div>
-      <img className={styles.header_avatar} src={avatar} alt="Аватар" />
+      <img className={styles.header_avatar} src={IconAvatar} alt="Аватар" />
     </div>
   );
 }

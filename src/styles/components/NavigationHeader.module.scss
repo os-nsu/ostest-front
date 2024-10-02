@@ -1,17 +1,19 @@
 .header {
     padding-inline: 14px;
+    padding-block: 16.5px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     background-color: #F9FAFB;
     border-radius: 6px;
     border: 1px solid #E5E7EB;
+    max-height: 73px;
 }
 
 .header_navigation {
     display: flex;
     flex-direction: row;
-    gap: 7px;
+    gap: 24px;
     align-items: center;
 }
 
@@ -20,6 +22,7 @@
     font-size: 24px;
     font-weight: 500;
     line-height: 29.05px;
+    color: #4B5563;
 }
 
 .header_buttons {
