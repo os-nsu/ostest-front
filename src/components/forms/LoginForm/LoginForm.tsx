@@ -8,7 +8,7 @@ export default function LoginForm() {
       <span className={styles.title}>Вход в систему</span>
       <DefaultInput label="Email" placeholder="Введите почту" />
       <DefaultInput label="Пароль" placeholder="Введите пароль" />
-      <Button>Войти</Button>
+      <Button className={styles.button}>Войти</Button>
     </div>
   );
 }
