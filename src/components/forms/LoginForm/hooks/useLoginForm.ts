@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useAuthProvider } from '@/providers/AuthProvider/useAuthProvider.ts';
 
 interface LoginFormData {
   username: string;
@@ -15,7 +16,11 @@ export const useLoginForm = () => {
     setFormData({ ...formData, [fieldType]: value });
 
   const onSubmit = () => {
-    console.log(formData);
+    const { username, password } = formData;
+    useAuthProvider()
+      .login({ username, password })
+      .then(({ data }) => console.log(data))
+      .catch(err => console.error(err));
   };
 
   return {
