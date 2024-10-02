@@ -28,6 +28,5 @@ export const useLabForm = () => {
     isButtonDisabled,
     onFieldChange,
     onSubmit,
-    formData,
   };
 };
