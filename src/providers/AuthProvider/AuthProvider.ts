@@ -1,4 +1,5 @@
 import { AxiosClient } from '@/providers/AxiosClient/AxiosClient.ts';
+import { LoginRequestData, LoginResponseData } from '@/DTO/AuthDTO.ts';
 
 export class AuthProvider {
   instance: AxiosClient;
@@ -9,5 +10,7 @@ export class AuthProvider {
     this.instance = new AxiosClient({ baseURL: this.baseURL });
   }
 
-  login() {}
+  login(requestData: LoginRequestData) {
+    return this.instance.post<LoginResponseData>('/login', requestData);
+  }
 }
