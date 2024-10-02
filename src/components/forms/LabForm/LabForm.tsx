@@ -22,6 +22,7 @@ export default function LabForm() {
         label="Описание"
         placeholder="Введите описание работы"
         autoresize={true}
+        textAreaMinHeight={200}
         required
         onChange={value => onFieldChange('description', value || '')}
       />
