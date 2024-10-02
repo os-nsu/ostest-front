@@ -22,7 +22,6 @@ export default function LabForm() {
         label="Описание"
         placeholder="Введите описание работы"
         autoresize={true}
-        style={{ height: '200px' }}
         required
         onChange={value => onFieldChange('description', value || '')}
       />
@@ -41,12 +40,14 @@ export default function LabForm() {
           }}
         />
       </div>
-      <Button
-        className={styles.submitButton}
-        disabled={isButtonDisabled}
-        label="Создать"
-        onClick={onSubmit}
-      />
+      <div className={styles.buttonContainer}>
+        <Button
+          className={styles.submitButton}
+          disabled={isButtonDisabled}
+          label="Создать"
+          onClick={onSubmit}
+        />
+      </div>
     </div>
   );
 }

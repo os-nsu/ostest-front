@@ -1,7 +1,3 @@
-
-
-
-
 .container {
     display: flex;
     flex-direction: column;
@@ -16,4 +12,19 @@
         flex-direction: column;
         gap: 8px;
     }
+
+    & .buttonContainer {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    & .submitButton {
+        padding: 10.5px 17.5px;
+        margin-block-start: 26px;
+        font-family: Inter, sans-serif;
+        font-size: 20px;
+        font-weight: 500;
+        line-height: 24.2px;
+        text-align: left;
+       }
   }
