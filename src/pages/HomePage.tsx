@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import Labs from '../components/LabList/LabList';
 import DefaultPageLayout from '@/components/DefaultPageLayout/DefaultPageLayout';
+import LabPageContent from '@/components/LabPageContent/LabPageContent';
 
 export default function HomePage() {
   const [activeTab, setActiveTab] = useState('labs');
@@ -8,7 +8,7 @@ export default function HomePage() {
   return (
     <DefaultPageLayout activeTab={activeTab} onSelectTab={setActiveTab}>
       <main>
-        {activeTab === 'labs' && <Labs />}
+        {activeTab === 'labs' && <LabPageContent />}
         {activeTab === 'rating'}
         {activeTab === 'tests'}
       </main>
