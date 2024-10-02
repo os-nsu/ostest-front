@@ -8,7 +8,6 @@ interface DefaultTextAreaProps {
   label?: string;
   autoresize?: boolean;
   required?: boolean;
-  style?: React.CSSProperties;
 
   onChange?: (value: string) => void;
 }
@@ -19,7 +18,6 @@ export default function DefaultTextArea({
   placeholder,
   autoresize,
   required,
-  style,
   onChange,
 }: DefaultTextAreaProps) {
   const { fieldValue, onInput } = useDefaultTextArea(value, onChange);
@@ -37,7 +35,6 @@ export default function DefaultTextArea({
         value={fieldValue}
         placeholder={placeholder}
         autoResize={autoresize}
-        style={style}
         onChange={e => onInput(e.target.value)}
       />
     </div>
