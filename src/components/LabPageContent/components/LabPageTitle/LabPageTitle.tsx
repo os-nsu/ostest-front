@@ -7,7 +7,7 @@ export default function LabPageTitle() {
     <div className={styles.title_container}>
       <h1 className={styles.title}>Лабораторные работы</h1>
       <Button className={styles.button}>
-        Создать
+        <span>Создать</span>
         <img src={PlusIcon} />
       </Button>
     </div>
