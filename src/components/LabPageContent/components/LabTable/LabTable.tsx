@@ -30,7 +30,7 @@ export default function LabList() {
             field="name"
             header="Название"
             body={rowData => <LabElementWrapper rowData={rowData} />}
-            style={{ width: '20%' }}
+            style={{ width: '340px' }}
           />
           <Column
             field="description"
@@ -43,7 +43,7 @@ export default function LabList() {
             field="deadline"
             header="Срок сдачи"
             body={rowData => <span>{formatDeadline(rowData.deadline)}</span>}
-            style={{ width: '20%' }}
+            style={{ width: '340px' }}
           />
         </DataTable>
       )}
