@@ -10,8 +10,8 @@ export default function LoginForm() {
     <div className={styles.container}>
       <span className={styles.title}>Вход в систему</span>
       <DefaultInput
-        label="Email"
-        placeholder="Введите почту"
+        label="Логин"
+        placeholder="Введите логин"
         onChange={(value: string) => onFieldChange('username', value)}
       />
       <DefaultInput
