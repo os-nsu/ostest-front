@@ -19,7 +19,17 @@ export const useLoginForm = () => {
     const { username, password } = formData;
     useAuthProvider()
       .login({ username, password })
-      .then(({ data }) => console.log(data))
+      .then(({ data, status }) => {
+        if (status !== 200) {
+          return;
+        }
+
+        const { accessToken, refreshToken } = data;
+        localStorage.setItem('accessToken', accessToken);
+        localStorage.setItem('refreshToken', refreshToken);
+        console.log('accessToken', localStorage.getItem('accessToken'));
+        console.log('refreshToken', localStorage.getItem('refreshToken'));
+      })
       .catch(err => console.error(err));
   };
 
