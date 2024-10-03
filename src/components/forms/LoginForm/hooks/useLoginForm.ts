@@ -8,7 +8,8 @@ interface LoginFormData {
 
 export const useLoginForm = () => {
   const [isLoading, setLoading] = useState(false);
-  const [isError, setError] = useState('');
+  const [isUserError, setUserError] = useState('');
+  const [isPasswordError, setPasswordError] = useState('');
   const [formData, setFormData] = useState<LoginFormData>({
     username: '',
     password: '',
@@ -18,9 +19,15 @@ export const useLoginForm = () => {
   const onFieldChange = (fieldType: keyof LoginFormData, value: string) =>
     setFormData({ ...formData, [fieldType]: value });
 
+  const resetErrors = () => {
+    setUserError('');
+    setPasswordError('');
+  };
+
   const onSubmit = () => {
     const { username, password } = formData;
     setLoading(true);
+    resetErrors();
     useAuthProvider()
       .login({ username, password })
       .then(({ data, status }) => {
@@ -32,13 +39,24 @@ export const useLoginForm = () => {
         localStorage.setItem('accessToken', accessToken);
         localStorage.setItem('refreshToken', refreshToken);
       })
-      .catch(() => setError('asdassad'))
+      .catch(({ response }) => {
+        if (response.status === 404) {
+          setUserError(response.data.message);
+          return;
+        }
+
+        if (response.status === 401) {
+          setPasswordError(response.data.message);
+          return;
+        }
+      })
       .finally(() => setLoading(false));
   };
 
   return {
     isLoading,
-    isError,
+    isUserError,
+    isPasswordError,
     onFieldChange,
     onSubmit,
   };
