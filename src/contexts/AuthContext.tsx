@@ -5,12 +5,12 @@ interface AuthContextProviderProps {
 }
 
 interface AuthContextValue {
-  isAuthenticated: boolean;
-  logout: () => void;
-  login: () => void;
+  isAuthenticated?: boolean;
+  logout?: () => void;
+  login?: () => void;
 }
 
-const AuthContext = createContext<AuthContextValue>();
+const AuthContext = createContext<AuthContextValue>({});
 
 export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
