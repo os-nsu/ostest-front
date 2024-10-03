@@ -4,7 +4,7 @@ import styles from '@styles/components/LoginForm.module.scss';
 import { useLoginForm } from '@/components/forms/LoginForm/hooks/useLoginForm.ts';
 
 export default function LoginForm() {
-  const { isLoading, onSubmit, onFieldChange } = useLoginForm();
+  const { isLoading, isError, onSubmit, onFieldChange } = useLoginForm();
 
   return (
     <div className={styles.container}>
@@ -13,11 +13,13 @@ export default function LoginForm() {
         label="Логин"
         placeholder="Введите логин"
         onChange={(value: string) => onFieldChange('username', value)}
+        invalid={isError}
       />
       <DefaultInput
         label="Пароль"
         placeholder="Введите пароль"
         onChange={(value: string) => onFieldChange('password', value)}
+        invalid={isError}
       />
       <Button
         className={styles.button}

@@ -8,6 +8,7 @@ interface DefaultInputProps {
   placeholder?: string;
   disabled?: boolean;
   required?: boolean;
+  invalid?: boolean;
 
   onChange?: (value: string) => void;
 }
@@ -18,6 +19,7 @@ export default function DefaultInput({
   placeholder,
   disabled,
   required,
+  invalid,
   onChange,
 }: DefaultInputProps) {
   const { defaultValue, onInput } = useInput(value, onChange);
@@ -36,6 +38,7 @@ export default function DefaultInput({
         value={defaultValue}
         onChange={e => onInput(e.target.value)}
         disabled={disabled}
+        invalid={invalid}
       />
     </div>
   );
