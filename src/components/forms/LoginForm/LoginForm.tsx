@@ -13,13 +13,15 @@ export default function LoginForm() {
         label="Логин"
         placeholder="Введите логин"
         onChange={(value: string) => onFieldChange('username', value)}
-        invalid={isError}
+        invalid={isError.length > 0}
+        errorLabel={isError}
       />
       <DefaultInput
         label="Пароль"
         placeholder="Введите пароль"
         onChange={(value: string) => onFieldChange('password', value)}
-        invalid={isError}
+        invalid={isError.length > 0}
+        errorLabel={isError}
       />
       <Button
         className={styles.button}

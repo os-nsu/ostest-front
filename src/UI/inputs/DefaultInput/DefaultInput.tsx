@@ -9,6 +9,7 @@ interface DefaultInputProps {
   disabled?: boolean;
   required?: boolean;
   invalid?: boolean;
+  errorLabel?: string;
 
   onChange?: (value: string) => void;
 }
@@ -20,6 +21,7 @@ export default function DefaultInput({
   disabled,
   required,
   invalid,
+  errorLabel,
   onChange,
 }: DefaultInputProps) {
   const { defaultValue, onInput } = useInput(value, onChange);
@@ -32,14 +34,19 @@ export default function DefaultInput({
           {required ? <span style={{ color: '#EC4256' }}> * </span> : null}
         </label>
       ) : null}
-      <InputText
-        className={styles.input}
-        placeholder={placeholder}
-        value={defaultValue}
-        onChange={e => onInput(e.target.value)}
-        disabled={disabled}
-        invalid={invalid}
-      />
+      <div className={styles.inputContainer}>
+        <InputText
+          className={styles.input}
+          placeholder={placeholder}
+          value={defaultValue}
+          onChange={e => onInput(e.target.value)}
+          disabled={disabled}
+          invalid={invalid}
+        />
+        {invalid && errorLabel ? (
+          <span className={styles.errorLabel}>{errorLabel}</span>
+        ) : null}
+      </div>
     </div>
   );
 }

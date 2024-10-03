@@ -10,7 +10,19 @@
     font-weight: 500;
   }
 
-  .input {
-    color: black;
+  .inputContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    & .input {
+      color: black;
+    }
+
+    & .errorLabel {
+      font-size: 12px;
+      color: #E24C4C;
+      font-weight: 400;
+    }
   }
 }

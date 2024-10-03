@@ -8,12 +8,13 @@ interface LoginFormData {
 
 export const useLoginForm = () => {
   const [isLoading, setLoading] = useState(false);
-  const [isError, setError] = useState(false);
+  const [isError, setError] = useState('');
   const [formData, setFormData] = useState<LoginFormData>({
     username: '',
     password: '',
   });
 
+  //15 min
   const onFieldChange = (fieldType: keyof LoginFormData, value: string) =>
     setFormData({ ...formData, [fieldType]: value });
 
@@ -31,7 +32,7 @@ export const useLoginForm = () => {
         localStorage.setItem('accessToken', accessToken);
         localStorage.setItem('refreshToken', refreshToken);
       })
-      .catch(() => setError(true))
+      .catch(() => setError('asdassad'))
       .finally(() => setLoading(false));
   };
 
