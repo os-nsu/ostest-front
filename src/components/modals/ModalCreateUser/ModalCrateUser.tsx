@@ -1,4 +1,4 @@
-import UserForm from '@/components/forms/UserForm/UserForm.tsx';
+import RegisterForm from '@/components/forms/RegisterForm/RegisterForm.tsx';
 import { Dialog } from 'primereact/dialog';
 import styles from '@styles/components/ModalCreateUser.module.scss';
 import { Button } from 'primereact/button';
@@ -20,7 +20,7 @@ export default function ModalCreateUser({ displayed }: ModalCreateUserProps) {
       content={() => (
         <div className={styles.container}>
           <span className={styles.title}>Регистрация пользователя</span>
-          <UserForm />
+          <RegisterForm />
           <Button
             className={styles.close}
             icon={<img src={IconClose} alt="" />}

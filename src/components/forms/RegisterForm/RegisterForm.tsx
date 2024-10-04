@@ -1,12 +1,12 @@
 import DefaultInput from '@UI/inputs/DefaultInput/DefaultInput.tsx';
 import DefaultDropdown from '@UI/inputs/DefaultDropdown/DefaultDropdown.tsx';
-import { useUserForm } from '@/components/forms/UserForm/hooks/useUserForm.tsx';
+import { useRegisterForm } from '@/components/forms/RegisterForm/hooks/useRegisterForm.tsx';
 import { Button } from 'primereact/button';
 import styles from '@styles/components/UserForm.module.scss';
 
-export default function UserForm() {
+export default function RegisterForm() {
   const { isButtonDisabled, roleOptions, onFieldChange, onSubmit } =
-    useUserForm();
+    useRegisterForm();
 
   return (
     <div className={styles.container}>

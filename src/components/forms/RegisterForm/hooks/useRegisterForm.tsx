@@ -14,7 +14,7 @@ const roleOptions: SelectItem[] = [
   { value: 'student', label: 'Студент' },
 ];
 
-export const useUserForm = () => {
+export const useRegisterForm = () => {
   const [formData, setFormData] = useState<UserFormData>();
   const [isButtonDisabled, setButtonDisabled] = useState(false);
 
