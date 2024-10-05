@@ -9,3 +9,8 @@ export interface LoginResponseData {
   accessToken: string;
   refreshToken: string;
 }
+
+export interface UpdateSessionResponseData
+  extends Omit<LoginResponseData, 'refreshToken'> {
+  refreshToken: null;
+}

@@ -1,5 +1,9 @@
 import { AxiosClient } from '@/providers/AxiosClient/AxiosClient.ts';
-import { LoginRequestData, LoginResponseData } from '@/DTO/AuthDTO.ts';
+import {
+  LoginRequestData,
+  LoginResponseData,
+  UpdateSessionResponseData,
+} from '@/DTO/AuthDTO.ts';
 
 export class AuthProvider {
   instance: AxiosClient;
@@ -15,7 +19,7 @@ export class AuthProvider {
   }
 
   updateAccessToken(refreshToken: string) {
-    return this.instance.post<LoginResponseData>('/auth/token', {
+    return this.instance.post<UpdateSessionResponseData>('/auth/token', {
       refreshToken,
     });
   }

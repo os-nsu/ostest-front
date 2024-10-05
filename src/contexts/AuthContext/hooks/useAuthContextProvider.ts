@@ -11,6 +11,11 @@ export const useAuthContextProvider = () => {
     };
   };
 
+  const onUpdate = useCallback((accessToken: string) => {
+    localStorage.setItem('accessToken', accessToken);
+    setIsAuthenticated(true);
+  }, []);
+
   const onLogin = useCallback((accessToken: string, refreshToken: string) => {
     localStorage.setItem('accessToken', accessToken);
     localStorage.setItem('refreshToken', refreshToken);
@@ -28,12 +33,12 @@ export const useAuthContextProvider = () => {
       useAuthProvider()
         .updateAccessToken(refreshToken)
         .then(({ data }) => {
-          const { accessToken, refreshToken } = data;
-          onLogin(accessToken, refreshToken);
+          const { accessToken } = data;
+          onUpdate(accessToken);
         })
         .catch(() => onLogout());
     },
-    [onLogin, onLogout],
+    [onUpdate, onLogout],
   );
 
   useEffect(() => {

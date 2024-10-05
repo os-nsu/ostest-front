@@ -12,7 +12,7 @@ interface AuthContextValue {
 
 const AuthContext = createContext<AuthContextValue>({
   isAuthenticated: false,
-  onLogin: (accessToken: string, refreshToken: string) => {},
+  onLogin: () => {},
 });
 
 export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
