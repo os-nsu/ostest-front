@@ -11,6 +11,12 @@ export class AxiosClient {
 
   constructor({ baseURL, headers }: AxiosClientProps) {
     this.instance = axios.create({ baseURL: baseURL, headers });
+
+    this.instance.interceptors.request.use(config => {
+      config.headers['Authorization'] =
+        `Bearer ${localStorage.getItem('accessToken')}`;
+      return config;
+    });
   }
 
   get<Response>(path = '', requestData: AxiosRequestConfig = {}) {
