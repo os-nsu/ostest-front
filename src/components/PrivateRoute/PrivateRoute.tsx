@@ -1,4 +1,4 @@
-import { useAuthContext } from '@/contexts/AuthContext.tsx';
+import { useAuthContext } from '@/contexts/AuthContext/AuthContext.tsx';
 import { Navigate } from 'react-router-dom';
 import { ReactElement } from 'react';
 

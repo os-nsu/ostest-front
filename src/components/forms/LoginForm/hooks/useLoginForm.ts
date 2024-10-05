@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useAuthProvider } from '@/providers/AuthProvider/useAuthProvider.ts';
-import { useAuthContext } from '@/contexts/AuthContext.tsx';
+import { useAuthContext } from '@/contexts/AuthContext/AuthContext.tsx';
 import { useNavigate } from 'react-router-dom';
 
 interface LoginFormData {
