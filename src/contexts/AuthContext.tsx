@@ -16,13 +16,33 @@ interface AuthContextValue {
 const AuthContext = createContext<AuthContextValue>({});
 
 export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
+  let sessionUpdateId: NodeJS.Timeout | null = null;
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  const login = () => setIsAuthenticated(true);
-  const logout = () => setIsAuthenticated(false);
+  const login = () => {
+    setIsAuthenticated(true);
+    setSessionUpdate();
+  };
+
+  const logout = () => {
+    setIsAuthenticated(false);
+
+    if (!sessionUpdateId) {
+      return;
+    }
+
+    clearTimeout(sessionUpdateId);
+    sessionUpdateId = null;
+  };
 
   const getAccessToken = () => localStorage.getItem('accessToken');
   const getRefreshToken = () => localStorage.getItem('refreshToken');
+
+  const sevenMinute = 420000;
+
+  const setSessionUpdate = () => {
+    sessionUpdateId = setTimeout(() => {}, 5000);
+  };
 
   return (
     <AuthContext.Provider
