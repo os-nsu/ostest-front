@@ -1,53 +1,45 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useAuthProvider } from '@/providers/AuthProvider/useAuthProvider.ts';
 
 export const useAuthContextProvider = () => {
-  let sessionUpdateId: NodeJS.Timeout | null = null;
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(true);
 
-  const getAccessToken = () => localStorage.getItem('accessToken');
-  const getRefreshToken = () => localStorage.getItem('refreshToken');
+  const getTokens = () => {
+    return {
+      accessToken: localStorage.getItem('accessToken'),
+      refreshToken: localStorage.getItem('refreshToken'),
+    };
+  };
 
-  const login = () => {
+  const onLogin = useCallback((accessToken: string, refreshToken: string) => {
+    localStorage.setItem('accessToken', accessToken);
+    localStorage.setItem('refreshToken', refreshToken);
     setIsAuthenticated(true);
-    setSessionUpdate();
-  };
+  }, []);
 
-  const logout = () => {
+  const onLogout = useCallback(() => {
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
     setIsAuthenticated(false);
+  }, []);
 
-    if (!sessionUpdateId) {
-      return;
-    }
-
-    clearTimeout(sessionUpdateId);
-    sessionUpdateId = null;
-  };
-
-  const setSessionUpdate = () => {
-    const token = getRefreshToken();
-
-    if (!token) {
-      logout();
-      return;
-    }
-
-    sessionUpdateId = setInterval(() => updateAccessToken(token), 420000);
-  };
-
-  const updateAccessToken = (refreshToken: string) => {
-    useAuthProvider()
-      .updateAccessToken(refreshToken)
-      .then(({ data }) => {
-        localStorage.setItem('accessToken', data.accessToken);
-        login();
-      })
-      .catch(() => logout());
-  };
+  const updateAccessToken = useCallback(
+    (refreshToken: string) => {
+      useAuthProvider()
+        .updateAccessToken(refreshToken)
+        .then(({ data }) => {
+          const { accessToken, refreshToken } = data;
+          onLogin(accessToken, refreshToken);
+        })
+        .catch(() => onLogout());
+    },
+    [onLogin, onLogout],
+  );
 
   useEffect(() => {
-    const refreshToken = getRefreshToken();
+    const { refreshToken } = getTokens();
     if (!refreshToken) {
+      setIsAuthenticated(false);
       return;
     }
 
@@ -56,7 +48,6 @@ export const useAuthContextProvider = () => {
 
   return {
     isAuthenticated,
-    login,
-    getAccessToken,
+    onLogin,
   };
 };

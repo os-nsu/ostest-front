@@ -9,7 +9,7 @@ interface LoginFormData {
 }
 
 export const useLoginForm = () => {
-  const { login } = useAuthContext();
+  const { onLogin } = useAuthContext();
   const navigate = useNavigate();
 
   const [isLoading, setLoading] = useState(false);
@@ -41,9 +41,7 @@ export const useLoginForm = () => {
         }
 
         const { accessToken, refreshToken } = data;
-        localStorage.setItem('accessToken', accessToken);
-        localStorage.setItem('refreshToken', refreshToken);
-        login();
+        onLogin(accessToken, refreshToken);
         navigate('/');
       })
       .catch(({ response }) => {

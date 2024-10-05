@@ -7,25 +7,22 @@ interface AuthContextProviderProps {
 
 interface AuthContextValue {
   isAuthenticated: boolean;
-  login: () => void;
-  getAccessToken: () => string | null;
+  onLogin: (accessToken: string, refreshToken: string) => void;
 }
 
 const AuthContext = createContext<AuthContextValue>({
   isAuthenticated: false,
-  login: () => {},
-  getAccessToken: () => null,
+  onLogin: (accessToken: string, refreshToken: string) => {},
 });
 
 export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
-  const { isAuthenticated, login, getAccessToken } = useAuthContextProvider();
+  const { isAuthenticated, onLogin } = useAuthContextProvider();
 
   return (
     <AuthContext.Provider
       value={{
         isAuthenticated,
-        login,
-        getAccessToken,
+        onLogin,
       }}>
       {children}
     </AuthContext.Provider>
