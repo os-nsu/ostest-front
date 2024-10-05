@@ -13,4 +13,10 @@ export class AuthProvider {
   login(requestData: LoginRequestData) {
     return this.instance.post<LoginResponseData>('/login', requestData);
   }
+
+  updateAccessToken(refreshToken: string) {
+    return this.instance.post<LoginResponseData>('/auth/token', {
+      refreshToken,
+    });
+  }
 }

@@ -1,4 +1,11 @@
-import { createContext, ReactNode, useContext, useState } from 'react';
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
+import { useAuthProvider } from '@/providers/AuthProvider/useAuthProvider.ts';
 
 interface AuthContextProviderProps {
   children: ReactNode;
@@ -46,7 +53,21 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   // const sevenMinute = 420000;
 
   const setSessionUpdate = () => {
-    sessionUpdateId = setInterval(() => console.log('update session'), 5000);
+    sessionUpdateId = setInterval(() => {
+      const token = getRefreshToken();
+
+      if (!token) {
+        logout();
+        return;
+      }
+
+      useAuthProvider()
+        .updateAccessToken(token)
+        .then(({ data }) => {
+          localStorage.setItem('accessToken', data.accessToken);
+        })
+        .catch(() => logout());
+    }, 5000);
   };
 
   return (
