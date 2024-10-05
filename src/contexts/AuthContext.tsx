@@ -5,15 +5,14 @@ interface AuthContextProviderProps {
 }
 
 interface AuthContextValue {
-  isAuthenticated?: boolean;
-  logout?: () => void;
-  login?: () => void;
-  getAcc?: () => void;
-  getAccessToken?: () => string | null;
-  getRefreshToken?: () => string | null;
+  isAuthenticated: boolean;
+  logout: () => void;
+  login: () => void;
+  getAccessToken: () => string | null;
+  getRefreshToken: () => string | null;
 }
 
-const AuthContext = createContext<AuthContextValue>({});
+const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 
 export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   let sessionUpdateId: NodeJS.Timeout | null = null;
@@ -41,7 +40,7 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   const sevenMinute = 420000;
 
   const setSessionUpdate = () => {
-    sessionUpdateId = setTimeout(() => {}, 5000);
+    sessionUpdateId = setInterval(() => console.log('update session'), 5000);
   };
 
   return (

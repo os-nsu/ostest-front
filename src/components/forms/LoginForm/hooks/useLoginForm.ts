@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useAuthProvider } from '@/providers/AuthProvider/useAuthProvider.ts';
+import { useAuthContext } from '@/contexts/AuthContext.tsx';
 
 interface LoginFormData {
   username: string;
@@ -7,6 +8,8 @@ interface LoginFormData {
 }
 
 export const useLoginForm = () => {
+  const { login } = useAuthContext();
+
   const [isLoading, setLoading] = useState(false);
   const [isUserError, setUserError] = useState('');
   const [isPasswordError, setPasswordError] = useState('');
@@ -38,6 +41,7 @@ export const useLoginForm = () => {
         const { accessToken, refreshToken } = data;
         localStorage.setItem('accessToken', accessToken);
         localStorage.setItem('refreshToken', refreshToken);
+        login();
       })
       .catch(({ response }) => {
         if (response.status === 404) {
