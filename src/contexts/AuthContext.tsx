@@ -8,6 +8,9 @@ interface AuthContextValue {
   isAuthenticated?: boolean;
   logout?: () => void;
   login?: () => void;
+  getAcc?: () => void;
+  getAccessToken?: () => string | null;
+  getRefreshToken?: () => string | null;
 }
 
 const AuthContext = createContext<AuthContextValue>({});
@@ -18,8 +21,18 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   const login = () => setIsAuthenticated(true);
   const logout = () => setIsAuthenticated(false);
 
+  const getAccessToken = () => localStorage.getItem('accessToken');
+  const getRefreshToken = () => localStorage.getItem('refreshToken');
+
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
+    <AuthContext.Provider
+      value={{
+        isAuthenticated,
+        login,
+        logout,
+        getAccessToken,
+        getRefreshToken,
+      }}>
       {children}
     </AuthContext.Provider>
   );
