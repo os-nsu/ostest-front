@@ -1,10 +1,4 @@
-import {
-  createContext,
-  ReactNode,
-  useContext,
-  useEffect,
-  useState,
-} from 'react';
+import { createContext, ReactNode, useContext, useState } from 'react';
 import { useAuthProvider } from '@/providers/AuthProvider/useAuthProvider.ts';
 
 interface AuthContextProviderProps {
@@ -50,25 +44,24 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   const getAccessToken = () => localStorage.getItem('accessToken');
   const getRefreshToken = () => localStorage.getItem('refreshToken');
 
-  // const sevenMinute = 420000;
-
   const setSessionUpdate = () => {
-    sessionUpdateId = setInterval(() => {
-      const token = getRefreshToken();
+    const token = getRefreshToken();
 
-      if (!token) {
-        logout();
-        return;
-      }
+    if (!token) {
+      logout();
+      return;
+    }
 
-      useAuthProvider()
-        .updateAccessToken(token)
-        .then(({ data }) => {
-          localStorage.setItem('accessToken', data.accessToken);
-        })
-        .catch(() => logout());
-    }, 5000);
+    sessionUpdateId = setInterval(() => updateAccessToken(token), 420000);
   };
+
+  const updateAccessToken = (refreshToken: string) =>
+    useAuthProvider()
+      .updateAccessToken(refreshToken)
+      .then(({ data }) => {
+        localStorage.setItem('accessToken', data.accessToken);
+      })
+      .catch(() => logout());
 
   return (
     <AuthContext.Provider
