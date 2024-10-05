@@ -1,12 +1,17 @@
 import { useAuthContext } from '@/contexts/AuthContext.tsx';
-import { Route, Navigate, RouteProps } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
+import { ReactElement } from 'react';
 
-export default function PrivateRoute(props: RouteProps) {
+interface PrivateRouteProps {
+  element: ReactElement;
+}
+
+export default function PrivateRoute({ element }: PrivateRouteProps) {
   const { isAuthenticated } = useAuthContext();
 
   if (!isAuthenticated) {
     return <Navigate to="/login" />;
   }
 
-  return <Route {...props} />;
+  return element;
 }
