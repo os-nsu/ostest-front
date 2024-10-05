@@ -10,7 +10,7 @@ export default function PrivateRoute({ element }: PrivateRouteProps) {
   const { isAuthenticated } = useAuthContext();
 
   if (!isAuthenticated) {
-    return <Navigate to="/login" />;
+    return <Navigate to="/login" replace />;
   }
 
   return element;

@@ -12,7 +12,13 @@ interface AuthContextValue {
   getRefreshToken: () => string | null;
 }
 
-const AuthContext = createContext<AuthContextValue | undefined>(undefined);
+const AuthContext = createContext<AuthContextValue>({
+  isAuthenticated: false,
+  logout: () => {},
+  login: () => {},
+  getAccessToken: () => null,
+  getRefreshToken: () => null,
+});
 
 export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   let sessionUpdateId: NodeJS.Timeout | null = null;
@@ -37,7 +43,7 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   const getAccessToken = () => localStorage.getItem('accessToken');
   const getRefreshToken = () => localStorage.getItem('refreshToken');
 
-  const sevenMinute = 420000;
+  // const sevenMinute = 420000;
 
   const setSessionUpdate = () => {
     sessionUpdateId = setInterval(() => console.log('update session'), 5000);

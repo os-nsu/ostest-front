@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useAuthProvider } from '@/providers/AuthProvider/useAuthProvider.ts';
 import { useAuthContext } from '@/contexts/AuthContext.tsx';
+import { useNavigate } from 'react-router-dom';
 
 interface LoginFormData {
   username: string;
@@ -9,6 +10,7 @@ interface LoginFormData {
 
 export const useLoginForm = () => {
   const { login } = useAuthContext();
+  const navigate = useNavigate();
 
   const [isLoading, setLoading] = useState(false);
   const [isUserError, setUserError] = useState('');
@@ -42,6 +44,7 @@ export const useLoginForm = () => {
         localStorage.setItem('accessToken', accessToken);
         localStorage.setItem('refreshToken', refreshToken);
         login();
+        navigate('/');
       })
       .catch(({ response }) => {
         if (response.status === 404) {
