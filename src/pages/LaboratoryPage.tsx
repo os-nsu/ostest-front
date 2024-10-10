@@ -1,37 +1,25 @@
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { laboratories } from '../mocks/laboratories';
 import { Laboratory } from '../types/Laboratory.ts';
-import NavigationHeader from '../components/NavigationHeader/NavigationHeader';
 import LaboratoryPageContent from '@/components/LaboratoryPageComponents/LaboratoryPageContent/LaboratoryPageContent.tsx';
-import styles from '@styles/components/LaboratoryPage.module.scss';
-import ButtonBack from '@public/button_back.svg';
+import DefaultPageLayout from '@/components/DefaultPageLayout/DefaultPageLayout.tsx';
+import { useState } from 'react';
 
 export default function LaboratoryPage() {
+  const [activeTab, setActiveTab] = useState('lab');
+
   const { id } = useParams<{ id: string }>();
-  const navigate = useNavigate();
   const lab = laboratories.find((lab: Laboratory) => lab.id === Number(id));
 
   if (!lab) {
     return <div>Лабораторная работа не найдена</div>;
   }
 
+  const tests: string[] = [];
+
   return (
-    <div>
-      <NavigationHeader activeTab="labs" onSelectTab={() => {}} tabs={false} />
-      <main className={styles.labpage__main}>
-        <button
-          type="button"
-          className={styles.labpage__button_back}
-          onClick={() => navigate('/')}>
-          <img
-            src={ButtonBack}
-            alt="Кнопка назад"
-            className={styles.labpage__button_back_img}
-          />
-        </button>
-        <LaboratoryPageContent laboratory={lab} />
-        <button className={styles.labpage__button_add}>Добавить ответ</button>
-      </main>
-    </div>
+    <DefaultPageLayout activeTab={activeTab} onSelectTab={setActiveTab}>
+      <LaboratoryPageContent laboratory={lab} tests={tests} />
+    </DefaultPageLayout>
   );
 }

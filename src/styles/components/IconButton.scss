@@ -1,0 +1,17 @@
+.button {
+    background-color: #A855F7;
+    border: none;
+    border-radius: 12px;
+    width: 44px;
+    height: 44px;
+    padding: 12px;
+
+    &:hover {
+        background-color: #A855F799;
+    }
+}
+
+.icon {
+    width: 20px;
+    height: 20px;
+}
