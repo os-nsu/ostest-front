@@ -1,6 +1,4 @@
 import { useParams } from 'react-router-dom';
-import { laboratories } from '../mocks/laboratories';
-import { Laboratory } from '../types/Laboratory.ts';
 import LaboratoryPageContent from '@/components/LaboratoryPageComponents/LaboratoryPageContent/LaboratoryPageContent.tsx';
 import DefaultPageLayout from '@/components/DefaultPageLayout/DefaultPageLayout.tsx';
 import { useEffect, useState } from 'react';
