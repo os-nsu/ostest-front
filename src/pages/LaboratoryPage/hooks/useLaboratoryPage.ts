@@ -1,17 +1,15 @@
-import { LaboratoryResponseData } from '@/DTO/LaboratoryDTO';
 import { useState, useEffect } from 'react';
 import { useLaboratoryProvider } from '@/providers/LaboratoryProvider/useLaboratoryProvider';
+import { Laboratory } from '@/types/Laboratory';
 
 interface LaboratoryPageData {
-  laboratory: LaboratoryResponseData | null;
+  laboratory: Laboratory | null;
   isLoading: boolean;
   isError: string;
 }
 
 export function useLaboratoryPage(id: string | undefined): LaboratoryPageData {
-  const [laboratory, setLaboratory] = useState<LaboratoryResponseData | null>(
-    null,
-  );
+  const [laboratory, setLaboratory] = useState<Laboratory | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState('');
 
@@ -31,7 +29,10 @@ export function useLaboratoryPage(id: string | undefined): LaboratoryPageData {
           return;
         }
 
-        setLaboratory(data);
+        setLaboratory({
+          ...data,
+          deadline: data.deadline ? new Date(data.deadline) : new Date(),
+        });
       })
       .catch(({ response }) => {
         if (response?.status === 404) {
