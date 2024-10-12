@@ -11,8 +11,7 @@ export class LaboratoryProvider {
   baseURL: string;
 
   constructor() {
-    // this.baseURL = `${import.meta.env.VITE_SERVER_DOMAIN}/api/laboratory`;
-    this.baseURL = `http://localhost:8080/api/laboratory`;
+    this.baseURL = `${import.meta.env.VITE_SERVER_DOMAIN}/api/laboratory`;
     this.instance = new AxiosClient({ baseURL: this.baseURL });
   }
 

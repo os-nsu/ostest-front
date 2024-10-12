@@ -1,9 +1,11 @@
+import { Test } from '@/types/Test';
+
 export interface LaboratoryRequestData {
   [index: string]: unknown;
   name: string;
   description: string;
   semesterNumber: number;
-  deadline: Date;
+  deadline: string;
   isHidden: boolean;
 }
 
@@ -13,26 +15,19 @@ export interface LaboratorySearchRequestData {
   semesterNumber: number;
 }
 
-interface Test {
-  id: number;
-  name: string;
-  description: string;
-  testCategory: string;
-}
-
 export interface LaboratoryResponseData {
   id: number;
   name: string;
   description: string;
   semesterNumber: number;
-  deadline: Date;
+  deadline: string;
   isHidden: boolean;
-  tests: [Test];
+  tests: Test[];
 }
 
 export interface LaboratorySearchResponseData {
   id: number;
   name: string;
-  deadline: Date;
+  deadline: string;
   isHidden: boolean;
 }
