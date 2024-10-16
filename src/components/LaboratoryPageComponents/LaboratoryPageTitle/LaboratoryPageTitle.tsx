@@ -9,10 +9,12 @@ import ModalDeleteLab from '@/components/modals/ModalDeleteLab/ModalDeleteLab';
 
 interface LaboratoryPageTitleProps {
   name: string;
+  id?: string;
 }
 
 export default function LaboratoryPageTitle({
   name,
+  id = '0',
 }: LaboratoryPageTitleProps) {
   const [isModalVisible, setModalVisible] = useState(false);
   const navigate = useNavigate();
@@ -37,7 +39,7 @@ export default function LaboratoryPageTitle({
         <ModalDeleteLab
           displayed={isModalVisible}
           labName={name}
-          id="1"
+          id={id}
           onClose={handleCloseModal}
         />
       </div>
