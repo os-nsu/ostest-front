@@ -1,10 +1,10 @@
 import DefaultPageLayout from '@/components/DefaultPageLayout/DefaultPageLayout.tsx';
-import React from 'react';
+import TestsPageContent from '@/components/TestsPageComponents/TestsPageContent/TestsPageContent.tsx';
 
 export default function TestsPage() {
   return (
     <DefaultPageLayout activeTab={'tests'} onSelectTab={() => {}}>
-      1234
+      <TestsPageContent />
     </DefaultPageLayout>
   );
 }
