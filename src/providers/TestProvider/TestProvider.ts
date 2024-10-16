@@ -1,21 +1,37 @@
 import { AxiosClient } from '@/providers/AxiosClient/AxiosClient.ts';
+import { CreateTestRequestData } from '@/DTO/TestDTO.ts';
+import { Test } from '@/types/Test.ts';
 
 export class TestProvider {
   instance: AxiosClient;
   baseURL: string;
 
   constructor() {
-    this.baseURL = `${import.meta.env.VITE_SERVER_DOMAIN}/api/v1`;
+    this.baseURL = `${import.meta.env.VITE_SERVER_DOMAIN}/api/test`;
     this.instance = new AxiosClient({ baseURL: this.baseURL });
   }
 
-  createTest() {}
+  createTest(requestData: CreateTestRequestData) {
+    return this.instance.post<Test>('', requestData);
+  }
 
-  updateTest() {}
+  updateTest(requestData: CreateTestRequestData) {
+    return this.instance.put<Test>('', requestData);
+  }
 
-  getTestById() {}
+  getTestById(id: number) {
+    return this.instance.get<Test>(`/${id}`);
+  }
 
-  getAllTests() {}
+  getAllTests() {
+    return this.instance.get<Test[]>(`/search`);
+  }
 
-  deleteTestById() {}
+  getTestFile(id: number) {
+    return this.instance.get<Test>(`/${id}/script`);
+  }
+
+  deleteTestById(id: number) {
+    return this.instance.delete<Test>(`/${id}`);
+  }
 }
