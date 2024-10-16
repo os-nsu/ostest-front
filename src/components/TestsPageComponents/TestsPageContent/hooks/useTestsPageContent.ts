@@ -1,3 +1,24 @@
+import { useEffect, useState } from 'react';
+import { useTestProvider } from '@/providers/TestProvider/useTestProvider.ts';
+import { Test } from '@/types/Test.ts';
+
 export const useTestsPageContent = () => {
-  return {};
+  const [tests, setTests] = useState<Test[]>([]);
+
+  const requestTests = () => {
+    useTestProvider()
+      .getAllTests()
+      .then(({ status, data }) => {
+        if (status !== 200 || !data) {
+          return;
+        }
+
+        setTests(data);
+      })
+      .catch(err => console.log(err));
+  };
+
+  useEffect(() => requestTests(), []);
+
+  return { tests };
 };
