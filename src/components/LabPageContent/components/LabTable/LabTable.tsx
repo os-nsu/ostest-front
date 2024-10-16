@@ -18,35 +18,33 @@ export default function LabList() {
     });
   };
 
-  return (
-    <div className={styles.labs_table}>
-      {Object.keys(laboratories).length === 0 ? (
-        <div className={styles.labs_table_empty}>
-          <span>Создайте первую лабораторную работу</span>
-        </div>
-      ) : (
-        <DataTable value={laboratories}>
-          <Column
-            field="name"
-            header="Название"
-            body={rowData => <LabElementWrapper rowData={rowData} />}
-            style={{ width: '340px' }}
-          />
-          <Column
-            field="description"
-            header="Описание"
-            body={rowData => (
-              <span>{formatDescription(rowData.description)}</span>
-            )}
-          />
-          <Column
-            field="deadline"
-            header="Срок сдачи"
-            body={rowData => <span>{formatDeadline(rowData.deadline)}</span>}
-            style={{ width: '340px' }}
-          />
-        </DataTable>
-      )}
-    </div>
-  );
+  if (!laboratories || !laboratories.length) {
+    return (
+      <span className={styles.labs_table_empty}>
+        Создайте первую лабораторную работу
+      </span>
+    );
+  } else {
+    return (
+      <DataTable value={laboratories} className={styles.labs_table}>
+        <Column
+          field="name"
+          header="Название"
+          body={rowData => <LabElementWrapper rowData={rowData} />}
+        />
+        <Column
+          field="description"
+          header="Описание"
+          body={rowData => (
+            <span>{formatDescription(rowData.description)}</span>
+          )}
+        />
+        <Column
+          field="deadline"
+          header="Срок сдачи"
+          body={rowData => <span>{formatDeadline(rowData.deadline)}</span>}
+        />
+      </DataTable>
+    );
+  }
 }

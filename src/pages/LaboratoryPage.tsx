@@ -17,7 +17,7 @@ export default function LaboratoryPage() {
 
   return (
     <div>
-      <NavigationHeader activeTab="labs" onSelectTab={() => {}} tabs={false} />
+      <NavigationHeader activeTab="labs" tabs={false} />
       <main className={styles.labpage__main}>
         <button
           type="button"
