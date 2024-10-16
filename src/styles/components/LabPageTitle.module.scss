@@ -1,0 +1,25 @@
+.title_container {
+    margin-block-start: 80px;
+    margin-inline-start: 40px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 32px;
+}
+.title {
+    margin: 0;
+    font-size: 42px;
+    font-weight: 400;
+    line-height: 54.6px;
+    text-align: left;
+}
+
+.button {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 16.94px;
+    text-align: left;
+    padding: 10.5px 17.5px;
+    display: flex;
+    gap: 7px;
+}

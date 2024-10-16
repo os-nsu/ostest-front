@@ -1,3 +1,5 @@
+import { Test } from './Test';
+
 export interface Laboratory {
   id: number;
   name: string;
@@ -5,4 +7,5 @@ export interface Laboratory {
   deadline: Date;
   isHidden: boolean;
   semesterNumber: number;
+  tests: Test[];
 }

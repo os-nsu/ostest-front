@@ -1,0 +1,27 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+    gap: 32px;
+    padding: 120px 240px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+
+    gap: 16px;
+}
+
+.title {
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 41.6px;
+}
+
+.content {
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 31.2px;
+}
