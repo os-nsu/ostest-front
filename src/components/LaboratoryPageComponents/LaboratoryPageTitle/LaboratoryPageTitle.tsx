@@ -4,6 +4,8 @@ import IconPebcil from '@public/pencil_line.svg';
 import IconTrash from '@public/trash.svg';
 import IconLeft from '@public/chevron-left.svg';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import ModalDeleteLab from '@/components/modals/ModalDeleteLab/ModalDeleteLab';
 
 interface LaboratoryPageTitleProps {
   name: string;
@@ -12,7 +14,16 @@ interface LaboratoryPageTitleProps {
 export default function LaboratoryPageTitle({
   name,
 }: LaboratoryPageTitleProps) {
+  const [isModalVisible, setModalVisible] = useState(false);
   const navigate = useNavigate();
+
+  const handleOpenModal = () => {
+    setModalVisible(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalVisible(false);
+  };
 
   return (
     <div className={styles.header}>
@@ -22,7 +33,13 @@ export default function LaboratoryPageTitle({
       </div>
       <div className={styles.buttons}>
         <IconButton icon={IconPebcil} />
-        <IconButton icon={IconTrash} />
+        <IconButton icon={IconTrash} onClick={handleOpenModal} />
+        <ModalDeleteLab
+          displayed={isModalVisible}
+          labName={name}
+          id="1"
+          onClose={handleCloseModal}
+        />
       </div>
     </div>
   );
