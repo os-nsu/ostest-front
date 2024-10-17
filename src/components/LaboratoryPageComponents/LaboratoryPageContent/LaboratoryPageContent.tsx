@@ -6,7 +6,6 @@ import LaboratoryDescription from '../LaboratoryDescription/LaboratoryDescriptio
 import LaboratoryAttachedTests from '../LaboratoryAttachedTests/LaboratoryAttachedTests.tsx';
 import { Test } from '@/types/Test.ts';
 import ModalSubmitDelete from '@/components/modals/ModalSubmitDelete/ModalSubmitDelete.tsx';
-import { useState } from 'react';
 import { useLaboratoryPageContent } from './hooks/useLaboratoryPageContent.ts';
 
 interface LaboratoryPageContentProps {
@@ -20,14 +19,14 @@ export default function LaboratoryPageContent({
   tests,
   id,
 }: LaboratoryPageContentProps) {
-  const [isModalVisible, setModalVisible] = useState(false);
-  const { deleteLaboratory } = useLaboratoryPageContent(id);
+  const { isModalVisible, setModalVisible, deleteLaboratory } =
+    useLaboratoryPageContent(id);
 
   return (
     <div className={styles.wrapper}>
       <LaboratoryPageTitle
         name={laboratory.name}
-        onPrevent={() => setModalVisible(true)}
+        onDelete={() => setModalVisible(true)}
       />
       <LaboratoryDeadLine deadline={laboratory.deadline} />
       <LaboratoryDescription description={laboratory.description} />

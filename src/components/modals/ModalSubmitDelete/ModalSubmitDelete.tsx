@@ -2,7 +2,7 @@ import { Dialog } from 'primereact/dialog';
 import styles from '@styles/components/ModalDeleteLab.module.scss';
 import { Button } from 'primereact/button';
 import IconClose from '@public/close.svg';
-import DeleteLabForm from '@/components/modals/ModalSubmitDelete/DefaultModalButtons';
+import DefaultModalButtons from '@/components/modals/ModalSubmitDelete/DefaultModalButtons';
 
 interface ModalSubmitDeleteProps {
   displayed?: boolean;
@@ -36,7 +36,7 @@ export default function ModalSubmitDelete({
           <span className={styles.title}>
             Вы уверены, что хотите удалить {name}?
           </span>
-          <DeleteLabForm onPrevent={onPrevent} onSubmit={onSubmit} />
+          <DefaultModalButtons onPrevent={onPrevent} onSubmit={onSubmit} />
         </div>
       )}
     />
