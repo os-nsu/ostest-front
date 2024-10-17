@@ -2,21 +2,22 @@ import { Dialog } from 'primereact/dialog';
 import styles from '@styles/components/ModalDeleteLab.module.scss';
 import { Button } from 'primereact/button';
 import IconClose from '@public/close.svg';
-import DeleteLabForm from '@/components/forms/DeleteLabForm/DeleteLabForm';
+import DeleteLabForm from '@/components/modals/ModalSubmitDelete/DefaultModalButtons';
 
-interface ModalDeleteLabProps {
+interface ModalSubmitDeleteProps {
   displayed?: boolean;
-  labName?: string;
+  name?: string;
   id?: string;
-  onClose: () => void;
+  onPrevent: () => void;
+  onSubmit: () => void;
 }
 
-export default function ModalDeleteLab({
+export default function ModalSubmitDelete({
   displayed,
-  labName,
-  id,
-  onClose,
-}: ModalDeleteLabProps) {
+  name,
+  onPrevent,
+  onSubmit,
+}: ModalSubmitDeleteProps) {
   return (
     <Dialog
       visible={displayed}
@@ -29,13 +30,13 @@ export default function ModalDeleteLab({
               className={styles.close}
               icon={<img src={IconClose} alt="" />}
               rounded
-              onClick={onClose}
+              onClick={onPrevent}
             />
           </div>
           <span className={styles.title}>
-            Вы уверены, что хотите удалить {labName}?
+            Вы уверены, что хотите удалить {name}?
           </span>
-          <DeleteLabForm onClose={onClose} id={id} />
+          <DeleteLabForm onPrevent={onPrevent} onSubmit={onSubmit} />
         </div>
       )}
     />

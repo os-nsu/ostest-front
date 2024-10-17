@@ -1,26 +1,26 @@
-import { useDeleteLabForm } from '@/components/forms/DeleteLabForm/hooks/useDeleteLabForm.ts';
 import { Button } from 'primereact/button';
 import styles from '@styles/components/DeleteLabForm.module.scss';
 
-interface DeleteLabFormProps {
-  onClose: () => void;
-  id?: string;
+interface DefaultModalButtonsProps {
+  onPrevent: () => void;
+  onSubmit: () => void;
 }
 
-export default function DeleteLabForm({ onClose, id }: DeleteLabFormProps) {
-  const { onDelete } = useDeleteLabForm(id);
-
+export default function DefaultModalButtons({
+  onPrevent,
+  onSubmit,
+}: DefaultModalButtonsProps) {
   return (
     <div className={styles.container}>
       <Button
         className={styles.cancelButton}
         label="Отмена"
-        onClick={onClose}
+        onClick={onPrevent}
       />
       <Button
         className={styles.deleteButton}
         label="Удалить"
-        onClick={onDelete}
+        onClick={onSubmit}
       />
     </div>
   );
