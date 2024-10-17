@@ -2,9 +2,11 @@ import TestsPageTitle from '@/components/TestsPageComponents/TestsPageContent/co
 import styles from '@styles/components/TestsPageStyles/TestsPageContent.module.scss';
 import { useTestsPageContent } from '@/components/TestsPageComponents/TestsPageContent/hooks/useTestsPageContent.ts';
 import TestsList from '@/components/TestsPageComponents/TestsPageContent/components/TestsList/TestsList.tsx';
+import DefaultAside from '@/components/asides/DefaultAside/DefaultAside.tsx';
 
 export default function TestsPageContent() {
-  const { tests } = useTestsPageContent();
+  const { tests, isAsideDisplayed, setAsideDisplayed } = useTestsPageContent();
+
   return (
     <div className={styles.container}>
       <TestsPageTitle />
@@ -13,6 +15,10 @@ export default function TestsPageContent() {
       ) : (
         <TestsList tests={tests} />
       )}
+      <DefaultAside
+        visible={isAsideDisplayed}
+        onHide={() => setAsideDisplayed(false)}
+      />
     </div>
   );
 }

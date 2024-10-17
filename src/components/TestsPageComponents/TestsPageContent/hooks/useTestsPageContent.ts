@@ -26,6 +26,7 @@ const mock: Test[] = [
 
 export const useTestsPageContent = () => {
   const [tests, setTests] = useState<Test[]>([]);
+  const [isAsideDisplayed, setAsideDisplayed] = useState(false);
 
   const requestTests = () => {
     useTestProvider()
@@ -43,5 +44,5 @@ export const useTestsPageContent = () => {
 
   useEffect(() => requestTests(), []);
 
-  return { tests };
+  return { tests, isAsideDisplayed, setAsideDisplayed };
 };
