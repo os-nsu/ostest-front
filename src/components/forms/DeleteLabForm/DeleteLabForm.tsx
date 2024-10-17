@@ -4,7 +4,7 @@ import styles from '@styles/components/DeleteLabForm.module.scss';
 
 interface DeleteLabFormProps {
   onClose: () => void;
-  id: string;
+  id?: string;
 }
 
 export default function DeleteLabForm({ onClose, id }: DeleteLabFormProps) {

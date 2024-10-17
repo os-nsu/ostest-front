@@ -2,13 +2,12 @@ import { Dialog } from 'primereact/dialog';
 import styles from '@styles/components/ModalDeleteLab.module.scss';
 import { Button } from 'primereact/button';
 import IconClose from '@public/close.svg';
-// import { useState } from 'react';
 import DeleteLabForm from '@/components/forms/DeleteLabForm/DeleteLabForm';
 
 interface ModalDeleteLabProps {
   displayed?: boolean;
   labName?: string;
-  id: string;
+  id?: string;
   onClose: () => void;
 }
 

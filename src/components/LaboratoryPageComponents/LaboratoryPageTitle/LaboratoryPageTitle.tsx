@@ -14,7 +14,7 @@ interface LaboratoryPageTitleProps {
 
 export default function LaboratoryPageTitle({
   name,
-  id = '0',
+  id,
 }: LaboratoryPageTitleProps) {
   const [isModalVisible, setModalVisible] = useState(false);
   const navigate = useNavigate();
