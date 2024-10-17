@@ -6,16 +6,21 @@ import TestStatus from '@/components/TestsPageComponents/TestsPageContent/compon
 
 interface TestsListProps {
   tests: Test[];
+  onSelectTest?: (test: Test) => void;
 }
 
-export default function TestsList({ tests }: TestsListProps) {
+export default function TestsList({ tests, onSelectTest }: TestsListProps) {
   const columns = [
     { field: 'name', header: 'Название' },
     { field: 'description', header: 'Описание' },
   ];
 
   return (
-    <DataTable value={tests} className={styles.table} rowHover>
+    <DataTable
+      value={tests}
+      className={styles.table}
+      onRowClick={({ index }) => onSelectTest && onSelectTest(tests[index])}
+      rowHover>
       {columns.map(({ field, header }, index) => (
         <Column
           field={field}

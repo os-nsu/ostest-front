@@ -13,7 +13,10 @@ export default function TestsPageContent() {
       {!tests.length ? (
         <span className={styles.placeholder}>Создайте первое тестирование</span>
       ) : (
-        <TestsList tests={tests} />
+        <TestsList
+          tests={tests}
+          onSelectTest={test => setAsideDisplayed(true)}
+        />
       )}
       <DefaultAside
         visible={isAsideDisplayed}
