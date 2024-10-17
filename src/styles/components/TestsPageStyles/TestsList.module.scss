@@ -1,0 +1,41 @@
+
+.table {
+  max-width: 1360px;
+  border: none;
+
+  & .header {
+    background-color: #F9FAFB;
+    border-top: none;
+    border-bottom: 1px solid #E5E7EB;
+
+    font-size: 14px;
+    font-weight: 500;
+    color: #000000;
+
+    &:nth-child(1) {
+      width: 340px
+    }
+
+    &:nth-last-child(1) {
+      width: 140px
+    }
+  }
+
+  & .cell {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    font-size: 14px;
+    font-weight: 400;
+    color: #4B5563;
+
+    &:nth-child(2) {
+      max-width: 880px;
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}

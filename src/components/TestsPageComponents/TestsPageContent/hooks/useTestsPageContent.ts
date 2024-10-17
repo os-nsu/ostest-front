@@ -2,6 +2,28 @@ import { useEffect, useState } from 'react';
 import { useTestProvider } from '@/providers/TestProvider/useTestProvider.ts';
 import { Test } from '@/types/Test.ts';
 
+const mock: Test[] = [
+  {
+    id: 1,
+    name: 'Тест 1',
+    description: 'sffwefewfewf',
+    category: 'DEFAULT',
+  },
+  {
+    id: 2,
+    name: 'Тест 2',
+    description: 'sffwefewfewf',
+    category: 'DEFAULT',
+  },
+  {
+    id: 3,
+    name: 'Тест 3',
+    description:
+      'sffwefewfewfasdasssssssssssssssssssssssssssssssssssssssssssssssssssssssdsasasasasasasasasasasasasasasasasasasasasasffwefewfewfasdasssssssssssssssssssssssssssssssssssssssssssssssssssssssdsasasasasasasasasasasasasasasasasasasasasa',
+    category: 'DEFAULT',
+  },
+];
+
 export const useTestsPageContent = () => {
   const [tests, setTests] = useState<Test[]>([]);
 
@@ -13,7 +35,8 @@ export const useTestsPageContent = () => {
           return;
         }
 
-        setTests(data);
+        // setTests(data);
+        setTests(mock);
       })
       .catch(err => console.log(err));
   };
