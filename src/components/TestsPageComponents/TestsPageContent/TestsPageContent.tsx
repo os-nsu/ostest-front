@@ -3,7 +3,6 @@ import styles from '@styles/components/TestsPageStyles/TestsPageContent.module.s
 import { useTestsPageContent } from '@/components/TestsPageComponents/TestsPageContent/hooks/useTestsPageContent.ts';
 import TestsList from '@/components/TestsPageComponents/TestsPageContent/components/TestsList/TestsList.tsx';
 import DefaultAside from '@/components/asides/DefaultAside/DefaultAside.tsx';
-import AboutTest from '@/components/AboutTest/AboutTest.tsx';
 import TestAsideContent from '@/components/TestAsideContent/TestAsideContent.tsx';
 
 export default function TestsPageContent() {
@@ -24,6 +23,7 @@ export default function TestsPageContent() {
       <DefaultAside
         visible={isAsideDisplayed}
         onHide={() => setAsideDisplayed(false)}
+        style={{ width: '500px' }}
         children={<TestAsideContent test={mock[0]} />}
       />
     </div>
