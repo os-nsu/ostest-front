@@ -16,8 +16,8 @@ export default function DefaultAside({
     <Sidebar
       visible={visible}
       position="right"
-      onHide={() => onHide && onHide()}>
-      {children}
-    </Sidebar>
+      content={children}
+      onHide={() => onHide && onHide()}
+    />
   );
 }

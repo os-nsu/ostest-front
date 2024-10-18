@@ -4,6 +4,7 @@ import { useTestsPageContent } from '@/components/TestsPageComponents/TestsPageC
 import TestsList from '@/components/TestsPageComponents/TestsPageContent/components/TestsList/TestsList.tsx';
 import DefaultAside from '@/components/asides/DefaultAside/DefaultAside.tsx';
 import AboutTest from '@/components/AboutTest/AboutTest.tsx';
+import TestAsideContent from '@/components/TestAsideContent/TestAsideContent.tsx';
 
 export default function TestsPageContent() {
   const { tests, mock, isAsideDisplayed, setAsideDisplayed } =
@@ -20,10 +21,10 @@ export default function TestsPageContent() {
           onSelectTest={test => setAsideDisplayed(true)}
         />
       )}
-      <AboutTest test={mock[0]} />
       <DefaultAside
         visible={isAsideDisplayed}
         onHide={() => setAsideDisplayed(false)}
+        children={<TestAsideContent test={mock[0]} />}
       />
     </div>
   );
