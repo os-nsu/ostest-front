@@ -19,7 +19,7 @@ export default function TestAsideContentHeader({
           <IconButton icon={IconPencil} />
           <IconButton icon={IconTrash} />
         </div>
-        <IconButton icon={IconClose} />
+        <IconButton icon={IconClose} type="no_bg" />
       </div>
     </div>
   );
