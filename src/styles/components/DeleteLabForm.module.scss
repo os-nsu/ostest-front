@@ -1,0 +1,17 @@
+.container {
+    display: flex;
+    gap: 32px;
+    margin: 0 auto;
+    padding: 21px;
+
+    & .cancelButton {
+        align-self: center;
+        width: max-content;
+        background-color: #475569;
+    }
+
+    & .deleteButton {
+        align-self: center;
+        width: max-content; 
+    }
+}
