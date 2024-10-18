@@ -4,7 +4,6 @@ import TestsPageContent from '@/components/TestsPageComponents/TestsPageContent/
 export default function TestsPage() {
   return (
     <DefaultPageLayout activeTab={'tests'} onSelectTab={() => {}}>
-      {'tests'}
       <TestsPageContent />
     </DefaultPageLayout>
   );
