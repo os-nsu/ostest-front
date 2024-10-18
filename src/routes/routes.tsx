@@ -11,7 +11,8 @@ export const routes = [
   },
   {
     path: '/tests',
-    element: <PrivateRoute element={<TestsPage />} />,
+    // element: <PrivateRoute element={<TestsPage />} />,
+    element: <TestsPage />,
   },
   {
     path: '/lab/:id',

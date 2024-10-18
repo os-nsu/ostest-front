@@ -1,26 +1,26 @@
 import { useEffect, useState } from 'react';
 import { useTestProvider } from '@/providers/TestProvider/useTestProvider.ts';
-import { Test } from '@/types/Test.ts';
+import { Test, TestCategory } from '@/types/Test.ts';
 
 const mock: Test[] = [
   {
     id: 1,
     name: 'Тест 1',
     description: 'sffwefewfewf',
-    category: 'DEFAULT',
+    category: TestCategory.DEFAULT,
   },
   {
     id: 2,
     name: 'Тест 2',
     description: 'sffwefewfewf',
-    category: 'DEFAULT',
+    category: TestCategory.DEFAULT,
   },
   {
     id: 3,
     name: 'Тест 3',
     description:
       'sffwefewfewfasdasssssssssssssssssssssssssssssssssssssssssssssssssssssssdsasasasasasasasasasasasasasasasasasasasasasffwefewfewfasdasssssssssssssssssssssssssssssssssssssssssssssssssssssssdsasasasasasasasasasasasasasasasasasasasasa',
-    category: 'DEFAULT',
+    category: TestCategory.DEFAULT,
   },
 ];
 
@@ -44,5 +44,5 @@ export const useTestsPageContent = () => {
 
   useEffect(() => requestTests(), []);
 
-  return { tests, isAsideDisplayed, setAsideDisplayed };
+  return { tests, mock, isAsideDisplayed, setAsideDisplayed };
 };
