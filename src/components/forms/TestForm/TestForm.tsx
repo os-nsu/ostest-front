@@ -24,7 +24,7 @@ export default function TestForm({
   console.log('formData', formData?.name);
   return (
     <div className={[styles.container, containerClass].join(' ')}>
-      <div>
+      <div className={styles.fieldContainer}>
         <DefaultInput
           label="Название"
           placeholder="Введите название"

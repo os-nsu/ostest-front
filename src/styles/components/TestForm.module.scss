@@ -5,6 +5,12 @@
   flex-direction: column;
   gap: 16px;
 
+  & .fieldContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
   & .submitButton {
       width: max-content;
   }
