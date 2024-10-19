@@ -1,6 +1,7 @@
 import { InputText } from 'primereact/inputtext';
 import { useInput } from './hooks/useInput.ts';
 import styles from '@styles/components/DefaultInput.module.scss';
+import DefaultFieldLabel from '@UI/label/DefaultFieldLabel/DefaultFieldLabel.tsx';
 
 interface DefaultInputProps {
   label?: string;
@@ -28,12 +29,7 @@ export default function DefaultInput({
 
   return (
     <div className={styles.container}>
-      {label ? (
-        <label className={styles.title}>
-          {label}{' '}
-          {required ? <span style={{ color: '#EC4256' }}> * </span> : null}
-        </label>
-      ) : null}
+      {label ? <DefaultFieldLabel label={label} isRequired={required} /> : null}
       <div className={styles.inputContainer}>
         <InputText
           className={styles.input}

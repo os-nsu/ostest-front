@@ -1,6 +1,7 @@
 import { FileUpload, FileUploadSelectEvent } from 'primereact/fileupload';
 import '@styles/components/DefaultFileUploader.scss';
 import { useRef } from 'react';
+import DefaultFieldLabel from '@UI/label/DefaultFieldLabel/DefaultFieldLabel.tsx';
 
 interface DefaultFileUploaderProps {
   label?: string;
@@ -24,12 +25,7 @@ export default function DefaultFileUploader({
 
   return (
     <div className="container">
-      {label ? (
-        <label>
-          {label}{' '}
-          {required ? <span style={{ color: '#EC4256' }}> * </span> : null}
-        </label>
-      ) : null}
+      {label ? <DefaultFieldLabel label={label} isRequired={required} /> : null}
       <FileUpload
         ref={fieldRef}
         customUpload
