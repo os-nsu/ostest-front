@@ -1,7 +1,6 @@
 import { SelectItem } from 'primereact/selectitem';
 import { useEffect, useState } from 'react';
-import { Test } from '@/types/Test.ts';
-import { useTestCategoryName } from '@/hooks/useTestCategoryName.ts';
+import { Test, TestCategory } from '@/types/Test.ts';
 
 interface TestFormData {
   name?: string;
@@ -11,8 +10,7 @@ interface TestFormData {
 }
 
 const testOptions: SelectItem[] = [
-  { value: 'default', label: 'Обычный тест' },
-  { value: 'stress_test', label: 'Нагрузочный тест' },
+  { value: TestCategory.DEFAULT, label: 'Обычный тест' },
 ];
 
 export const useTestForm = (test?: Test) => {
@@ -24,13 +22,11 @@ export const useTestForm = (test?: Test) => {
       return;
     }
 
-    console.log(test);
-
     const { name, description, category } = test;
     setFormData({
       name,
       description,
-      type: useTestCategoryName(category),
+      type: category,
     });
   }, [test]);
 
