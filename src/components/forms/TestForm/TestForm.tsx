@@ -48,7 +48,7 @@ export default function TestForm({
         />
         <DefaultFileUploader
           label="Файл теста"
-          placeholder="Выберите файл"
+          placeholder="Загрузить"
           required
           onSelect={files => onFieldChange('files', files)}
         />
