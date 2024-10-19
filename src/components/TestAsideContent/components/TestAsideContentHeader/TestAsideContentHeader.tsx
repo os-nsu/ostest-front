@@ -7,18 +7,20 @@ import styles from '@styles/components/TestsPageStyles/TestAsideContentHeader.mo
 interface TestAsideContentHeaderProps {
   testName: string;
   onCloseIconClick?: () => void;
+  onEditIconClick?: () => void;
 }
 
 export default function TestAsideContentHeader({
   testName,
   onCloseIconClick,
+  onEditIconClick,
 }: TestAsideContentHeaderProps) {
   return (
     <div className={styles.container}>
       <span className={styles.title}>{testName}</span>
       <div className={styles.buttonContainer}>
         <div className={styles.menuContainer}>
-          <IconButton icon={IconPencil} />
+          <IconButton icon={IconPencil} onClick={onEditIconClick} />
           <IconButton icon={IconTrash} />
         </div>
         <IconButton icon={IconClose} type="no_bg" onClick={onCloseIconClick} />

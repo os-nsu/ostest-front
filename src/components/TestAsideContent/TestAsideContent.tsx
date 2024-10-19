@@ -15,12 +15,20 @@ export default function TestAsideContent({
   test,
   onClose,
 }: TestAsideContentProps) {
-  const { isEditing } = useTestAsideContent();
+  const { isEditing, setIsEditing } = useTestAsideContent();
 
   return (
     <div className={styles.container}>
-      <TestAsideContentHeader testName={test.name} onCloseIconClick={onClose} />
-      {true ? <TestAsideEditForm test={test} /> : <AboutTest test={test} />}
+      <TestAsideContentHeader
+        testName={test.name}
+        onCloseIconClick={onClose}
+        onEditIconClick={() => setIsEditing(true)}
+      />
+      {isEditing ? (
+        <TestAsideEditForm test={test} />
+      ) : (
+        <AboutTest test={test} />
+      )}
     </div>
   );
 }
