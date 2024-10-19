@@ -6,10 +6,12 @@ import styles from '@styles/components/TestsPageStyles/TestAsideContentHeader.mo
 
 interface TestAsideContentHeaderProps {
   testName: string;
+  onCloseIconClick?: () => void;
 }
 
 export default function TestAsideContentHeader({
   testName,
+  onCloseIconClick,
 }: TestAsideContentHeaderProps) {
   return (
     <div className={styles.container}>
@@ -19,7 +21,7 @@ export default function TestAsideContentHeader({
           <IconButton icon={IconPencil} />
           <IconButton icon={IconTrash} />
         </div>
-        <IconButton icon={IconClose} type="no_bg" />
+        <IconButton icon={IconClose} type="no_bg" onClick={onCloseIconClick} />
       </div>
     </div>
   );

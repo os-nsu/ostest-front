@@ -37,7 +37,6 @@ export const useTestsPageContent = () => {
         }
 
         // setTests(data);
-        setTests(mock);
       })
       .catch(err => console.log(err));
   };

@@ -5,12 +5,16 @@ import styles from '@styles/components/TestsPageStyles/TestAsideContent.module.s
 
 interface TestAsideContentProps {
   test: Test;
+  onClose?: () => void;
 }
 
-export default function TestAsideContent({ test }: TestAsideContentProps) {
+export default function TestAsideContent({
+  test,
+  onClose,
+}: TestAsideContentProps) {
   return (
     <div className={styles.container}>
-      <TestAsideContentHeader testName={test.name} />
+      <TestAsideContentHeader testName={test.name} onCloseIconClick={onClose} />
       <AboutTest test={test} />
     </div>
   );

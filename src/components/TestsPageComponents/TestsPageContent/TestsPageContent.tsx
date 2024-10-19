@@ -12,11 +12,11 @@ export default function TestsPageContent() {
   return (
     <div className={styles.container}>
       <TestsPageTitle />
-      {!tests.length ? (
+      {!mock.length ? (
         <span className={styles.placeholder}>Создайте первое тестирование</span>
       ) : (
         <TestsList
-          tests={tests}
+          tests={mock}
           onSelectTest={test => setAsideDisplayed(true)}
         />
       )}
@@ -24,7 +24,12 @@ export default function TestsPageContent() {
         visible={isAsideDisplayed}
         onHide={() => setAsideDisplayed(false)}
         style={{ width: '500px' }}
-        children={<TestAsideContent test={mock[0]} />}
+        children={
+          <TestAsideContent
+            test={mock[0]}
+            onClose={() => setAsideDisplayed(false)}
+          />
+        }
       />
     </div>
   );
