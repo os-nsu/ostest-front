@@ -19,7 +19,7 @@ const mock: Test[] = [
     id: 3,
     name: 'Тест 3',
     description:
-      'sffwefewfewfasdasssssssssssssssssssssssssssssssssssssssssssssssssssssssdsasasasasasasasasasasasasasasasasasasasasasffwefewfewfasdasssssssssssssssssssssssssssssssssssssssssssssssssssssssdsasasasasasasasasasasasasasasasasasasasasa',
+      'sffwefewfewfasdasssssssssssssssssssssssssssssssssssss ssssssssssssssssssdsasasasasasasasasasasasasasasasasasasasasasffwef ewfewfasdassssssssssssssssssssssssssssssssssssss sssssssssssssssssdsasasasasasasa sasasasasasasasasasasasasasa',
     category: TestCategory.DEFAULT,
   },
 ];

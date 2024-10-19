@@ -2,6 +2,7 @@ import TestAsideContentHeader from '@/components/TestAsideContent/components/Tes
 import { Test } from '@/types/Test.ts';
 import AboutTest from '@/components/AboutTest/AboutTest.tsx';
 import styles from '@styles/components/TestsPageStyles/TestAsideContent.module.scss';
+import { useTestAsideContent } from '@/components/TestAsideContent/hooks/useTestAsideContent.ts';
 
 interface TestAsideContentProps {
   test: Test;
@@ -12,6 +13,8 @@ export default function TestAsideContent({
   test,
   onClose,
 }: TestAsideContentProps) {
+  const { isEditing } = useTestAsideContent();
+
   return (
     <div className={styles.container}>
       <TestAsideContentHeader testName={test.name} onCloseIconClick={onClose} />

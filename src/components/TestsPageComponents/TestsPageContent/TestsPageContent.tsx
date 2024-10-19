@@ -26,7 +26,7 @@ export default function TestsPageContent() {
         style={{ width: '500px' }}
         children={
           <TestAsideContent
-            test={mock[0]}
+            test={mock[2]}
             onClose={() => setAsideDisplayed(false)}
           />
         }
