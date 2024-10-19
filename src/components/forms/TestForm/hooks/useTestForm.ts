@@ -1,5 +1,7 @@
 import { SelectItem } from 'primereact/selectitem';
 import { useEffect, useState } from 'react';
+import { Test } from '@/types/Test.ts';
+import { useTestCategoryName } from '@/hooks/useTestCategoryName.ts';
 
 interface TestFormData {
   name?: string;
@@ -13,9 +15,24 @@ const testOptions: SelectItem[] = [
   { value: 'stress_test', label: 'Нагрузочный тест' },
 ];
 
-export const useTestForm = () => {
+export const useTestForm = (test?: Test) => {
   const [formData, setFormData] = useState<TestFormData>();
   const [isButtonDisabled, setButtonDisabled] = useState(false);
+
+  useEffect(() => {
+    if (!test) {
+      return;
+    }
+
+    console.log(test);
+
+    const { name, description, category } = test;
+    setFormData({
+      name,
+      description,
+      type: useTestCategoryName(category),
+    });
+  }, [test]);
 
   useEffect(
     () =>
@@ -28,10 +45,10 @@ export const useTestForm = () => {
     value: string | File[],
   ) => setFormData({ ...formData, [fieldType]: value });
 
-  //Пока просто выводим данные в консоль, так как еще не настроена интеграция с бэком
   const onSubmit = () => console.log(formData);
 
   return {
+    formData,
     isButtonDisabled,
     testOptions,
     onFieldChange,

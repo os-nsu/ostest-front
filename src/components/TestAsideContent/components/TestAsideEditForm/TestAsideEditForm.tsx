@@ -7,5 +7,11 @@ interface TestAsideEditFormProps {
 }
 
 export default function TestAsideEditForm({ test }: TestAsideEditFormProps) {
-  return <TestForm containerClass={styles.form} buttonLabel="Сохранить" />;
+  return (
+    <TestForm
+      test={test}
+      containerClass={styles.form}
+      buttonLabel="Сохранить"
+    />
+  );
 }
