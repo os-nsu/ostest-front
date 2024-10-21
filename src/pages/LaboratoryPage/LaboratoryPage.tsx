@@ -21,7 +21,7 @@ export default function LaboratoryPage() {
   }
 
   return (
-    <DefaultPageLayout activeTab={'lab'} onSelectTab={() => {}}>
+    <DefaultPageLayout activeTab={'lab'}>
       <LaboratoryPageContent
         laboratory={laboratory}
         id={id}
