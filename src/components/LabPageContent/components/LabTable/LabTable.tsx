@@ -2,17 +2,16 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import styles from '@styles/components/LabTable.module.scss';
 import { Laboratory } from '@/types/Laboratory.ts';
+import { useNavigate } from 'react-router-dom';
+import { useLabList } from '@/components/LabPageContent/components/LabTable/hooks/useLabList.ts';
 
 interface LabListProps {
   laboratories: Laboratory[];
 }
 
 export default function LabList({ laboratories }: LabListProps) {
-  const columns = [
-    { field: 'name', header: 'Название' },
-    { field: 'description', header: 'Описание' },
-    { field: 'deadline', header: 'Срок сдачи' },
-  ];
+  const navigate = useNavigate();
+  const { columns, getTableValues } = useLabList();
 
   if (!laboratories || !laboratories.length) {
     return (
@@ -23,7 +22,11 @@ export default function LabList({ laboratories }: LabListProps) {
   }
 
   return (
-    <DataTable value={laboratories} className={styles.table} rowHover>
+    <DataTable
+      value={getTableValues(laboratories)}
+      className={styles.table}
+      onRowClick={({ data }) => navigate(`/lab/${data.id}`)}
+      rowHover>
       {columns.map(({ field, header }, index) => (
         <Column
           field={field}
