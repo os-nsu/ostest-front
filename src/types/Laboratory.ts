@@ -4,7 +4,7 @@ export interface Laboratory {
   id: number;
   name: string;
   description: string;
-  deadline: Date;
+  deadline: string;
   isHidden: boolean;
   semesterNumber: number;
   tests: Test[];

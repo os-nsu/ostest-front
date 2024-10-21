@@ -1,4 +1,5 @@
 import { Test } from '@/types/Test';
+import { Laboratory } from '@/types/Laboratory.ts';
 
 export interface LaboratoryRequestData {
   [index: string]: unknown;
@@ -24,3 +25,8 @@ export interface LaboratoryResponseData {
   isHidden: boolean;
   tests: Test[];
 }
+
+export type LaboratorySearchResponseData = Pick<
+  Laboratory,
+  'id' | 'name' | 'deadline' | 'isHidden'
+>;

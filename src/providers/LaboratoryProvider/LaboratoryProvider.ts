@@ -3,8 +3,8 @@ import {
   LaboratoryRequestData,
   LaboratoryResponseData,
   LaboratorySearchRequestData,
+  LaboratorySearchResponseData,
 } from '@/DTO/LaboratoryDTO.ts';
-import { Laboratory } from '@/types/Laboratory.ts';
 
 export class LaboratoryProvider {
   instance: AxiosClient;
@@ -24,7 +24,10 @@ export class LaboratoryProvider {
   }
 
   searchLaboratories(requestData: LaboratorySearchRequestData) {
-    return this.instance.post<Laboratory[]>('/search', requestData);
+    return this.instance.post<LaboratorySearchResponseData[]>(
+      '/search',
+      requestData,
+    );
   }
 
   getLaboratory(id: string) {
