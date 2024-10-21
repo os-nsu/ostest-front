@@ -1,12 +1,12 @@
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import styles from '@styles/components/LabTable.module.scss';
-import { Laboratory } from '@/types/Laboratory.ts';
+import { MinimizedLaboratory } from '@/types/Laboratory.ts';
 import { useNavigate } from 'react-router-dom';
 import { useLabList } from '@/components/LabPageContent/components/LabTable/hooks/useLabList.ts';
 
 interface LabListProps {
-  laboratories: Laboratory[];
+  laboratories: MinimizedLaboratory[];
 }
 
 export default function LabList({ laboratories }: LabListProps) {

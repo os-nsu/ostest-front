@@ -1,4 +1,4 @@
-import { Laboratory } from '@/types/Laboratory.ts';
+import { MinimizedLaboratory } from '@/types/Laboratory.ts';
 
 export const useLabList = () => {
   const columns = [
@@ -7,14 +7,14 @@ export const useLabList = () => {
     { field: 'deadline', header: 'Срок сдачи' },
   ];
 
-  const getTableValues = (laboratories: Laboratory[]) => {
+  const getTableValues = (laboratories: MinimizedLaboratory[]) => {
     const getValue = (value?: string) => value || '-';
 
-    return laboratories.map(({ id, name, description, deadline }) => {
+    return laboratories.map(({ id, name, deadline }) => {
       return {
         id,
         name: getValue(name),
-        description: getValue(description),
+        description: getValue(),
         deadline: deadline ? new Date(deadline).toLocaleString() : '-',
       };
     });

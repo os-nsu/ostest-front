@@ -1,11 +1,14 @@
 import { Test } from './Test';
 
-export interface Laboratory {
+export interface MinimizedLaboratory {
   id: number;
   name: string;
-  description: string;
   deadline: string;
   isHidden: boolean;
+}
+
+export interface Laboratory extends MinimizedLaboratory {
+  description: string;
   semesterNumber: number;
   tests: Test[];
 }

@@ -31,7 +31,9 @@ export function useLaboratoryPage(id: string | undefined): LaboratoryPageData {
 
         setLaboratory({
           ...data,
-          deadline: data.deadline ? new Date(data.deadline) : new Date(),
+          deadline: data.deadline
+            ? new Date(data.deadline).toLocaleString()
+            : '-',
         });
       })
       .catch(({ response }) => {

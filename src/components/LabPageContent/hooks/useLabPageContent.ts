@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import { Laboratory } from '@/types/Laboratory.ts';
 import { useLaboratoryProvider } from '@/providers/LaboratoryProvider/useLaboratoryProvider.ts';
 import { LaboratorySearchRequestData } from '@/DTO/LaboratoryDTO.ts';
+import { MinimizedLaboratory } from '@/types/Laboratory.ts';
 
 export const useLabPageContent = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [labs, setLabs] = useState<Laboratory[]>([]);
+  const [labs, setLabs] = useState<MinimizedLaboratory[]>([]);
 
   useEffect(() => {
     const requestData: LaboratorySearchRequestData = {
