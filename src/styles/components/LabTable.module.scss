@@ -1,11 +1,11 @@
 .labs_table {
     max-width: 1360px;
-    margin-inline-start: 40px;
+    margin-block-start: 48px;
+    margin-inline: auto;
 
     th {
         padding-block: 14px;
         padding-inline-start: 14px;
-        font-family: Inter, sans-serif;
         font-size: 14px;
         font-weight: 500;
         line-height: 16.94px;
@@ -20,7 +20,6 @@
         padding-inline-start: 14px;
         border-top: 1px solid transparent;
         border-bottom: 1px solid #E5E7EB;
-        font-family: Inter, sans-serif;
         font-size: 14px;
         font-weight: 300;
         line-height: 16.94px;
@@ -28,7 +27,7 @@
         color: #4B5563;
     }
 
-    th:nth-child(odd), 
+    th:nth-child(odd),
     td:nth-child(odd) { 
         width: 340px;
     }

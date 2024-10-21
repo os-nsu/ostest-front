@@ -8,6 +8,7 @@ interface DefaultTextAreaProps {
   label?: string;
   autoresize?: boolean;
   required?: boolean;
+  textAreaMinHeight?: number;
 
   onChange?: (value: string) => void;
 }
@@ -18,6 +19,7 @@ export default function DefaultTextArea({
   placeholder,
   autoresize,
   required,
+  textAreaMinHeight,
   onChange,
 }: DefaultTextAreaProps) {
   const { fieldValue, onInput } = useDefaultTextArea(value, onChange);
@@ -32,6 +34,7 @@ export default function DefaultTextArea({
       ) : null}
       <InputTextarea
         className={styles.textarea}
+        style={{ minHeight: textAreaMinHeight }}
         value={fieldValue}
         placeholder={placeholder}
         autoResize={autoresize}

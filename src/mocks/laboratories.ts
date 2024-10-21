@@ -9,6 +9,7 @@ export const laboratories: Laboratory[] = [
     deadline: new Date('2024-10-10'), // Устанавливаем дату дедлайна
     isHidden: false, // Лабораторная видна
     semesterNumber: 1, // Номер семестра
+    tests: [],
   },
   {
     id: 2,
@@ -18,6 +19,7 @@ export const laboratories: Laboratory[] = [
     deadline: new Date('2024-11-01'),
     isHidden: false,
     semesterNumber: 1,
+    tests: [],
   },
   {
     id: 3,
@@ -26,5 +28,6 @@ export const laboratories: Laboratory[] = [
     deadline: new Date('2024-12-05'),
     isHidden: true, // Лабораторная скрыта
     semesterNumber: 1,
+    tests: [],
   },
 ];

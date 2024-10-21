@@ -1,18 +1,25 @@
 import TestsPage from '@/pages/TestsPage.tsx';
-import LaboratoryPage from '@/pages/LaboratoryPage.tsx';
-import LabsPage from '@/pages/LabsPage';
+
+import LaboratoryPage from '@/pages/LaboratoryPage/LaboratoryPage.tsx';
+import LoginPage from '@/pages/LoginPage.tsx';
+import PrivateRoute from '@/components/PrivateRoute/PrivateRoute.tsx';
+import LabsPage from '@/pages/LabsPage.tsx';
 
 export const routes = [
   {
-    path: '/labs',
-    element: <LabsPage />,
+    path: '/',
+    element: <PrivateRoute element={<LabsPage />} />,
   },
   {
     path: '/tests',
-    element: <TestsPage />,
+    element: <PrivateRoute element={<TestsPage />} />,
   },
   {
     path: '/lab/:id',
-    element: <LaboratoryPage />,
+    element: <PrivateRoute element={<LaboratoryPage />} />,
+  },
+  {
+    path: '/login',
+    element: <LoginPage />,
   },
 ];
