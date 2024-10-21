@@ -3,7 +3,6 @@ import {
   LaboratoryRequestData,
   LaboratoryResponseData,
   LaboratorySearchRequestData,
-  LaboratorySearchResponseData,
 } from '@/DTO/LaboratoryDTO.ts';
 import { Laboratory } from '@/types/Laboratory.ts';
 

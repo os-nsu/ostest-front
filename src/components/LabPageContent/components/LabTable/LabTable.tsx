@@ -1,50 +1,26 @@
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
-import { laboratories } from '../../../../mocks/laboratories';
-import LabElementWrapper from './components/LabElementWrapper/LabElementWrapper';
 import styles from '@styles/components/LabTable.module.scss';
+import { Laboratory } from '@/types/Laboratory.ts';
 
-export default function LabList() {
-  const formatDescription = (description: string) => {
-    if (description.length > 0) return description.substring(0, 80) + '...';
-    return description;
-  };
+interface LabListProps {
+  laboratories: Laboratory[];
+}
 
-  const formatDeadline = (deadline: string) => {
-    return new Date(deadline).toLocaleDateString('ru-RU', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric',
-    });
-  };
-
+export default function LabList({ laboratories }: LabListProps) {
   if (!laboratories || !laboratories.length) {
     return (
       <span className={styles.labs_table_empty}>
         Создайте первую лабораторную работу
       </span>
     );
-  } else {
-    return (
-      <DataTable value={laboratories} className={styles.labs_table}>
-        <Column
-          field="name"
-          header="Название"
-          body={rowData => <LabElementWrapper rowData={rowData} />}
-        />
-        <Column
-          field="description"
-          header="Описание"
-          body={rowData => (
-            <span>{formatDescription(rowData.description)}</span>
-          )}
-        />
-        <Column
-          field="deadline"
-          header="Срок сдачи"
-          body={rowData => <span>{formatDeadline(rowData.deadline)}</span>}
-        />
-      </DataTable>
-    );
   }
+
+  return (
+    <DataTable value={laboratories}>
+      <Column field="name" header="Название" />
+      <Column field="description" header="Описание" />
+      <Column field="deadline" header="Срок сдачи" />
+    </DataTable>
+  );
 }

@@ -9,7 +9,7 @@ export const useLabPageContent = () => {
 
   useEffect(() => {
     const requestData: LaboratorySearchRequestData = {
-      isHidden: false,
+      isHidden: true,
       semesterNumber: 0,
     };
 
