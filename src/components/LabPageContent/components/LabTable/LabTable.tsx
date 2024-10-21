@@ -8,6 +8,12 @@ interface LabListProps {
 }
 
 export default function LabList({ laboratories }: LabListProps) {
+  const columns = [
+    { field: 'name', header: 'Название' },
+    { field: 'description', header: 'Описание' },
+    { field: 'deadline', header: 'Срок сдачи' },
+  ];
+
   if (!laboratories || !laboratories.length) {
     return (
       <span className={styles.labs_table_empty}>
@@ -17,10 +23,16 @@ export default function LabList({ laboratories }: LabListProps) {
   }
 
   return (
-    <DataTable value={laboratories}>
-      <Column field="name" header="Название" />
-      <Column field="description" header="Описание" />
-      <Column field="deadline" header="Срок сдачи" />
+    <DataTable value={laboratories} className={styles.table} rowHover>
+      {columns.map(({ field, header }, index) => (
+        <Column
+          field={field}
+          header={header}
+          headerClassName={styles.header}
+          bodyClassName={styles.cell}
+          key={index}
+        />
+      ))}
     </DataTable>
   );
 }
