@@ -28,7 +28,9 @@ export default function LaboratoryPageContent({
         name={laboratory.name}
         onDelete={() => setModalVisible(true)}
       />
-      <LaboratoryDeadLine deadline={laboratory.deadline} />
+      {laboratory.deadline ? (
+        <LaboratoryDeadLine deadline={laboratory.deadline} />
+      ) : null}
       <LaboratoryDescription description={laboratory.description} />
       {tests && tests.length ? <LaboratoryAttachedTests tests={tests} /> : null}
       <ModalSubmitDelete
