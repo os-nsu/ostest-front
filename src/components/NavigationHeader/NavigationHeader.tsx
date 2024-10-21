@@ -1,7 +1,6 @@
 import styles from '@styles/components/NavigationHeader.module.scss';
 import IconLabs from '@public/labs.svg';
 import IconTests from '@public/tests.svg';
-import IconRating from '@public/rating.svg';
 import IconAvatar from '@public/avatar.svg';
 import { useNavigate } from 'react-router-dom';
 
@@ -32,12 +31,6 @@ function NavigationHeader({ activeTab, tabs }: NavigationHeaderProps) {
               onClick={() => navigate('/tests')}>
               <img src={IconTests} />
               <span>Тесты</span>
-            </button>
-            <button
-              type="button"
-              className={`${styles.header_button} ${activeTab === 'rating' ? styles.header_button_checked : ''}`}>
-              <img src={IconRating} />
-              <span>Рейтинг</span>
             </button>
           </div>
         )}
