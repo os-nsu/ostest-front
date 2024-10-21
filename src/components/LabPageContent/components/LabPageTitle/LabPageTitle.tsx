@@ -1,15 +1,12 @@
-import { Button } from 'primereact/button';
 import PlusIcon from '@public/plus.svg';
 import styles from '@styles/components/LabPageTitle.module.scss';
+import DefaultButton from '@UI/buttons/DefaultButton/DefaultButton.tsx';
 
 export default function LabPageTitle() {
   return (
     <div className={styles.title_container}>
       <h1 className={styles.title}>Лабораторные работы</h1>
-      <Button className={styles.button}>
-        <span>Создать</span>
-        <img src={PlusIcon} />
-      </Button>
+      <DefaultButton label="Создать" icon={PlusIcon} />
     </div>
   );
 }

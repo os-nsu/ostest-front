@@ -1,0 +1,26 @@
+.button {
+  background-color: #A855F7;
+  border-color: #A855F7;
+  border-radius: 6px;
+  gap: 7px;
+  display: flex;
+  align-items: center;
+  padding: 10.5px 17.5px;
+
+  &:hover {
+    background-color: #A855F799;
+  }
+
+  & span {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 100%;
+    color: white;
+    height: max-content;
+  }
+
+  & img {
+    width: 14px;
+    height: 14px;
+  }
+}
