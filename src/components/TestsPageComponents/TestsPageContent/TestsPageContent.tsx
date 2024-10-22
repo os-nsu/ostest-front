@@ -7,8 +7,14 @@ import TestAsideContent from '@/components/TestAsideContent/TestAsideContent.tsx
 import DefaultLoader from '@UI/loaders/DefaultLoader/DefaultLoader.tsx';
 
 export default function TestsPageContent() {
-  const { isLoading, tests, isAsideDisplayed, setAsideDisplayed } =
-    useTestsPageContent();
+  const {
+    isLoading,
+    tests,
+    selectedTest,
+    isAsideDisplayed,
+    setAsideDisplayed,
+    onSelectTest,
+  } = useTestsPageContent();
 
   return (
     <div className={styles.container}>
@@ -18,10 +24,7 @@ export default function TestsPageContent() {
       ) : !tests.length ? (
         <span className={styles.placeholder}>Создайте первое тестирование</span>
       ) : (
-        <TestsList
-          tests={tests}
-          onSelectTest={test => setAsideDisplayed(true)}
-        />
+        <TestsList tests={tests} onSelectTest={onSelectTest} />
       )}
 
       <DefaultAside
@@ -29,10 +32,12 @@ export default function TestsPageContent() {
         onHide={() => setAsideDisplayed(false)}
         style={{ width: '500px' }}
         children={
-          <TestAsideContent
-            test={tests[0]}
-            onClose={() => setAsideDisplayed(false)}
-          />
+          selectedTest ? (
+            <TestAsideContent
+              test={selectedTest}
+              onClose={() => setAsideDisplayed(false)}
+            />
+          ) : null
         }
       />
     </div>
