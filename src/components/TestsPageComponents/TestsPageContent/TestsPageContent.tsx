@@ -4,29 +4,33 @@ import { useTestsPageContent } from '@/components/TestsPageComponents/TestsPageC
 import TestsList from '@/components/TestsPageComponents/TestsPageContent/components/TestsList/TestsList.tsx';
 import DefaultAside from '@/components/asides/DefaultAside/DefaultAside.tsx';
 import TestAsideContent from '@/components/TestAsideContent/TestAsideContent.tsx';
+import DefaultLoader from '@UI/loaders/DefaultLoader/DefaultLoader.tsx';
 
 export default function TestsPageContent() {
-  const { tests, mock, isAsideDisplayed, setAsideDisplayed } =
+  const { isLoading, tests, isAsideDisplayed, setAsideDisplayed } =
     useTestsPageContent();
 
   return (
     <div className={styles.container}>
       <TestsPageTitle />
-      {!mock.length ? (
+      {isLoading ? (
+        <DefaultLoader />
+      ) : !tests.length ? (
         <span className={styles.placeholder}>Создайте первое тестирование</span>
       ) : (
         <TestsList
-          tests={mock}
+          tests={tests}
           onSelectTest={test => setAsideDisplayed(true)}
         />
       )}
+
       <DefaultAside
         visible={isAsideDisplayed}
         onHide={() => setAsideDisplayed(false)}
         style={{ width: '500px' }}
         children={
           <TestAsideContent
-            test={mock[2]}
+            test={tests[0]}
             onClose={() => setAsideDisplayed(false)}
           />
         }

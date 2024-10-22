@@ -1,34 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useTestProvider } from '@/providers/TestProvider/useTestProvider.ts';
-import { Test, TestCategory } from '@/types/Test.ts';
-
-const mock: Test[] = [
-  {
-    id: 1,
-    name: 'Тест 1',
-    description: 'sffwefewfewf',
-    category: TestCategory.DEFAULT,
-  },
-  {
-    id: 2,
-    name: 'Тест 2',
-    description: 'sffwefewfewf',
-    category: TestCategory.DEFAULT,
-  },
-  {
-    id: 3,
-    name: 'Тест 3',
-    description:
-      'sffwefewfewfasdasssssssssssssssssssssssssssssssssssss ssssssssssssssssssdsasasasasasasasasasasasasasasasasasasasasasffwef ewfewfasdassssssssssssssssssssssssssssssssssssss sssssssssssssssssdsasasasasasasa sasasasasasasasasasasasasasa',
-    category: TestCategory.DEFAULT,
-  },
-];
+import { Test } from '@/types/Test.ts';
 
 export const useTestsPageContent = () => {
   const [tests, setTests] = useState<Test[]>([]);
   const [isAsideDisplayed, setAsideDisplayed] = useState(false);
+  const [isLoading, setLoading] = useState(false);
 
   const requestTests = () => {
+    setLoading(true);
     useTestProvider()
       .getAllTests()
       .then(({ status, data }) => {
@@ -36,12 +16,13 @@ export const useTestsPageContent = () => {
           return;
         }
 
-        // setTests(data);
+        setTests(data);
       })
-      .catch(err => console.log(err));
+      .catch(err => console.log(err))
+      .finally(() => setLoading(false));
   };
 
   useEffect(() => requestTests(), []);
 
-  return { tests, mock, isAsideDisplayed, setAsideDisplayed };
+  return { isLoading, tests, isAsideDisplayed, setAsideDisplayed };
 };
