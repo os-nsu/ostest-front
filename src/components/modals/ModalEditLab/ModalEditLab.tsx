@@ -8,6 +8,7 @@ import { Laboratory } from '@/types/Laboratory';
 interface ModalEditLabProps {
   laboratory: Laboratory;
   displayed?: boolean;
+  id?: string;
   onClose: () => void;
 }
 

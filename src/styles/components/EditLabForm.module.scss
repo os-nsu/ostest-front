@@ -2,9 +2,42 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
+    padding: 21px;
 
     & .submitButton {
         align-self: center;
         width: max-content;
+    }
+
+    & .attachedTests {
+        display: flex;
+        flex-direction: column;
+    }
+
+    & .testsWrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 21.78px;
+    }
+
+    & .selectedTest {
+        height: 60px;
+        display: flex;
+        justify-content: space-between;
+
+        font-size: 18px;
+        font-weight: 300;
+        line-height: 21.78px;
+
+        padding: 15px 30px;
+
+        button {
+            max-height: 30px;
+            max-width: 30px;
+        }
     }
 }
