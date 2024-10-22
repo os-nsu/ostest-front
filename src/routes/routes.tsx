@@ -1,9 +1,8 @@
-import TestsPage from '@/pages/TestsPage.tsx';
-
+import PrivateRoute from '@/components/PrivateRoute/PrivateRoute';
+import LabsPage from '@/pages/LabsPage';
+import TestsPage from '@/pages/TestsPage/TestsPage.tsx';
 import LaboratoryPage from '@/pages/LaboratoryPage/LaboratoryPage.tsx';
 import LoginPage from '@/pages/LoginPage.tsx';
-import PrivateRoute from '@/components/PrivateRoute/PrivateRoute.tsx';
-import LabsPage from '@/pages/LabsPage.tsx';
 
 export const routes = [
   {

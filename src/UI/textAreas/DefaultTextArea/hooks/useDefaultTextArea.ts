@@ -1,10 +1,18 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export const useDefaultTextArea = (
   defaultValue?: string,
   onChange?: (value: string) => void,
 ) => {
-  const [fieldValue, setValue] = useState(defaultValue || '');
+  const [fieldValue, setValue] = useState('');
+
+  useEffect(() => {
+    if (!defaultValue) {
+      return;
+    }
+
+    setValue(defaultValue);
+  }, [defaultValue]);
 
   const onInput = (newValue: string) => {
     setValue(newValue);

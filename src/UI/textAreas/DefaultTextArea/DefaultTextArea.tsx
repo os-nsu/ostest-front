@@ -1,6 +1,7 @@
 import { InputTextarea } from 'primereact/inputtextarea';
 import { useDefaultTextArea } from '@UI/textAreas/DefaultTextArea/hooks/useDefaultTextArea.ts';
 import styles from '@styles/components/DefaultTextArea.module.scss';
+import DefaultFieldLabel from '@UI/label/DefaultFieldLabel/DefaultFieldLabel.tsx';
 
 interface DefaultTextAreaProps {
   value?: string;
@@ -26,12 +27,7 @@ export default function DefaultTextArea({
 
   return (
     <div className={styles.container}>
-      {label ? (
-        <label>
-          {label}{' '}
-          {required ? <span style={{ color: '#EC4256' }}> * </span> : null}
-        </label>
-      ) : null}
+      {label ? <DefaultFieldLabel label={label} isRequired={required} /> : null}
       <InputTextarea
         className={styles.textarea}
         style={{ minHeight: textAreaMinHeight }}
