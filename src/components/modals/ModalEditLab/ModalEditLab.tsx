@@ -3,13 +3,16 @@ import styles from '@styles/components/ModalEditLab.module.scss';
 import { Button } from 'primereact/button';
 import IconClose from '@public/close.svg';
 import EditLabForm from '@/components/forms/EditLabForm/EditLabForm';
+import { Laboratory } from '@/types/Laboratory';
 
 interface ModalEditLabProps {
+  laboratory: Laboratory;
   displayed?: boolean;
   onClose: () => void;
 }
 
 export default function ModalEditLab({
+  laboratory,
   displayed,
   onClose,
 }: ModalEditLabProps) {
@@ -29,7 +32,7 @@ export default function ModalEditLab({
               onClick={onClose}
             />
           </div>
-          <EditLabForm />
+          <EditLabForm laboratory={laboratory} />
         </div>
       )}
     />

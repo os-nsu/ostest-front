@@ -2,10 +2,11 @@ import { Dropdown } from 'primereact/dropdown';
 import { SelectItem } from 'primereact/selectitem';
 import { useDefaultDropdown } from '@UI/inputs/DefaultDropdown/hooks/useDefaultDropdown.ts';
 import '@styles/components/DefaultDropdown.scss';
+import { Test } from '@/types/Test';
 
 interface DefaultDropdownProps {
   label?: string;
-  options: SelectItem[];
+  options: SelectItem[] | Test[];
   value?: string;
   placeholder?: string;
   required?: boolean;

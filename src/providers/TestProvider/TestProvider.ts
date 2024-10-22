@@ -11,7 +11,7 @@ export class TestProvider {
     this.instance = new AxiosClient({ baseURL: this.baseURL });
   }
 
-  createTest(requestData: CreateTestRequestData) {
+  createTest(requestData: Omit<CreateTestRequestData, 'id'>) {
     return this.instance.post<Test>('', requestData);
   }
 
