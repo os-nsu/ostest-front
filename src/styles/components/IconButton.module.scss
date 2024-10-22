@@ -6,10 +6,6 @@
     height: 44px;
     padding: 12px;
 
-    .icon {
-        width: 20px;
-        height: 20px;
-    }
 }
 
 .default {
@@ -19,6 +15,11 @@
     &:hover {
         background-color: #A855F799;
     }
+
+    & .icon {
+        width: 20px;
+        height: 20px;
+    }
 }
 
 .no_bg {
@@ -27,5 +28,10 @@
 
     &:hover {
         background-color: #F3F3F3;
+    }
+
+    & .icon {
+        width: 20px;
+        height: 20px;
     }
 }

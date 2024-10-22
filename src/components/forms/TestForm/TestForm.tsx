@@ -6,6 +6,8 @@ import { useTestForm } from '@/components/forms/TestForm/hooks/useTestForm.ts';
 import { Button } from 'primereact/button';
 import styles from '@styles/components/TestForm.module.scss';
 import { Test } from '@/types/Test.ts';
+import { InputSwitch } from 'primereact/inputswitch';
+import DefaultSwitch from '@UI/inputs/DefaultSwitch/DefaultSwitch.tsx';
 
 interface TestFormProps {
   test?: Test;
@@ -52,6 +54,8 @@ export default function TestForm({
           required
           onSelect={files => onFieldChange('files', files)}
         />
+
+        <DefaultSwitch />
       </div>
 
       <Button

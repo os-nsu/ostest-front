@@ -1,0 +1,15 @@
+
+
+
+.container {
+  display: flex;
+  gap: 9px;
+  align-items: center;
+
+
+  & .input {
+    border: 1px solid red;
+    border-radius: 30px;
+    background-color: #A855F7;
+  }
+}
