@@ -3,7 +3,8 @@ import { Test } from '@/types/Test.ts';
 import AboutTest from '@/components/AboutTest/AboutTest.tsx';
 import styles from '@styles/components/TestsPageStyles/TestAsideContent.module.scss';
 import { useTestAsideContent } from '@/components/TestAsideContent/hooks/useTestAsideContent.ts';
-import TestAsideEditForm from '@/components/TestAsideContent/components/TestAsideEditForm/TestAsideEditForm.tsx';
+import TestAsideContentEditHeader from '@/components/TestAsideContent/components/TestAsideContentEditHeader/TestAsideContentEditHeader.tsx';
+import TestForm from '@/components/forms/TestForm/TestForm.tsx';
 
 interface TestAsideContentProps {
   test: Test;
@@ -18,15 +19,27 @@ export default function TestAsideContent({
 
   return (
     <div className={styles.container}>
-      <TestAsideContentHeader
-        testName={test.name}
-        onCloseIconClick={onClose}
-        onEditIconClick={() => setIsEditing(true)}
-      />
       {isEditing ? (
-        <TestAsideEditForm test={test} />
+        <>
+          <TestAsideContentEditHeader
+            onCloseIconClick={onClose}
+            onReturnIconClick={() => setIsEditing(false)}
+          />
+          <TestForm
+            test={test}
+            containerClass={styles.form}
+            buttonLabel="Сохранить"
+          />
+        </>
       ) : (
-        <AboutTest test={test} />
+        <>
+          <TestAsideContentHeader
+            testName={test.name}
+            onCloseIconClick={onClose}
+            onEditIconClick={() => setIsEditing(true)}
+          />
+          <AboutTest test={test} />
+        </>
       )}
     </div>
   );
