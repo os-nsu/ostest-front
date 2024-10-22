@@ -1,7 +1,7 @@
 import styles from '@styles/components/LaboratoryPageContent.module.scss';
 
 interface LaboratoryDeadLineProps {
-  deadline: Date;
+  deadline: string;
 }
 
 export default function LaboratoryDeadLine({

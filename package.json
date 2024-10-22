@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "prepare": "husky",
     "precommit": "lint-staged",
-    "prepush": "tsc --noEmit -p tsconfig.app.json --composite false"
+    "prepush": "tsc --noEmit -p tsconfig.app.json --composite false",
+    "type-check": "tsc --noEmit -p tsconfig.app.json --composite false"
   },
   "lint-staged": {
     "src/**/*.{ts,tsx}": "prettier --write --ignore-unknown"
