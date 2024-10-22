@@ -21,7 +21,7 @@ function NavigationHeader({ activeTab, tabs }: NavigationHeaderProps) {
             <button
               type="button"
               className={`${styles.header_button} ${activeTab === 'labs' ? styles.header_button_checked : ''}`}
-              onClick={() => navigate('/labs')}>
+              onClick={() => navigate('/')}>
               <img src={IconLabs} />
               <span>Лабораторные</span>
             </button>
