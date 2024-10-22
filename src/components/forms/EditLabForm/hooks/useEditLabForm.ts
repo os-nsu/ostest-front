@@ -1,5 +1,5 @@
 // import { useLaboratoryProvider } from '@/providers/LaboratoryProvider/useLaboratoryProvider';
-import { useLaboratoryProvider } from '@/providers/LaboratoryProvider/useLaboratoryProvider';
+// import { useLaboratoryProvider } from '@/providers/LaboratoryProvider/useLaboratoryProvider';
 import { useTestProvider } from '@/providers/TestProvider/useTestProvider';
 import { Test } from '@/types/Test';
 import { useEffect, useState } from 'react';
@@ -21,7 +21,7 @@ export const useEditLabForm = (initialData: EditLabFormData) => {
   );
 
   const { getAllTests } = useTestProvider();
-  const { editLaboratory } = useLaboratoryProvider();
+  // const { editLaboratory } = useLaboratoryProvider();
 
   useEffect(() => {
     async function fetchTests() {
