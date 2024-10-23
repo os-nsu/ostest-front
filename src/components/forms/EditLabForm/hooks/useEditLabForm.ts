@@ -1,10 +1,8 @@
-// import { useLaboratoryProvider } from '@/providers/LaboratoryProvider/useLaboratoryProvider';
 import { useLaboratoryProvider } from '@/providers/LaboratoryProvider/useLaboratoryProvider';
-// import { useTestProvider } from '@/providers/TestProvider/useTestProvider';
 import { Test } from '@/types/Test';
 import { SelectItem } from 'primereact/selectitem';
 import { useEffect, useState } from 'react';
-// import { useNavigate } from 'react-router-dom';
+import { TestCategory } from '@/types/Test';
 
 interface EditLabFormData {
   name: string;
@@ -19,24 +17,75 @@ interface EditLabFormData {
 export const useEditLabForm = (initialData: EditLabFormData) => {
   const [formData, setFormData] = useState<EditLabFormData>(initialData);
   const [isButtonDisabled, setButtonDisabled] = useState(false);
-  // const [availableTests, setAvailableTests] = useState<Test[]>(initialData.tests);
-  const availableTests: Test[] = initialData.tests;
-  const [selectedTests, setSelectedTests] = useState<Test[]>([]);
+  const [selectedTests, setSelectedTests] = useState<Test[]>(initialData.tests);
 
-  // const { getAllTests } = useTestProvider();
-  // const { editLaboratory } = useLaboratoryProvider();
+  // потом должны быть все тесты из бд
+  const availableTests: Test[] = [
+    {
+      id: 1,
+      name: 'test 1',
+      description: 'descr 1',
+      category: TestCategory.DEFAULT,
+    },
+    {
+      id: 2,
+      name: 'test 2',
+      description: 'descr 2',
+      category: TestCategory.DEFAULT,
+    },
+    {
+      id: 3,
+      name: 'test 3',
+      description: 'descr 2',
+      category: TestCategory.DEFAULT,
+    },
+    {
+      id: 4,
+      name: 'test 4',
+      description: 'descr 2',
+      category: TestCategory.DEFAULT,
+    },
+    {
+      id: 5,
+      name: 'test 5',
+      description: 'descr 2',
+      category: TestCategory.DEFAULT,
+    },
+    {
+      id: 6,
+      name: 'test 6',
+      description: 'descr 2',
+      category: TestCategory.DEFAULT,
+    },
+    {
+      id: 7,
+      name: 'test 7',
+      description: 'descr 2',
+      category: TestCategory.DEFAULT,
+    },
+    {
+      id: 8,
+      name: 'test 8',
+      description: 'descr 2',
+      category: TestCategory.DEFAULT,
+    },
+    {
+      id: 9,
+      name: 'test 9',
+      description: 'descr 2',
+      category: TestCategory.DEFAULT,
+    },
+    {
+      id: 10,
+      name: 'test 10',
+      description: 'descr 3',
+      category: TestCategory.DEFAULT,
+    },
+  ];
 
-  // useEffect(() => {
-  //   async function fetchTests() {
-  //     try {
-  //       const response = await getAllTests();
-  //       setAvailableTests(response.data); // Извлекаем данные из AxiosResponse
-  //     } catch (error) {
-  //       console.error('Ошибка при получении тестов:', error);
-  //     }
-  //   }
-  //   fetchTests();
-  // }, [getAllTests]);
+  useEffect(() => {
+    setButtonDisabled(!formData.name.trim());
+  }, [formData.name]);
 
   const handleSelectTest = (testId: string) => {
     const selectedTest = availableTests.find(test => test.id === +testId);
@@ -52,22 +101,27 @@ export const useEditLabForm = (initialData: EditLabFormData) => {
     setSelectedTests(updatedTests);
     onFieldChange('tests', updatedTests);
   };
-  // useEffect(() => setButtonDisabled(!formData?.name), [formData]);
-  useEffect(() => {
-    setButtonDisabled(!formData.name.trim());
-  }, [formData.name]);
+
+  const convertTestsToSelectItems = (tests: Test[]): SelectItem[] => {
+    return tests.map(test => ({
+      label: test.name,
+      value: test.id,
+    }));
+  };
 
   const laboratoryProvider = useLaboratoryProvider();
-  // const navigate = useNavigate();
+
   const onEdit = () => {
     if (initialData.id) {
       laboratoryProvider
         .editLaboratory({
+          id: formData.id,
+          name: formData.name,
           deadline: formData.deadline,
           description: formData.description,
           semesterNumber: formData.semesterNumber,
           isHidden: formData.isHidden,
-          name: formData.name,
+          // test: formData.tests,
         })
         .then(({ status }) => {
           if (status !== 200) {
@@ -79,13 +133,6 @@ export const useEditLabForm = (initialData: EditLabFormData) => {
           console.error(response);
         });
     }
-  };
-
-  const convertTestsToSelectItems = (tests: Test[]): SelectItem[] => {
-    return tests.map(test => ({
-      label: test.name,
-      value: test.id,
-    }));
   };
 
   const onFieldChange = (

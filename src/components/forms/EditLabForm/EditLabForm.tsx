@@ -7,6 +7,7 @@ import { Laboratory } from '@/types/Laboratory';
 import DefaultTextArea from '@/UI/textAreas/DefaultTextArea/DefaultTextArea';
 import IconButton from '@/UI/buttons/IconButton/IconButton.tsx';
 import IconDelete from '@public/x.svg';
+import { InputText } from 'primereact/inputtext';
 
 interface EditLabFormProps {
   laboratory: Laboratory;
@@ -31,68 +32,7 @@ export default function EditLabForm({ laboratory }: EditLabFormProps) {
     deadline: laboratory.deadline
       ? laboratory.deadline.toLocaleDateString('ru-RU')
       : '',
-    tests: [
-      {
-        id: 1,
-        name: 'test 1',
-        description: 'descr 1',
-        category: 'DEFAULT',
-      },
-      {
-        id: 2,
-        name: 'test 2',
-        description: 'descr 2',
-        category: 'DEFAULT',
-      },
-      {
-        id: 3,
-        name: 'test 3',
-        description: 'descr 2',
-        category: 'DEFAULT',
-      },
-      {
-        id: 4,
-        name: 'test 4',
-        description: 'descr 2',
-        category: 'DEFAULT',
-      },
-      {
-        id: 5,
-        name: 'test 5',
-        description: 'descr 2',
-        category: 'DEFAULT',
-      },
-      {
-        id: 6,
-        name: 'test 6',
-        description: 'descr 2',
-        category: 'DEFAULT',
-      },
-      {
-        id: 7,
-        name: 'test 7',
-        description: 'descr 2',
-        category: 'DEFAULT',
-      },
-      {
-        id: 8,
-        name: 'test 8',
-        description: 'descr 2',
-        category: 'DEFAULT',
-      },
-      {
-        id: 9,
-        name: 'test 9',
-        description: 'descr 2',
-        category: 'DEFAULT',
-      },
-      {
-        id: 10,
-        name: 'test 10',
-        description: 'descr 3',
-        category: 'DEFAULT',
-      },
-    ],
+    tests: laboratory.tests,
   });
 
   return (
@@ -106,14 +46,21 @@ export default function EditLabForm({ laboratory }: EditLabFormProps) {
       <DefaultTextArea
         label="Описание"
         placeholder="Введите описание"
+        textAreaMinHeight={200}
         value={formData.description}
         onChange={value => onFieldChange('description', value || '')}
       />
-      <DefaultInput
-        label="Срок сдачи"
-        placeholder="Введите срок сдачи"
-        value={formData.deadline}
-        onChange={value => onFieldChange('deadline', value || '')}
+      <InputText
+        type="date"
+        placeholder="date placeholder"
+        value={formData.deadline ? formData.deadline.split('T')[0] : ''}
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+          const value = event.target?.value;
+          onFieldChange(
+            'deadline',
+            value ? new Date(value).toISOString().split('.')[0] + 'Z' : '',
+          );
+        }}
       />
       <DefaultDropdown
         options={availableTests}
