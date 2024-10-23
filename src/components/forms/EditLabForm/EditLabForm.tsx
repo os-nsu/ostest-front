@@ -30,7 +30,7 @@ export default function EditLabForm({ laboratory }: EditLabFormProps) {
     description: laboratory.description || '',
     id: laboratory.id,
     deadline: laboratory.deadline
-      ? laboratory.deadline.toLocaleDateString('ru-RU')
+      ? new Date(laboratory.deadline).toLocaleDateString('ru-RU')
       : '',
     tests: laboratory.tests,
   });

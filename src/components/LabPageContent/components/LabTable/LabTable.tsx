@@ -1,52 +1,41 @@
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
-import { laboratories } from '../../../../mocks/laboratories';
-import LabElementWrapper from './components/LabElementWrapper/LabElementWrapper';
 import styles from '@styles/components/LabTable.module.scss';
+import { MinimizedLaboratory } from '@/types/Laboratory.ts';
+import { useNavigate } from 'react-router-dom';
+import { useLabList } from '@/components/LabPageContent/components/LabTable/hooks/useLabList.ts';
 
-export default function LabList() {
-  const formatDescription = (description: string) => {
-    if (description.length > 0) return description.substring(0, 80) + '...';
-    return description;
-  };
+interface LabListProps {
+  laboratories: MinimizedLaboratory[];
+}
 
-  const formatDeadline = (deadline: string) => {
-    return new Date(deadline).toLocaleDateString('ru-RU', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric',
-    });
-  };
+export default function LabList({ laboratories }: LabListProps) {
+  const navigate = useNavigate();
+  const { columns, getTableValues } = useLabList();
+
+  if (!laboratories || !laboratories.length) {
+    return (
+      <span className={styles.labs_table_empty}>
+        Создайте первую лабораторную работу
+      </span>
+    );
+  }
 
   return (
-    <div className={styles.labs_table}>
-      {Object.keys(laboratories).length === 0 ? (
-        <div className={styles.labs_table_empty}>
-          <span>Создайте первую лабораторную работу</span>
-        </div>
-      ) : (
-        <DataTable value={laboratories}>
-          <Column
-            field="name"
-            header="Название"
-            body={rowData => <LabElementWrapper rowData={rowData} />}
-            style={{ width: '340px' }}
-          />
-          <Column
-            field="description"
-            header="Описание"
-            body={rowData => (
-              <span>{formatDescription(rowData.description)}</span>
-            )}
-          />
-          <Column
-            field="deadline"
-            header="Срок сдачи"
-            body={rowData => <span>{formatDeadline(rowData.deadline)}</span>}
-            style={{ width: '340px' }}
-          />
-        </DataTable>
-      )}
-    </div>
+    <DataTable
+      value={getTableValues(laboratories)}
+      className={styles.table}
+      onRowClick={({ data }) => navigate(`/lab/${data.id}`)}
+      rowHover>
+      {columns.map(({ field, header }, index) => (
+        <Column
+          field={field}
+          header={header}
+          headerClassName={styles.header}
+          bodyClassName={styles.cell}
+          key={index}
+        />
+      ))}
+    </DataTable>
   );
 }

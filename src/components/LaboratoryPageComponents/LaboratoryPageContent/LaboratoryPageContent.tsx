@@ -6,40 +6,46 @@ import LaboratoryDescription from '../LaboratoryDescription/LaboratoryDescriptio
 import LaboratoryAttachedTests from '../LaboratoryAttachedTests/LaboratoryAttachedTests.tsx';
 import { Test } from '@/types/Test.ts';
 import ModalEditLab from '@/components/modals/ModalEditLab/ModalEditLab.tsx';
-import { useState } from 'react';
+import ModalSubmitDelete from '@/components/modals/ModalSubmitDelete/ModalSubmitDelete.tsx';
+import { useLaboratoryPageContent } from './hooks/useLaboratoryPageContent.ts';
 
 interface LaboratoryPageContentProps {
   laboratory: Laboratory;
+  id?: string;
   tests: Test[];
 }
 
 export default function LaboratoryPageContent({
   laboratory,
   tests,
+  id,
 }: LaboratoryPageContentProps) {
-  const [isModalVisible, setModalVisible] = useState(false);
-
-  const handleOpenModal = () => {
-    setModalVisible(true);
-  };
-
-  const handleCloseModal = () => {
-    setModalVisible(false);
-  };
+  const { isModalVisible, setModalVisible, deleteLaboratory } =
+    useLaboratoryPageContent(id);
 
   return (
     <div className={styles.wrapper}>
       <LaboratoryPageTitle
         name={laboratory.name}
-        handleOpenModal={handleOpenModal}
+        onDelete={() => setModalVisible(true)}
+        onEdit={() => setModalVisible(true)}
       />
-      <LaboratoryDeadLine deadline={laboratory.deadline} />
+      {laboratory.deadline ? (
+        <LaboratoryDeadLine deadline={laboratory.deadline} />
+      ) : null}
       <LaboratoryDescription description={laboratory.description} />
       {tests && tests.length ? <LaboratoryAttachedTests tests={tests} /> : null}
+      <ModalSubmitDelete
+        displayed={isModalVisible}
+        name={laboratory.name}
+        id={id}
+        onPrevent={() => setModalVisible(false)}
+        onSubmit={deleteLaboratory}
+      />
       <ModalEditLab
         laboratory={laboratory}
         displayed={isModalVisible}
-        onClose={handleCloseModal}
+        onPrevent={() => setModalVisible(false)}
       />
     </div>
   );

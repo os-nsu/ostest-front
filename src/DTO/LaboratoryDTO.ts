@@ -11,8 +11,8 @@ export interface LaboratoryRequestData {
 
 export interface LaboratorySearchRequestData {
   [index: string]: unknown;
-  isHidden: boolean;
-  semesterNumber: number;
+  isHidden?: boolean;
+  semesterNumber?: number;
 }
 
 export interface LaboratoryResponseData {
@@ -23,11 +23,4 @@ export interface LaboratoryResponseData {
   deadline: string;
   isHidden: boolean;
   tests: Test[];
-}
-
-export interface LaboratorySearchResponseData {
-  id: number;
-  name: string;
-  deadline: string;
-  isHidden: boolean;
 }

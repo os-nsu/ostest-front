@@ -1,22 +1,23 @@
 import { Dialog } from 'primereact/dialog';
-import styles from '@styles/components/ModalEditLab.module.scss';
+import styles from '@styles/components/ModalDeleteLab.module.scss';
 import { Button } from 'primereact/button';
 import IconClose from '@public/close.svg';
-import EditLabForm from '@/components/forms/EditLabForm/EditLabForm';
-import { Laboratory } from '@/types/Laboratory';
+import DefaultModalButtons from '@/components/modals/ModalSubmitDelete/DefaultModalButtons';
 
-interface ModalEditLabProps {
-  laboratory: Laboratory;
+interface ModalSubmitDeleteProps {
   displayed?: boolean;
+  name?: string;
   id?: string;
   onPrevent: () => void;
+  onSubmit: () => void;
 }
 
-export default function ModalEditLab({
-  laboratory,
+export default function ModalSubmitDelete({
   displayed,
+  name,
   onPrevent,
-}: ModalEditLabProps) {
+  onSubmit,
+}: ModalSubmitDeleteProps) {
   return (
     <Dialog
       visible={displayed}
@@ -25,7 +26,6 @@ export default function ModalEditLab({
       content={() => (
         <div className={styles.container}>
           <div className={styles.buttonContainer}>
-            <span className={styles.title}>Редактирование лаб. работы</span>
             <Button
               className={styles.close}
               icon={<img src={IconClose} alt="" />}
@@ -33,7 +33,10 @@ export default function ModalEditLab({
               onClick={onPrevent}
             />
           </div>
-          <EditLabForm laboratory={laboratory} />
+          <span className={styles.title}>
+            Вы уверены, что хотите удалить {name}?
+          </span>
+          <DefaultModalButtons onPrevent={onPrevent} onSubmit={onSubmit} />
         </div>
       )}
     />

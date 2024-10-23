@@ -7,12 +7,14 @@ import { useNavigate } from 'react-router-dom';
 
 interface LaboratoryPageTitleProps {
   name: string;
-  handleOpenModal: () => void;
+  onDelete: () => void;
+  onEdit: () => void;
 }
 
 export default function LaboratoryPageTitle({
   name,
-  handleOpenModal,
+  onDelete,
+  onEdit,
 }: LaboratoryPageTitleProps) {
   const navigate = useNavigate();
 
@@ -23,8 +25,8 @@ export default function LaboratoryPageTitle({
         <div>{name}</div>
       </div>
       <div className={styles.buttons}>
-        <IconButton icon={IconPebcil} onClick={handleOpenModal} />
-        <IconButton icon={IconTrash} />
+        <IconButton icon={IconPebcil} onClick={onEdit} />
+        <IconButton icon={IconTrash} onClick={onDelete} />
       </div>
     </div>
   );

@@ -29,10 +29,7 @@ export function useLaboratoryPage(id: string | undefined): LaboratoryPageData {
           return;
         }
 
-        setLaboratory({
-          ...data,
-          deadline: data.deadline ? new Date(data.deadline) : new Date(),
-        });
+        setLaboratory(data);
       })
       .catch(({ response }) => {
         if (response?.status === 404) {

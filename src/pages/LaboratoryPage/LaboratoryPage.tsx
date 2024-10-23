@@ -21,8 +21,12 @@ export default function LaboratoryPage() {
   }
 
   return (
-    <DefaultPageLayout activeTab={'lab'} onSelectTab={() => {}}>
-      <LaboratoryPageContent laboratory={laboratory} tests={laboratory.tests} />
+    <DefaultPageLayout activeTab={'lab'}>
+      <LaboratoryPageContent
+        laboratory={laboratory}
+        id={id}
+        tests={laboratory.tests}
+      />
     </DefaultPageLayout>
   );
 }
