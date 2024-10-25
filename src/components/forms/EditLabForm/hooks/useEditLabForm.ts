@@ -140,6 +140,11 @@ export const useEditLabForm = (initialData: EditLabFormData) => {
     value: string | Test[],
   ) => setFormData({ ...formData, [fieldType]: value });
 
+  function parseDateFromString(dateStr: string): Date | undefined {
+    const [day, month, year] = dateStr.split('.').map(Number);
+    return day && month && year ? new Date(year, month - 1, day) : undefined;
+  }
+
   return {
     formData,
     isButtonDisabled,
@@ -149,5 +154,6 @@ export const useEditLabForm = (initialData: EditLabFormData) => {
     onFieldChange,
     handleSelectTest,
     handleDeselectTest,
+    parseDateFromString,
   };
 };

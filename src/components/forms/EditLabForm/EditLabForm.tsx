@@ -5,15 +5,13 @@ import DefaultDropdown from '@/UI/inputs/DefaultDropdown/DefaultDropdown';
 import DefaultInput from '@/UI/inputs/DefaultInput/DefaultInput';
 import { Laboratory } from '@/types/Laboratory';
 import DefaultTextArea from '@/UI/textAreas/DefaultTextArea/DefaultTextArea';
-import IconButton from '@/UI/buttons/IconButton/IconButton.tsx';
-import IconDelete from '@public/x.svg';
-import { InputText } from 'primereact/inputtext';
+import SelectedTests from '@/components/SelectedTests/SelectedTests';
+import DefaultInputDate from '@/UI/inputs/DefaultInputDate/DefaultInputDate';
 
-interface EditLabFormProps {
-  laboratory: Laboratory;
-}
-
-export default function EditLabForm({ laboratory }: EditLabFormProps) {
+export default function EditLabForm(laboratory: Laboratory) {
+  const deadline = laboratory.deadline
+    ? new Date(laboratory.deadline).toLocaleDateString('ru-RU')
+    : '';
   const {
     formData,
     onEdit,
@@ -21,18 +19,12 @@ export default function EditLabForm({ laboratory }: EditLabFormProps) {
     isButtonDisabled,
     availableTests,
     selectedTests,
+    parseDateFromString,
     handleSelectTest,
     handleDeselectTest,
   } = useEditLabForm({
-    semesterNumber: laboratory.semesterNumber,
-    isHidden: laboratory.isHidden,
-    name: laboratory.name,
-    description: laboratory.description || '',
-    id: laboratory.id,
-    deadline: laboratory.deadline
-      ? new Date(laboratory.deadline).toLocaleDateString('ru-RU')
-      : '',
-    tests: laboratory.tests,
+    ...laboratory,
+    deadline,
   });
 
   return (
@@ -50,17 +42,21 @@ export default function EditLabForm({ laboratory }: EditLabFormProps) {
         value={formData.description}
         onChange={value => onFieldChange('description', value || '')}
       />
-      <InputText
-        type="date"
-        placeholder="date placeholder"
-        value={formData.deadline ? formData.deadline.split('T')[0] : ''}
-        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-          const value = event.target?.value;
+      <DefaultInputDate
+        label="Срок сдачи"
+        placeholder="Выберите дату"
+        dateFormat="dd-mm-yy"
+        value={
+          formData.deadline
+            ? parseDateFromString(formData.deadline)
+            : new Date()
+        }
+        onChange={value =>
           onFieldChange(
             'deadline',
-            value ? new Date(value).toISOString().split('.')[0] + 'Z' : '',
-          );
-        }}
+            value ? value.toISOString().split('.')[0] + 'Z' : '',
+          )
+        }
       />
       <DefaultDropdown
         options={availableTests}
@@ -68,24 +64,11 @@ export default function EditLabForm({ laboratory }: EditLabFormProps) {
         placeholder="Выберите тесты для работы"
         onSelect={value => handleSelectTest(value as string)}
       />
-      <div className={styles.testsWrapper}>
-        Прикреплённые тесты
-        <div className={styles.attachedTests}>
-          {selectedTests.map(test => (
-            <div key={test.id} className={styles.selectedTest}>
-              {test.name}
-              <IconButton
-                icon={IconDelete}
-                onClick={() => handleDeselectTest(test)}
-              />
-            </div>
-          ))}
-        </div>
-      </div>
+      <SelectedTests onDeselect={handleDeselectTest} tests={selectedTests} />
       <Button
         className={styles.submitButton}
         disabled={isButtonDisabled}
-        label="Зарегистрировать"
+        label="Сохранить"
         onClick={onEdit}
       />
     </div>

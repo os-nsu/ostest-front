@@ -33,7 +33,7 @@ export default function ModalEditLab({
               onClick={onPrevent}
             />
           </div>
-          <EditLabForm laboratory={laboratory} />
+          <EditLabForm {...laboratory} />
         </div>
       )}
     />

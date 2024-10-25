@@ -5,39 +5,17 @@
     padding: 21px;
 
     & .submitButton {
+        border-radius: 6px;
+        border: 1px;
+        width: 140px;
+        height: 45px;
+
         align-self: center;
+        margin-left: auto;
         width: max-content;
-    }
 
-    & .attachedTests {
-        display: flex;
-        flex-direction: column;
-    }
-
-    & .testsWrapper {
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-
-        font-size: 18px;
+        font-size: 20px;
         font-weight: 500;
-        line-height: 21.78px;
-    }
-
-    & .selectedTest {
-        height: 60px;
-        display: flex;
-        justify-content: space-between;
-
-        font-size: 18px;
-        font-weight: 300;
-        line-height: 21.78px;
-
-        padding: 15px 30px;
-
-        button {
-            max-height: 30px;
-            max-width: 30px;
-        }
+        line-height: 24.2px;
     }
 }
