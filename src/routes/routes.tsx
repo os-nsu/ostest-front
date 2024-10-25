@@ -14,6 +14,10 @@ export const routes = [
     element: <PrivateRoute element={<TestsPage />} />,
   },
   {
+    path: '/groups',
+    element: <PrivateRoute element={<TestsPage />} />,
+  },
+  {
     path: '/lab/:id',
     element: <PrivateRoute element={<LaboratoryPage />} />,
   },
