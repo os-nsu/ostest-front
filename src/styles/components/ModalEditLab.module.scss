@@ -12,27 +12,15 @@
 
     & .buttonContainer {
       padding: 21px;
+
+      display: flex;
+      justify-content: space-between;
     }
 
     & .title {
       font-size: 24px;
       font-weight: 500;
       line-height: 29.05px;
-    }
-
-    & .close {
-      background-color: transparent;
-      width: 24px;
-      height: 24px;
-      padding: 4px;
-
-      position: absolute;
-      top: 16px;
-      right: 16px;
-
-      &:hover {
-        background-color: #ECEBF9;
-      }
     }
   }
 }

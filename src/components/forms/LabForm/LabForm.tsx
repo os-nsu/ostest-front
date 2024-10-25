@@ -1,4 +1,3 @@
-import { Button } from 'primereact/button';
 import styles from '@styles/components/LabForm.module.scss';
 import DefaultDropdown from '@/UI/inputs/DefaultDropdown/DefaultDropdown';
 import DefaultInput from '@/UI/inputs/DefaultInput/DefaultInput';
@@ -7,30 +6,42 @@ import DefaultTextArea from '@/UI/textAreas/DefaultTextArea/DefaultTextArea';
 import SelectedTests from '@/components/SelectedTests/SelectedTests';
 import DefaultInputDate from '@/UI/inputs/DefaultInputDate/DefaultInputDate';
 import { useLabForm } from './hooks/useLabForm';
+import DefaultButton from '@/UI/buttons/DefaultButton/DefaultButton';
 
-interface LabFormProps extends Laboratory {
+interface LabFormProps {
+  laboratory?: Laboratory;
   isEditing: boolean;
+  onUpdate: () => void;
 }
 
-export default function LabForm({ isEditing, ...laboratory }: LabFormProps) {
-  const deadline = laboratory.deadline
+export default function LabForm({
+  isEditing,
+  laboratory,
+  onUpdate,
+}: LabFormProps) {
+  const deadline = laboratory?.deadline
     ? new Date(laboratory.deadline).toISOString().split('.')[0] + 'Z'
     : new Date().toISOString().split('.')[0] + 'Z';
+  const labData = {
+    deadline,
+    description: laboratory?.description ?? '',
+    semesterNumber: laboratory?.semesterNumber ?? 0,
+    tests: laboratory?.tests ?? [],
+    isHidden: laboratory?.isHidden ?? false,
+    id: laboratory?.id ?? -1,
+    name: laboratory?.name ?? '',
+  };
+
   const {
     formData,
-    onEditOrCreate,
+    onSubmit,
     onFieldChange,
-    isButtonDisabled,
     availableTests,
     selectedTests,
     handleSelectTest,
     handleDeselectTest,
     isNameError,
-  } = useLabForm({
-    ...laboratory,
-    deadline,
-    isEditing,
-  });
+  } = useLabForm(isEditing, labData, onUpdate);
 
   return (
     <div className={styles.container}>
@@ -65,11 +76,10 @@ export default function LabForm({ isEditing, ...laboratory }: LabFormProps) {
         onSelect={value => handleSelectTest(value as string)}
       />
       <SelectedTests onDeselect={handleDeselectTest} tests={selectedTests} />
-      <Button
-        className={styles.submitButton}
-        disabled={isButtonDisabled}
+      <DefaultButton
+        buttonClass={styles.submitButton}
         label={isEditing ? 'Сохранить' : 'Создать'}
-        onClick={onEditOrCreate}
+        onClick={onSubmit}
       />
     </div>
   );

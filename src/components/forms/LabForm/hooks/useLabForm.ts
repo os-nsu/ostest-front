@@ -3,24 +3,17 @@ import { Test } from '@/types/Test';
 import { SelectItem } from 'primereact/selectitem';
 import { useEffect, useState } from 'react';
 import { TestCategory } from '@/types/Test';
+import { Laboratory } from '@/types/Laboratory';
+import { LaboratoryRequestData } from '@/DTO/LaboratoryDTO';
 
-interface LabFormData {
-  name: string;
-  description: string;
-  deadline: string;
-  tests: Test[];
-  id?: number;
-  isHidden: boolean;
-  semesterNumber: number;
-
-  isEditing: boolean;
-}
-
-export const useLabForm = ({ isEditing, ...initialData }: LabFormData) => {
-  const [formData, setFormData] =
-    useState<Omit<LabFormData, 'isEditing'>>(initialData);
+export const useLabForm = (
+  isEditing: boolean,
+  laboratory: Laboratory,
+  onUpdate: () => void,
+) => {
+  const [formData, setFormData] = useState(laboratory);
   const [isButtonDisabled, setButtonDisabled] = useState(false);
-  const [selectedTests, setSelectedTests] = useState<Test[]>(initialData.tests);
+  const [selectedTests, setSelectedTests] = useState<Test[]>(laboratory.tests);
   const [isNameError, setNameError] = useState('');
 
   // потом должны быть все тесты из бд
@@ -115,8 +108,8 @@ export const useLabForm = ({ isEditing, ...initialData }: LabFormData) => {
 
   const laboratoryProvider = useLaboratoryProvider();
 
-  const onEditOrCreate = () => {
-    const laboratoryData: Omit<LabFormData, 'isEditing'> = {
+  const onSubmit = () => {
+    const laboratoryData: Omit<Laboratory, 'id'> = {
       name: formData.name,
       deadline: formData.deadline,
       description: formData.description,
@@ -126,50 +119,57 @@ export const useLabForm = ({ isEditing, ...initialData }: LabFormData) => {
     };
 
     if (isEditing) {
-      if (initialData.id) {
-        laboratoryData.id = formData.id;
-        laboratoryProvider
-          .editLaboratory(laboratoryData)
-          .then(({ status }) => {
-            if (status !== 200) {
-              return;
-            }
-            window.location.reload();
-          })
-          .catch(({ response }) => {
-            if (response.status === 400) {
-              setNameError(response.data.message);
-              return;
-            }
-            console.error(response);
-          });
-      }
-    } else {
-      laboratoryProvider
-        .addLaboratory(laboratoryData)
-        .then(({ status }) => {
-          if (status !== 200) {
-            return;
-          }
-          window.location.reload();
-        })
-        .catch(({ response }) => {
-          console.error(response);
-        });
+      if (laboratory.id)
+        EditLaboratory({ id: laboratory.id, ...laboratoryData });
+      else AddLaboratory(laboratoryData);
     }
   };
 
-  const onFieldChange = (
-    fieldType: keyof LabFormData,
-    value: string | Test[],
-  ) => setFormData({ ...formData, [fieldType]: value });
+  interface LaboratoryEditRequestData extends LaboratoryRequestData {
+    id: number;
+  }
+
+  const EditLaboratory = (data: LaboratoryEditRequestData) => {
+    laboratoryProvider
+      .editLaboratory(data)
+      .then(({ status }) => {
+        if (status !== 200) {
+          return;
+        }
+        onUpdate();
+      })
+      .catch(({ response }) => {
+        if (response.status === 400) {
+          setNameError(response.data.message);
+          return;
+        }
+        console.error(response);
+      });
+  };
+
+  const AddLaboratory = (data: LaboratoryRequestData) => {
+    laboratoryProvider
+      .addLaboratory(data)
+      .then(({ status }) => {
+        if (status !== 200) {
+          return;
+        }
+        onUpdate();
+      })
+      .catch(({ response }) => {
+        console.error(response);
+      });
+  };
+
+  const onFieldChange = (fieldType: keyof Laboratory, value: string | Test[]) =>
+    setFormData({ ...formData, [fieldType]: value });
 
   return {
     formData,
     isButtonDisabled,
     availableTests: convertTestsToSelectItems(availableTests),
     selectedTests,
-    onEditOrCreate,
+    onSubmit,
     onFieldChange,
     handleSelectTest,
     handleDeselectTest,

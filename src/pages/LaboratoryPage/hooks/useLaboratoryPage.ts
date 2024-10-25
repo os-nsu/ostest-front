@@ -6,12 +6,19 @@ interface LaboratoryPageData {
   laboratory: Laboratory | null;
   isLoading: boolean;
   isError: string;
+  refreshKey: number;
+  handleRefresh: () => void;
 }
 
 export function useLaboratoryPage(id: string | undefined): LaboratoryPageData {
   const [laboratory, setLaboratory] = useState<Laboratory | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState('');
+
+  const [refreshKey, setRefreshKey] = useState(0);
+  const handleRefresh = () => {
+    setRefreshKey((prevKey: number) => prevKey + 1);
+  };
 
   const laboratoryProvider = useLaboratoryProvider();
 
@@ -42,7 +49,7 @@ export function useLaboratoryPage(id: string | undefined): LaboratoryPageData {
       .finally(() => {
         setIsLoading(false);
       });
-  }, [id, laboratoryProvider]);
+  }, [id, laboratoryProvider, refreshKey]);
 
-  return { laboratory, isLoading, isError };
+  return { laboratory, isLoading, isError, refreshKey, handleRefresh };
 }

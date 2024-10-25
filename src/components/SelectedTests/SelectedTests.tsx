@@ -22,7 +22,6 @@ export default function SelectedTests({
             <IconButton
               icon={IconClose({ color: 'white' })}
               onClick={() => onDeselect(test)}
-              type="no_bg"
             />
           </div>
         ))}

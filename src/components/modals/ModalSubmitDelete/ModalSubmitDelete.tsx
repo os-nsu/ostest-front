@@ -1,8 +1,8 @@
 import { Dialog } from 'primereact/dialog';
 import styles from '@styles/components/ModalDeleteLab.module.scss';
-import { Button } from 'primereact/button';
-import IconClose from '@public/close.svg';
+import IconClose from '@/UI/icons/IconClose/IconClose';
 import DefaultModalButtons from '@/components/modals/ModalSubmitDelete/DefaultModalButtons';
+import IconButton from '@/UI/buttons/IconButton/IconButton';
 
 interface ModalSubmitDeleteProps {
   displayed?: boolean;
@@ -26,11 +26,10 @@ export default function ModalSubmitDelete({
       content={() => (
         <div className={styles.container}>
           <div className={styles.buttonContainer}>
-            <Button
-              className={styles.close}
-              icon={<img src={IconClose} alt="" />}
-              rounded
+            <IconButton
+              icon={IconClose({ color: 'black' })}
               onClick={onPrevent}
+              type="no_bg"
             />
           </div>
           <span className={styles.title}>
