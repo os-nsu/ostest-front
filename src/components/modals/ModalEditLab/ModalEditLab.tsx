@@ -2,8 +2,8 @@ import { Dialog } from 'primereact/dialog';
 import styles from '@styles/components/ModalEditLab.module.scss';
 import { Button } from 'primereact/button';
 import IconClose from '@public/close.svg';
-import EditLabForm from '@/components/forms/EditLabForm/EditLabForm';
 import { Laboratory } from '@/types/Laboratory';
+import LabForm from '@/components/forms/LabForm/LabForm';
 
 interface ModalEditLabProps {
   laboratory: Laboratory;
@@ -33,7 +33,7 @@ export default function ModalEditLab({
               onClick={onPrevent}
             />
           </div>
-          <EditLabForm {...laboratory} />
+          <LabForm isEditing={true} {...laboratory} />
         </div>
       )}
     />

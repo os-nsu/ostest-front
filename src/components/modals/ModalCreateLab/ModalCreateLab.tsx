@@ -1,4 +1,4 @@
-import LabForm from '@/components/forms/LabForm/LabForm.tsx';
+// import LabForm from '@/components/forms/LabForm/LabForm.tsx';
 import { Dialog } from 'primereact/dialog';
 import styles from '@styles/components/ModalCreateLab.module.scss';
 import { Button } from 'primereact/button';
@@ -20,7 +20,7 @@ export default function ModalCreateLab({ displayed }: ModalCreateLabProps) {
       content={() => (
         <div className={styles.container}>
           <span className={styles.title}>Добавить лаб. работу</span>
-          <LabForm />
+          {/* <LabForm isEditing={false}/> */}
           <Button
             className={styles.close}
             icon={<img src={IconClose} alt="" />}

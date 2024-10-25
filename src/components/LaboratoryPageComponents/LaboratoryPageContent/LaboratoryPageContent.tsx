@@ -20,15 +20,26 @@ export default function LaboratoryPageContent({
   tests,
   id,
 }: LaboratoryPageContentProps) {
-  const { isModalVisible, setModalVisible, deleteLaboratory } =
-    useLaboratoryPageContent(id);
+  const {
+    isModalVisible,
+    setModalVisible,
+    modalType,
+    setModalType,
+    deleteLaboratory,
+  } = useLaboratoryPageContent(id);
 
   return (
     <div className={styles.wrapper}>
       <LaboratoryPageTitle
         name={laboratory.name}
-        onDelete={() => setModalVisible(true)}
-        onEdit={() => setModalVisible(true)}
+        onDelete={() => {
+          setModalVisible(true);
+          setModalType('delete');
+        }}
+        onEdit={() => {
+          setModalType('edit');
+          setModalVisible(true);
+        }}
       />
       {laboratory.deadline ? (
         <LaboratoryDeadLine deadline={laboratory.deadline} />
@@ -36,7 +47,7 @@ export default function LaboratoryPageContent({
       <LaboratoryDescription description={laboratory.description} />
       {tests && tests.length ? <LaboratoryAttachedTests tests={tests} /> : null}
       <ModalSubmitDelete
-        displayed={isModalVisible}
+        displayed={isModalVisible && modalType === 'delete'}
         name={laboratory.name}
         id={id}
         onPrevent={() => setModalVisible(false)}
@@ -44,7 +55,7 @@ export default function LaboratoryPageContent({
       />
       <ModalEditLab
         laboratory={laboratory}
-        displayed={isModalVisible}
+        displayed={isModalVisible && modalType === 'edit'}
         onPrevent={() => setModalVisible(false)}
       />
     </div>
