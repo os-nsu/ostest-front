@@ -1,6 +1,7 @@
-import { FileUpload, FileUploadSelectEvent } from 'primereact/fileupload';
-import '@styles/components/DefaultFileUploader.scss';
-import { useRef } from 'react';
+import styles from '@styles/components/DefaultFileUploader.module.scss';
+import DefaultFieldLabel from '@UI/label/DefaultFieldLabel/DefaultFieldLabel.tsx';
+import IconPlus from '@public/plus.svg';
+import DefaultButton from '@UI/buttons/DefaultButton/DefaultButton.tsx';
 
 interface DefaultFileUploaderProps {
   label?: string;
@@ -20,25 +21,19 @@ export default function DefaultFileUploader({
   required,
   onSelect,
 }: DefaultFileUploaderProps) {
-  const fieldRef = useRef<FileUpload | null>(null);
-
   return (
-    <div className="container">
-      {label ? (
-        <label>
-          {label}{' '}
-          {required ? <span style={{ color: '#EC4256' }}> * </span> : null}
-        </label>
-      ) : null}
-      <FileUpload
-        ref={fieldRef}
-        customUpload
-        mode="basic"
-        accept={accept}
+    <div className={styles.container}>
+      {label ? <DefaultFieldLabel label={label} isRequired={required} /> : null}
+      <DefaultButton
+        buttonClass={styles.button}
+        label={placeholder || 'Загрузить'}
+        icon={IconPlus}
+      />
+      <input
+        type="file"
+        className={styles.input}
         multiple={multiple}
-        chooseLabel={placeholder}
-        onSelect={(e: FileUploadSelectEvent) => onSelect && onSelect(e.files)}
-        uploadHandler={() => fieldRef.current?.clear()}
+        accept={accept}
       />
     </div>
   );
