@@ -3,6 +3,7 @@ import LabsPage from '@/pages/LabsPage';
 import TestsPage from '@/pages/TestsPage/TestsPage.tsx';
 import LaboratoryPage from '@/pages/LaboratoryPage/LaboratoryPage.tsx';
 import LoginPage from '@/pages/LoginPage.tsx';
+import GroupsPage from '@/pages/GroupsPage/GroupsPage';
 
 export const routes = [
   {
@@ -15,7 +16,7 @@ export const routes = [
   },
   {
     path: '/groups',
-    element: <PrivateRoute element={<TestsPage />} />,
+    element: <PrivateRoute element={<GroupsPage />} />,
   },
   {
     path: '/lab/:id',
