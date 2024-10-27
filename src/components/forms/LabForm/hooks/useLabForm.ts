@@ -13,7 +13,6 @@ export const useLabForm = (
 ) => {
   const [formData, setFormData] = useState(laboratory);
   const [isButtonDisabled, setButtonDisabled] = useState(false);
-  const [selectedTests, setSelectedTests] = useState<Test[]>(laboratory.tests);
   const [isNameError, setNameError] = useState('');
 
   // потом должны быть все тесты из бд
@@ -86,16 +85,16 @@ export const useLabForm = (
 
   const handleSelectTest = (testId: string) => {
     const selectedTest = availableTests.find(test => test.id === +testId);
-    if (selectedTest && !selectedTests.find(t => t.id === selectedTest.id)) {
-      const updatedTests = [...selectedTests, selectedTest];
-      setSelectedTests(updatedTests);
+    if (selectedTest && !formData.tests.find(t => t.id === selectedTest.id)) {
+      const updatedTests = [...formData.tests, selectedTest];
+      formData.tests = updatedTests;
       onFieldChange('tests', updatedTests);
     }
   };
 
   const handleDeselectTest = (test: Test) => {
-    const updatedTests = selectedTests.filter(t => t.id !== test.id);
-    setSelectedTests(updatedTests);
+    const updatedTests = formData.tests.filter(t => t.id !== test.id);
+    formData.tests = updatedTests;
     onFieldChange('tests', updatedTests);
   };
 
@@ -109,27 +108,24 @@ export const useLabForm = (
   const laboratoryProvider = useLaboratoryProvider();
 
   const onSubmit = () => {
-    const laboratoryData: Omit<Laboratory, 'id'> = {
-      name: formData.name,
-      deadline: formData.deadline,
-      description: formData.description,
-      semesterNumber: formData.semesterNumber,
-      isHidden: formData.isHidden,
-      tests: formData.tests,
-    };
+    const { id, ...laboratoryData } = formData;
 
     if (isEditing) {
-      if (laboratory.id)
-        EditLaboratory({ id: laboratory.id, ...laboratoryData });
-      else AddLaboratory(laboratoryData);
+      if (!laboratory.id) {
+        return;
+      }
+      editLaboratory({ id, ...laboratoryData });
+      return;
     }
+
+    addLaboratory(laboratoryData);
   };
 
   interface LaboratoryEditRequestData extends LaboratoryRequestData {
     id: number;
   }
 
-  const EditLaboratory = (data: LaboratoryEditRequestData) => {
+  const editLaboratory = (data: LaboratoryEditRequestData) => {
     laboratoryProvider
       .editLaboratory(data)
       .then(({ status }) => {
@@ -147,7 +143,7 @@ export const useLabForm = (
       });
   };
 
-  const AddLaboratory = (data: LaboratoryRequestData) => {
+  const addLaboratory = (data: LaboratoryRequestData) => {
     laboratoryProvider
       .addLaboratory(data)
       .then(({ status }) => {
@@ -168,7 +164,6 @@ export const useLabForm = (
     formData,
     isButtonDisabled,
     availableTests: convertTestsToSelectItems(availableTests),
-    selectedTests,
     onSubmit,
     onFieldChange,
     handleSelectTest,

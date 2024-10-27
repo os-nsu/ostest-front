@@ -37,7 +37,6 @@ export default function LabForm({
     onSubmit,
     onFieldChange,
     availableTests,
-    selectedTests,
     handleSelectTest,
     handleDeselectTest,
     isNameError,
@@ -75,7 +74,7 @@ export default function LabForm({
         placeholder="Выберите тесты для работы"
         onSelect={value => handleSelectTest(value as string)}
       />
-      <SelectedTests onDeselect={handleDeselectTest} tests={selectedTests} />
+      <SelectedTests onDeselect={handleDeselectTest} tests={formData.tests} />
       <DefaultButton
         buttonClass={styles.submitButton}
         label={isEditing ? 'Сохранить' : 'Создать'}
