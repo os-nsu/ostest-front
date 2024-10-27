@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useLaboratoryProvider } from '@/providers/LaboratoryProvider/useLaboratoryProvider';
 import { Laboratory } from '@/types/Laboratory';
 
@@ -6,16 +6,17 @@ interface LaboratoryPageData {
   laboratory: Laboratory | null;
   isLoading: boolean;
   isError: string;
+  onEditLab: () => void;
 }
 
-export function useLaboratoryPage(id: string | undefined): LaboratoryPageData {
+export function useLaboratoryPage(id?: string): LaboratoryPageData {
   const [laboratory, setLaboratory] = useState<Laboratory | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState('');
 
   const laboratoryProvider = useLaboratoryProvider();
 
-  useEffect(() => {
+  const requestLaboratoryData = useCallback(() => {
     if (!id) {
       setIsError('Id лабораторной не найден');
       return;
@@ -28,7 +29,6 @@ export function useLaboratoryPage(id: string | undefined): LaboratoryPageData {
         if (status !== 200 || !data) {
           return;
         }
-
         setLaboratory(data);
       })
       .catch(({ response }) => {
@@ -44,5 +44,13 @@ export function useLaboratoryPage(id: string | undefined): LaboratoryPageData {
       });
   }, [id, laboratoryProvider]);
 
-  return { laboratory, isLoading, isError };
+  useEffect(() => {
+    requestLaboratoryData();
+  }, [requestLaboratoryData]);
+
+  const onEditLab = () => {
+    requestLaboratoryData();
+  };
+
+  return { laboratory, isLoading, isError, onEditLab };
 }

@@ -2,8 +2,11 @@ import { useLaboratoryProvider } from '@/providers/LaboratoryProvider/useLaborat
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-export const useLaboratoryPageContent = (id: string | undefined) => {
+type ModalType = 'edit' | 'delete' | null;
+
+export const useLaboratoryPageContent = (id?: string) => {
   const [isModalVisible, setModalVisible] = useState(false);
+  const [modalType, setModalType] = useState<ModalType>(null);
 
   const laboratoryProvider = useLaboratoryProvider();
   const navigate = useNavigate();
@@ -27,5 +30,7 @@ export const useLaboratoryPageContent = (id: string | undefined) => {
     deleteLaboratory,
     isModalVisible,
     setModalVisible,
+    modalType,
+    setModalType,
   };
 };

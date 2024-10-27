@@ -8,11 +8,13 @@ import { useNavigate } from 'react-router-dom';
 interface LaboratoryPageTitleProps {
   name: string;
   onDelete: () => void;
+  onEdit: () => void;
 }
 
 export default function LaboratoryPageTitle({
   name,
   onDelete,
+  onEdit,
 }: LaboratoryPageTitleProps) {
   const navigate = useNavigate();
 
@@ -23,7 +25,7 @@ export default function LaboratoryPageTitle({
         <div>{name}</div>
       </div>
       <div className={styles.buttons}>
-        <IconButton icon={IconPebcil} />
+        <IconButton icon={IconPebcil} onClick={onEdit} />
         <IconButton icon={IconTrash} onClick={onDelete} />
       </div>
     </div>

@@ -9,8 +9,8 @@ export const useLabPageContent = () => {
 
   useEffect(() => {
     const requestData: LaboratorySearchRequestData = {
-      isHidden: true,
-      semesterNumber: 0,
+      isHidden: null,
+      semesterNumber: null,
     };
 
     setIsLoading(true);

@@ -7,10 +7,16 @@ interface LaboratoryDescriptionProps {
 export default function LaboratoryDescription({
   description,
 }: LaboratoryDescriptionProps) {
+  const lines = description.split('\n');
+
   return (
     <div className={styles.container}>
       <div className={styles.title}>Описание</div>
-      <div className={styles.content}>{description}</div>
+      <div className={styles.content}>
+        {lines.map((line, index) => (
+          <div key={index}>{line || <br />}</div>
+        ))}
+      </div>
     </div>
   );
 }

@@ -1,54 +1,85 @@
-import DefaultInput from '@UI/inputs/DefaultInput/DefaultInput.tsx';
-import DefaultTextArea from '@UI/textAreas/DefaultTextArea/DefaultTextArea.tsx';
-import { useLabForm } from '@/components/forms/LabForm/hooks/useLabForm.ts';
-import { Button } from 'primereact/button';
-import { Calendar } from 'primereact/calendar';
 import styles from '@styles/components/LabForm.module.scss';
-import { useState } from 'react';
+import DefaultDropdown from '@/UI/inputs/DefaultDropdown/DefaultDropdown';
+import DefaultInput from '@/UI/inputs/DefaultInput/DefaultInput';
+import { Laboratory } from '@/types/Laboratory';
+import DefaultTextArea from '@/UI/textAreas/DefaultTextArea/DefaultTextArea';
+import SelectedTests from '@/components/SelectedTests/SelectedTests';
+import DefaultInputDate from '@/UI/inputs/DefaultInputDate/DefaultInputDate';
+import { useLabForm } from './hooks/useLabForm';
+import DefaultButton from '@/UI/buttons/DefaultButton/DefaultButton';
 
-export default function LabForm() {
-  const { isButtonDisabled, onFieldChange, onSubmit } = useLabForm();
-  const [date, setDate] = useState<Date | undefined>(undefined);
+interface LabFormProps {
+  laboratory?: Laboratory;
+  isEditing: boolean;
+  onUpdate: () => void;
+}
+
+export default function LabForm({
+  isEditing,
+  laboratory,
+  onUpdate,
+}: LabFormProps) {
+  const deadline = laboratory?.deadline
+    ? new Date(laboratory.deadline).toISOString().split('.')[0] + 'Z'
+    : new Date().toISOString().split('.')[0] + 'Z';
+  const labData = {
+    deadline,
+    description: laboratory?.description ?? '',
+    semesterNumber: laboratory?.semesterNumber ?? 0,
+    tests: laboratory?.tests ?? [],
+    isHidden: laboratory?.isHidden ?? false,
+    id: laboratory?.id ?? -1,
+    name: laboratory?.name ?? '',
+  };
+
+  const {
+    formData,
+    onSubmit,
+    onFieldChange,
+    availableTests,
+    handleSelectTest,
+    handleDeselectTest,
+    isNameError,
+  } = useLabForm(isEditing, labData, onUpdate);
 
   return (
     <div className={styles.container}>
       <DefaultInput
         label="Название"
+        value={formData.name}
         placeholder="Введите название"
-        required
-        onChange={value => onFieldChange('name', value)}
+        onChange={value => onFieldChange('name', value || '')}
+        invalid={isNameError.length > 0}
+        errorLabel={isNameError}
       />
       <DefaultTextArea
         label="Описание"
-        placeholder="Введите описание работы"
-        autoresize={true}
+        placeholder="Введите описание"
         textAreaMinHeight={200}
-        required
+        value={formData.description}
         onChange={value => onFieldChange('description', value || '')}
       />
-      <div className={styles.calendar}>
-        <label htmlFor="deadline">Срок сдачи</label>
-        <Calendar
-          inputId="deadline"
-          placeholder="Выберите дату"
-          ariaLabel="Выберите дату"
-          value={date}
-          required
-          onChange={e => {
-            const selectedDate = e.value ? new Date(e.value) : undefined;
-            setDate(selectedDate);
-            onFieldChange('deadline', selectedDate);
-          }}
-        />
-      </div>
-      <div className={styles.buttonContainer}>
-        <Button
-          className={styles.submitButton}
-          disabled={isButtonDisabled}
-          label="Создать"
-          onClick={onSubmit}
-        />
-      </div>
+      <DefaultInputDate
+        label="Срок сдачи"
+        placeholder="Выберите дату"
+        dateFormat="dd-mm-yy"
+        value={new Date(formData.deadline)}
+        onChange={value =>
+          onFieldChange('deadline', value.toISOString().split('.')[0] + 'Z')
+        }
+      />
+      <DefaultDropdown
+        options={availableTests}
+        label="Прикрепить тесты"
+        placeholder="Выберите тесты для работы"
+        onSelect={value => handleSelectTest(value as string)}
+      />
+      <SelectedTests onDeselect={handleDeselectTest} tests={formData.tests} />
+      <DefaultButton
+        buttonClass={styles.submitButton}
+        label={isEditing ? 'Сохранить' : 'Создать'}
+        onClick={onSubmit}
+      />
     </div>
   );
 }
