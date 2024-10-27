@@ -6,6 +6,10 @@ import { TestCategory } from '@/types/Test';
 import { Laboratory } from '@/types/Laboratory';
 import { LaboratoryRequestData } from '@/DTO/LaboratoryDTO';
 
+interface LaboratoryEditRequestData extends LaboratoryRequestData {
+  id: number;
+}
+
 export const useLabForm = (
   isEditing: boolean,
   laboratory: Laboratory,
@@ -120,10 +124,6 @@ export const useLabForm = (
 
     addLaboratory(laboratoryData);
   };
-
-  interface LaboratoryEditRequestData extends LaboratoryRequestData {
-    id: number;
-  }
 
   const editLaboratory = (data: LaboratoryEditRequestData) => {
     laboratoryProvider
