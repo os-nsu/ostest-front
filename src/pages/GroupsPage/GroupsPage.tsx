@@ -3,7 +3,7 @@ import GroupsPageContent from '@/components/GroupsPageComponents/GroupsPageConte
 
 export default function GroupsPage() {
   return (
-    <DefaultPageLayout activeTab="tests">
+    <DefaultPageLayout activeTab="groups">
       <GroupsPageContent />
     </DefaultPageLayout>
   );
