@@ -27,7 +27,6 @@ export function useLaboratoryPage(id?: string): LaboratoryPageData {
       .getLaboratory(id)
       .then(({ status, data }) => {
         if (status !== 200 || !data) {
-          setIsError('Лабораторная работа не найдена');
           return;
         }
         setLaboratory(data);
