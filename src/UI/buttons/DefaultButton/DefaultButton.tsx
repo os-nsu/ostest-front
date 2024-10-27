@@ -19,7 +19,7 @@ export default function DefaultButton({
       className={[styles.button, buttonClass].join(' ')}
       onClick={onClick}>
       <span>{label}</span>
-      <img src={icon} alt="test-page-title-icon" />
+      {icon && <img src={icon} alt="test-page-title-icon" />}
     </Button>
   );
 }

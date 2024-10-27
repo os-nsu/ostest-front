@@ -1,32 +1,173 @@
+import { useLaboratoryProvider } from '@/providers/LaboratoryProvider/useLaboratoryProvider';
+import { Test } from '@/types/Test';
+import { SelectItem } from 'primereact/selectitem';
 import { useEffect, useState } from 'react';
+import { TestCategory } from '@/types/Test';
+import { Laboratory } from '@/types/Laboratory';
+import { LaboratoryRequestData } from '@/DTO/LaboratoryDTO';
 
-interface LabFormData {
-  name?: string;
-  description?: string;
-  deadline?: Date;
+interface LaboratoryEditRequestData extends LaboratoryRequestData {
+  id: number;
 }
 
-export const useLabForm = () => {
-  const [formData, setFormData] = useState<LabFormData>({});
+export const useLabForm = (
+  isEditing: boolean,
+  laboratory: Laboratory,
+  onUpdate: () => void,
+) => {
+  const [formData, setFormData] = useState(laboratory);
   const [isButtonDisabled, setButtonDisabled] = useState(false);
+  const [isNameError, setNameError] = useState('');
+
+  // потом должны быть все тесты из бд
+  const availableTests: Test[] = [
+    {
+      id: 1,
+      name: 'test 1',
+      description: 'descr 1',
+      category: TestCategory.DEFAULT,
+    },
+    {
+      id: 2,
+      name: 'test 2',
+      description: 'descr 2',
+      category: TestCategory.DEFAULT,
+    },
+    {
+      id: 3,
+      name: 'test 3',
+      description: 'descr 2',
+      category: TestCategory.DEFAULT,
+    },
+    {
+      id: 4,
+      name: 'test 4',
+      description: 'descr 2',
+      category: TestCategory.DEFAULT,
+    },
+    {
+      id: 5,
+      name: 'test 5',
+      description: 'descr 2',
+      category: TestCategory.DEFAULT,
+    },
+    {
+      id: 6,
+      name: 'test 6',
+      description: 'descr 2',
+      category: TestCategory.DEFAULT,
+    },
+    {
+      id: 7,
+      name: 'test 7',
+      description: 'descr 2',
+      category: TestCategory.DEFAULT,
+    },
+    {
+      id: 8,
+      name: 'test 8',
+      description: 'descr 2',
+      category: TestCategory.DEFAULT,
+    },
+    {
+      id: 9,
+      name: 'test 9',
+      description: 'descr 2',
+      category: TestCategory.DEFAULT,
+    },
+    {
+      id: 10,
+      name: 'test 10',
+      description: 'descr 3',
+      category: TestCategory.DEFAULT,
+    },
+  ];
 
   useEffect(() => {
-    setButtonDisabled(
-      !formData?.name || !formData?.description || !formData?.deadline,
-    );
-  }, [formData]);
+    setButtonDisabled(!formData.name.trim());
+  }, [formData.name]);
 
-  const onFieldChange = (
-    fieldType: keyof LabFormData,
-    value: string | Date | undefined,
-  ) => setFormData({ ...formData, [fieldType]: value });
+  const handleSelectTest = (testId: string) => {
+    const selectedTest = availableTests.find(test => test.id === +testId);
+    if (selectedTest && !formData.tests.find(t => t.id === selectedTest.id)) {
+      const updatedTests = [...formData.tests, selectedTest];
+      formData.tests = updatedTests;
+      onFieldChange('tests', updatedTests);
+    }
+  };
 
-  // Пока просто выводим данные в консоль, так как еще не настроена интеграция с бэком
-  const onSubmit = () => console.log(formData);
+  const handleDeselectTest = (test: Test) => {
+    const updatedTests = formData.tests.filter(t => t.id !== test.id);
+    formData.tests = updatedTests;
+    onFieldChange('tests', updatedTests);
+  };
+
+  const convertTestsToSelectItems = (tests: Test[]): SelectItem[] => {
+    return tests.map(test => ({
+      label: test.name,
+      value: test.id,
+    }));
+  };
+
+  const laboratoryProvider = useLaboratoryProvider();
+
+  const onSubmit = () => {
+    const { id, ...laboratoryData } = formData;
+
+    if (isEditing) {
+      if (!laboratory.id) {
+        return;
+      }
+      editLaboratory({ id, ...laboratoryData });
+      return;
+    }
+
+    addLaboratory(laboratoryData);
+  };
+
+  const editLaboratory = (data: LaboratoryEditRequestData) => {
+    laboratoryProvider
+      .editLaboratory(data)
+      .then(({ status }) => {
+        if (status !== 200) {
+          return;
+        }
+        onUpdate();
+      })
+      .catch(({ response }) => {
+        if (response.status === 400) {
+          setNameError(response.data.message);
+          return;
+        }
+        console.error(response);
+      });
+  };
+
+  const addLaboratory = (data: LaboratoryRequestData) => {
+    laboratoryProvider
+      .addLaboratory(data)
+      .then(({ status }) => {
+        if (status !== 200) {
+          return;
+        }
+        onUpdate();
+      })
+      .catch(({ response }) => {
+        console.error(response);
+      });
+  };
+
+  const onFieldChange = (fieldType: keyof Laboratory, value: string | Test[]) =>
+    setFormData({ ...formData, [fieldType]: value });
 
   return {
+    formData,
     isButtonDisabled,
-    onFieldChange,
+    availableTests: convertTestsToSelectItems(availableTests),
     onSubmit,
+    onFieldChange,
+    handleSelectTest,
+    handleDeselectTest,
+    isNameError,
   };
 };

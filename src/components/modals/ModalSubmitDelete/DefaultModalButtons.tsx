@@ -1,5 +1,5 @@
 import { Button } from 'primereact/button';
-import styles from '@styles/components/DeleteLabForm.module.scss';
+import styles from '@styles/components/DefaultModalButtons.module.scss';
 
 interface DefaultModalButtonsProps {
   onPrevent: () => void;

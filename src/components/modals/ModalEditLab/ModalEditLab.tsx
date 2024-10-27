@@ -1,41 +1,44 @@
 import { Dialog } from 'primereact/dialog';
-import styles from '@styles/components/ModalDeleteLab.module.scss';
+import styles from '@styles/components/ModalEditLab.module.scss';
 import IconClose from '@/UI/icons/IconClose/IconClose';
-import DefaultModalButtons from '@/components/modals/ModalSubmitDelete/DefaultModalButtons';
+import { Laboratory } from '@/types/Laboratory';
+import LabForm from '@/components/forms/LabForm/LabForm';
 import IconButton from '@/UI/buttons/IconButton/IconButton';
 
-interface ModalSubmitDeleteProps {
+interface ModalEditLabProps {
+  laboratory: Laboratory;
   displayed?: boolean;
-  name?: string;
   id?: string;
   onPrevent: () => void;
-  onSubmit: () => void;
+  onUpdate: () => void;
 }
 
-export default function ModalSubmitDelete({
+export default function ModalEditLab({
+  laboratory,
   displayed,
-  name,
   onPrevent,
-  onSubmit,
-}: ModalSubmitDeleteProps) {
+  onUpdate,
+}: ModalEditLabProps) {
   return (
     <Dialog
       visible={displayed}
-      onHide={() => {}}
+      onHide={onPrevent}
       className={styles.wrapper}
       content={() => (
         <div className={styles.container}>
           <div className={styles.buttonContainer}>
+            <span className={styles.title}>Редактирование лаб. работы</span>
             <IconButton
               icon={IconClose({ color: 'black' })}
               onClick={onPrevent}
               type="no_bg"
             />
           </div>
-          <span className={styles.title}>
-            Вы уверены, что хотите удалить {name}?
-          </span>
-          <DefaultModalButtons onPrevent={onPrevent} onSubmit={onSubmit} />
+          <LabForm
+            isEditing={true}
+            laboratory={laboratory}
+            onUpdate={onUpdate}
+          />
         </div>
       )}
     />
