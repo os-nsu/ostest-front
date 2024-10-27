@@ -7,7 +7,7 @@ import { useState } from 'react';
 
 export default function GroupsPageContent() {
   const { groups, mock } = useGroupsPageContent();
-  const [filter, setFilter] = useState<string>('all');
+  const [filter, setFilter] = useState<string>('active');
 
   const filteredGroups = () => {
     if (filter === 'active') {
