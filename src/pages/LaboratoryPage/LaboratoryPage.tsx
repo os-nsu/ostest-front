@@ -5,8 +5,7 @@ import { useLaboratoryPage } from './hooks/useLaboratoryPage';
 
 export default function LaboratoryPage() {
   const { id } = useParams<{ id: string }>();
-  const { laboratory, isLoading, isError, refreshKey, handleRefresh } =
-    useLaboratoryPage(id);
+  const { laboratory, isLoading, isError, onEditLab } = useLaboratoryPage(id);
 
   if (isLoading) {
     return <div>Загрузка...</div>;
@@ -26,8 +25,7 @@ export default function LaboratoryPage() {
         laboratory={laboratory}
         id={id}
         tests={laboratory.tests}
-        onRefresh={handleRefresh}
-        key={refreshKey}
+        onEditLab={onEditLab}
       />
     </DefaultPageLayout>
   );

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useLaboratoryProvider } from '@/providers/LaboratoryProvider/useLaboratoryProvider';
 import { Laboratory } from '@/types/Laboratory';
 
@@ -6,23 +6,17 @@ interface LaboratoryPageData {
   laboratory: Laboratory | null;
   isLoading: boolean;
   isError: string;
-  refreshKey: number;
-  handleRefresh: () => void;
+  onEditLab: () => void;
 }
 
-export function useLaboratoryPage(id: string | undefined): LaboratoryPageData {
+export function useLaboratoryPage(id?: string): LaboratoryPageData {
   const [laboratory, setLaboratory] = useState<Laboratory | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState('');
 
-  const [refreshKey, setRefreshKey] = useState(0);
-  const handleRefresh = () => {
-    setRefreshKey((prevKey: number) => prevKey + 1);
-  };
-
   const laboratoryProvider = useLaboratoryProvider();
 
-  useEffect(() => {
+  const requestLaboratoryData = useCallback(() => {
     if (!id) {
       setIsError('Id лабораторной не найден');
       return;
@@ -33,9 +27,9 @@ export function useLaboratoryPage(id: string | undefined): LaboratoryPageData {
       .getLaboratory(id)
       .then(({ status, data }) => {
         if (status !== 200 || !data) {
+          setIsError('Лабораторная работа не найдена');
           return;
         }
-
         setLaboratory(data);
       })
       .catch(({ response }) => {
@@ -49,7 +43,15 @@ export function useLaboratoryPage(id: string | undefined): LaboratoryPageData {
       .finally(() => {
         setIsLoading(false);
       });
-  }, [id, laboratoryProvider, refreshKey]);
+  }, [id, laboratoryProvider]);
 
-  return { laboratory, isLoading, isError, refreshKey, handleRefresh };
+  useEffect(() => {
+    requestLaboratoryData();
+  }, [requestLaboratoryData]);
+
+  const onEditLab = () => {
+    requestLaboratoryData();
+  };
+
+  return { laboratory, isLoading, isError, onEditLab };
 }

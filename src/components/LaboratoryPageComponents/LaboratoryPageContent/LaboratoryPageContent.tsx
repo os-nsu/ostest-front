@@ -13,14 +13,14 @@ interface LaboratoryPageContentProps {
   laboratory: Laboratory;
   id?: string;
   tests: Test[];
-  onRefresh: () => void;
+  onEditLab: () => void;
 }
 
 export default function LaboratoryPageContent({
   laboratory,
   tests,
   id,
-  onRefresh,
+  onEditLab,
 }: LaboratoryPageContentProps) {
   const {
     isModalVisible,
@@ -61,7 +61,7 @@ export default function LaboratoryPageContent({
         onPrevent={() => setModalVisible(false)}
         onUpdate={() => {
           setModalVisible(false);
-          onRefresh();
+          onEditLab();
         }}
       />
     </div>
