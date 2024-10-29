@@ -4,6 +4,7 @@ import { useGroupAsideContent } from './hooks/useGroupAsideContent';
 import GroupAsideContentHeader from './components/GroupAsideContentHeader/GroupAsideContentHeader';
 import GroupAsideEditForm from './components/GroupAsideEditForm/GroupAsideEditForm';
 import AboutGroup from '../AboutGroup/AboutGroup';
+import GroupAsideBackHeader from './components/GroupAsideBackHeader/GroupAsideBackHeader';
 
 interface GroupAsideContentProps {
   group: Group;
@@ -18,11 +19,19 @@ export default function GroupAsideContent({
 
   return (
     <div className={styles.container}>
-      <GroupAsideContentHeader
-        groupName={group.name}
-        onCloseIconClick={onClose}
-        onEditIconClick={() => setIsEditing(true)}
-      />
+      {isEditing ? (
+        <GroupAsideBackHeader
+          groupName={group.name}
+          onCloseIconClick={onClose}
+          onBackIconClick={() => setIsEditing(false)}
+        />
+      ) : (
+        <GroupAsideContentHeader
+          groupName={group.name}
+          onCloseIconClick={onClose}
+          onEditIconClick={() => setIsEditing(true)}
+        />
+      )}
       {isEditing ? (
         <GroupAsideEditForm group={group} />
       ) : (
