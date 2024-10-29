@@ -3,9 +3,10 @@ import IconPlus from '@public/plus.svg';
 import styles from '@styles/components/GroupsPageStyles/GroupsPageTitle.module.scss';
 import DefaultButton from '@UI/buttons/DefaultButton/DefaultButton.tsx';
 import { useGroupsPageTitle } from './hooks/useGroupsPageTitle';
+import { GroupStatus } from '@/types/Group';
 
 interface GroupsPageTitleProps {
-  setFilter: (filter: string) => void;
+  setFilter: (filter: GroupStatus | 'all') => void;
 }
 
 export default function GroupsPageTitle({ setFilter }: GroupsPageTitleProps) {
@@ -21,7 +22,11 @@ export default function GroupsPageTitle({ setFilter }: GroupsPageTitleProps) {
         placeholder="Выберите фильтр"
         onSelect={(v?: string) => {
           handleOptionChange(v);
-          setFilter(v || 'active');
+          if (v === GroupStatus.ACTIVE || v === GroupStatus.INACTIVE) {
+            setFilter(v as GroupStatus);
+          } else {
+            setFilter('all');
+          }
         }}
       />
     </div>

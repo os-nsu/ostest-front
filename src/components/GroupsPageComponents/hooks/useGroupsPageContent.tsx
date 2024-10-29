@@ -29,6 +29,17 @@ const mock: Group[] = [
 export const useGroupsPageContent = () => {
   const [groups, setGroups] = useState<Group[]>([]);
   const [isAsideDisplayed, setAsideDisplayed] = useState(false);
+  const [filter, setFilter] = useState<GroupStatus | 'all'>(GroupStatus.ACTIVE);
+
+  const filteredGroups = () => {
+    if (filter === GroupStatus.ACTIVE) {
+      return mock.filter(group => group.status === GroupStatus.ACTIVE);
+    }
+    if (filter === GroupStatus.INACTIVE) {
+      return mock.filter(group => group.status === GroupStatus.INACTIVE);
+    }
+    return mock;
+  };
 
   const requestGroups = () => {
     console.log('There will be a request for groups here');
@@ -36,5 +47,12 @@ export const useGroupsPageContent = () => {
 
   useEffect(() => requestGroups(), []);
 
-  return { groups, mock, isAsideDisplayed, setAsideDisplayed };
+  return {
+    groups,
+    mock,
+    isAsideDisplayed,
+    setAsideDisplayed,
+    setFilter,
+    filteredGroups,
+  };
 };
