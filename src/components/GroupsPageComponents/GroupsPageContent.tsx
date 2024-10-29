@@ -4,9 +4,12 @@ import { useGroupsPageContent } from './hooks/useGroupsPageContent';
 import GroupsList from './components/GroupsList/GroupsList';
 import { GroupStatus } from '@/types/Group';
 import { useState } from 'react';
+import DefaultAside from '../asides/DefaultAside/DefaultAside';
+import GroupAsideContent from '../GroupAsideContent/GroupAsideContent';
 
 export default function GroupsPageContent() {
-  const { groups, mock } = useGroupsPageContent();
+  const { groups, mock, isAsideDisplayed, setAsideDisplayed } =
+    useGroupsPageContent();
   const [filter, setFilter] = useState<string>('active');
 
   const filteredGroups = () => {
@@ -25,8 +28,22 @@ export default function GroupsPageContent() {
       {!mock.length ? (
         <span className={styles.placeholder}>Создайте первую группу</span>
       ) : (
-        <GroupsList groups={filteredGroups()} />
+        <GroupsList
+          groups={filteredGroups()}
+          onSelectGroup={group => setAsideDisplayed(true)}
+        />
       )}
+      <DefaultAside
+        visible={isAsideDisplayed}
+        onHide={() => setAsideDisplayed(false)}
+        style={{ width: '500px' }}
+        children={
+          <GroupAsideContent
+            group={mock[0]}
+            onClose={() => setAsideDisplayed(false)}
+          />
+        }
+      />
     </div>
   );
 }

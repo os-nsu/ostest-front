@@ -5,9 +5,10 @@ import { Group } from '@/types/Group';
 
 interface GroupsListProps {
   groups: Group[];
+  onSelectGroup?: (group: Group) => void;
 }
 
-export default function GroupsList({ groups }: GroupsListProps) {
+export default function GroupsList({ groups, onSelectGroup }: GroupsListProps) {
   const columns = [
     { field: 'name', header: 'Номер' },
     { field: 'status', header: 'Статус' },
@@ -16,7 +17,11 @@ export default function GroupsList({ groups }: GroupsListProps) {
   ];
 
   return (
-    <DataTable value={groups} className={styles.table}>
+    <DataTable
+      value={groups}
+      className={styles.table}
+      onRowClick={({ index }) => onSelectGroup && onSelectGroup(groups[index])}
+      rowHover>
       {columns.map(({ field, header }, index) => (
         <Column
           field={field}
