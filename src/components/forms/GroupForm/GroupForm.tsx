@@ -45,6 +45,9 @@ export default function GroupForm({
     { name: 'student 8' },
     { name: 'student 9' },
     { name: 'student 10' },
+    {
+      name: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Totam, aut beatae. Cumque, earum sit repellendus vero ratione dolorem veniam deserunt eligendi expedita? Nam possimus debitis natus animi ad dignissimos omnis!',
+    },
   ];
 
   return (

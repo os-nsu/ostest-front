@@ -49,6 +49,7 @@ export default function DefaultSearchComponent<T>({
             placeholder={placeholder}
             onChange={e => onSelect(e.value)}
             onFocus={handleFocus}
+            onClick={handleFocus}
           />
         </div>
       )}
