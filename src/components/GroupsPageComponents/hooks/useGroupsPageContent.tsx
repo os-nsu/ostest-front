@@ -29,7 +29,7 @@ const mock: Group[] = [
 export const useGroupsPageContent = () => {
   const [groups, setGroups] = useState<Group[]>([]);
   const [isAsideDisplayed, setAsideDisplayed] = useState(false);
-  const [filter, setFilter] = useState(GroupStatus.ACTIVE);
+  const [filter, setFilter] = useState<GroupStatus | 'all'>(GroupStatus.ACTIVE);
 
   const filteredGroups = () => {
     if (filter === GroupStatus.ACTIVE) {
