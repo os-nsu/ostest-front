@@ -1,6 +1,7 @@
-import { SelectItem } from 'primereact/selectitem';
 import { useEffect, useState } from 'react';
 import { Group, GroupStatus } from '@/types/Group';
+import { SelectItem } from 'primereact/selectitem';
+import { useStudents } from './useStudents';
 
 interface GroupFormData {
   status?: GroupStatus;
@@ -17,6 +18,14 @@ const groupOptions: SelectItem[] = [
 export const useGroupForm = (group?: Group) => {
   const [formData, setFormData] = useState<GroupFormData>();
   const [isButtonDisabled, setButtonDisabled] = useState(false);
+
+  const {
+    selectedStudents,
+    showStudentSearch,
+    handleStudentSelect,
+    toggleStudentSearch,
+    removeStudent,
+  } = useStudents();
 
   useEffect(() => {
     if (!group) {
@@ -38,9 +47,9 @@ export const useGroupForm = (group?: Group) => {
         !formData?.status ||
           !formData.teacher ||
           !formData.name ||
-          !formData.studentsCount,
+          selectedStudents.length === 0,
       ),
-    [formData],
+    [formData, selectedStudents],
   );
 
   const onFieldChange = (
@@ -48,7 +57,9 @@ export const useGroupForm = (group?: Group) => {
     value: string | number | GroupStatus,
   ) => setFormData({ ...formData, [fieldType]: value });
 
-  const onSubmit = () => console.log(formData);
+  const onSubmit = () => {
+    console.log(formData);
+  };
 
   return {
     formData,
@@ -56,5 +67,10 @@ export const useGroupForm = (group?: Group) => {
     groupOptions: groupOptions,
     onFieldChange,
     onSubmit,
+    selectedStudents,
+    showStudentSearch,
+    handleStudentSelect,
+    toggleStudentSearch,
+    removeStudent,
   };
 };

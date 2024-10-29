@@ -1,0 +1,42 @@
+import { useRef, useState } from 'react';
+import { AutoComplete } from 'primereact/autocomplete';
+
+interface UseDefaultSearchComponentProps<T> {
+  options: T[];
+  onSelect: (value: T) => void;
+  getOptionLabel: (option: T) => string;
+}
+
+export function useDefaultSearchComponent<T>({
+  options,
+  getOptionLabel,
+}: UseDefaultSearchComponentProps<T>) {
+  const [filteredOptions, setFilteredOptions] = useState<T[]>([]);
+  const autoCompleteRef = useRef<AutoComplete>(null);
+
+  const searchOptions = (event: { query: string }) => {
+    if (!event.query || event.query.trim() === '') {
+      setFilteredOptions(options);
+    } else {
+      setFilteredOptions(
+        options.filter(option =>
+          getOptionLabel(option)
+            .toLowerCase()
+            .includes(event.query.toLowerCase()),
+        ),
+      );
+    }
+  };
+
+  const handleFocus = () => {
+    searchOptions({ query: '' });
+    autoCompleteRef.current?.show();
+  };
+
+  return {
+    autoCompleteRef,
+    filteredOptions,
+    searchOptions,
+    handleFocus,
+  };
+}

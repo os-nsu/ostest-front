@@ -1,0 +1,60 @@
+.container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    & .fieldContainer {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    & .submitButton {
+        width: max-content;
+    }
+
+    & .label {
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 31.2px;
+    }
+
+    & .headerWithButton {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        height: 30px;
+
+        button {
+            max-width: 30px;
+            max-height: 30px;
+            border-radius: 12px;
+            padding: 8px;
+        }
+    }
+
+    & .list {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        gap: 2px;
+        border-bottom: 1px solid #E2E8F0;
+
+        & .listItem {
+            height: 23px;
+
+            font-size: 18px;
+            font-weight: 300;
+            line-height: 23.4px;
+        }
+
+        button {
+            max-width: 19px;
+            max-height: 19px;
+            border-radius: 36px;
+            padding: 4px;
+        }
+    }
+}
