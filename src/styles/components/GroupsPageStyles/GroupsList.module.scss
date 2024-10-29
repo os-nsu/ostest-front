@@ -1,0 +1,45 @@
+.table {
+    max-width: 100%;
+    border: none;
+  
+    & .header {
+      background-color: #F9FAFB;
+      border-top: none;
+      border-bottom: 1px solid #E5E7EB;
+  
+      font-size: 14px;
+      font-weight: 500;
+      color: #000000;
+
+      &:nth-child(1) {
+        width: 100px;
+      }
+
+      &:nth-child(2) {
+        width: 110px;
+      }
+
+      &:nth-child(3) {
+        width: 160px;
+      }
+    }
+  
+   & .cell {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      padding: 14px;
+  
+      font-size: 14px;
+      font-weight: 400;
+      color: #4B5563;
+  
+      &:nth-child(4) {
+        max-width: calc(100vw - 450px);
+      }
+  
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
