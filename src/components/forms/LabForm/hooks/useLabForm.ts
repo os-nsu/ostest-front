@@ -4,11 +4,10 @@ import { SelectItem } from 'primereact/selectitem';
 import { useEffect, useState } from 'react';
 import { TestCategory } from '@/types/Test';
 import { Laboratory } from '@/types/Laboratory';
-import { LaboratoryRequestData } from '@/DTO/LaboratoryDTO';
-
-interface LaboratoryEditRequestData extends LaboratoryRequestData {
-  id: number;
-}
+import {
+  LaboratoryPostRequestData,
+  LaboratoryPutRequestData,
+} from '@/DTO/LaboratoryDTO';
 
 export const useLabForm = (
   isEditing: boolean,
@@ -18,6 +17,7 @@ export const useLabForm = (
   const [formData, setFormData] = useState(laboratory);
   const [isButtonDisabled, setButtonDisabled] = useState(false);
   const [isNameError, setNameError] = useState('');
+  const initialTests = laboratory.tests;
 
   // потом должны быть все тесты из бд
   const availableTests: Test[] = [
@@ -112,20 +112,33 @@ export const useLabForm = (
   const laboratoryProvider = useLaboratoryProvider();
 
   const onSubmit = () => {
-    const { id, ...laboratoryData } = formData;
+    const { id, tests, ...laboratoryData } = formData;
+
+    const addTests = tests
+      .filter(test => !initialTests.find(t => t.id === test.id))
+      .map(test => ({ testId: test.id, isSwitchedOn: true }));
+
+    const deleteTests = initialTests
+      .filter(test => !tests.find(t => t.id === test.id))
+      .map(test => ({ testId: test.id, isSwitchedOn: true }));
 
     if (isEditing) {
       if (!laboratory.id) {
         return;
       }
-      editLaboratory({ id, ...laboratoryData });
+      editLaboratory({
+        id,
+        ...laboratoryData,
+        addTestsLinks: addTests,
+        deleteTestsLinks: deleteTests,
+      });
       return;
     }
 
-    addLaboratory(laboratoryData);
+    addLaboratory({ ...laboratoryData, testsLinks: addTests });
   };
 
-  const editLaboratory = (data: LaboratoryEditRequestData) => {
+  const editLaboratory = (data: LaboratoryPutRequestData) => {
     laboratoryProvider
       .editLaboratory(data)
       .then(({ status }) => {
@@ -143,7 +156,7 @@ export const useLabForm = (
       });
   };
 
-  const addLaboratory = (data: LaboratoryRequestData) => {
+  const addLaboratory = (data: LaboratoryPostRequestData) => {
     laboratoryProvider
       .addLaboratory(data)
       .then(({ status }) => {
