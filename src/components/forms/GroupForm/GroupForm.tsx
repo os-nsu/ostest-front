@@ -1,4 +1,3 @@
-import { Button } from 'primereact/button';
 import DefaultInput from '@UI/inputs/DefaultInput/DefaultInput.tsx';
 import DefaultDropdown from '@UI/inputs/DefaultDropdown/DefaultDropdown.tsx';
 import DefaultFieldLabel from '@/UI/label/DefaultFieldLabel/DefaultFieldLabel';
@@ -7,13 +6,14 @@ import { Group } from '@/types/Group';
 import { useGroupForm } from './hooks/useGroupForm';
 import IconPlus from '@public/plus.svg';
 import IconBan from '@public/ban.svg';
-import IconButton from '@/UI/buttons/IconButton/IconButton';
 import styles from '@styles/components/GroupForm.module.scss';
+import AttachableList from '@/components/AttachableList/AttachableList';
+import DefaultButton from '@/UI/buttons/DefaultButton/DefaultButton';
 
 interface GroupFormProps {
   group?: Group;
   containerClass?: string;
-  buttonLabel?: string;
+  buttonLabel: string;
 }
 
 export default function GroupForm({
@@ -32,6 +32,11 @@ export default function GroupForm({
     handleStudentSelect,
     toggleStudentSearch,
     removeStudent,
+    selectedTeachers,
+    showTeacherSearch,
+    handleTeacherSelect,
+    toggleTeacherSearch,
+    removeTeacher,
   } = useGroupForm(group);
 
   const students = [
@@ -48,6 +53,17 @@ export default function GroupForm({
     {
       name: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Totam, aut beatae. Cumque, earum sit repellendus vero ratione dolorem veniam deserunt eligendi expedita? Nam possimus debitis natus animi ad dignissimos omnis!',
     },
+  ];
+
+  const teachers = [
+    { name: 'teacher 1' },
+    { name: 'teacher 2' },
+    { name: 'teacher 3' },
+    { name: 'teacher 4' },
+    { name: 'teacher 5' },
+    { name: 'teacher 6' },
+    { name: 'teacher 7' },
+    { name: 'teacher 8' },
   ];
 
   return (
@@ -70,13 +86,25 @@ export default function GroupForm({
           <DefaultFieldLabel label="Число участников" />
           <span>{selectedStudents.length}</span>
         </div>
-        <div className={styles.fieldContainer}>
-          <div className={styles.headerWithButton}>
-            <DefaultFieldLabel label="Преподаватели" />
-            <IconButton icon={IconPlus} />
-          </div>
-          <span>Здесь будут преподаватели, пока что {formData?.teacher}</span>
-        </div>
+        <DefaultSearchComponent
+          options={teachers}
+          label="Поиск преподавателей"
+          placeholder="Введите имя преподавателя"
+          field="name"
+          onSelect={handleTeacherSelect}
+          selectedValue={null}
+          showSearch={showTeacherSearch}
+          getOptionLabel={teacher => teacher.name}
+        />
+        <AttachableList
+          label="Преподаватели"
+          emptyText="Выберите преподавателей"
+          entities={selectedTeachers}
+          onAttach={toggleTeacherSearch}
+          onDetach={removeTeacher}
+          attachIcon={IconPlus}
+          detachIcon={IconBan}
+        />
         <DefaultSearchComponent
           options={students}
           label="Поиск студентов"
@@ -87,32 +115,20 @@ export default function GroupForm({
           showSearch={showStudentSearch}
           getOptionLabel={student => student.name}
         />
-        <div className={styles.fieldContainer}>
-          <div className={styles.headerWithButton}>
-            <DefaultFieldLabel label="Студенты" />
-            <IconButton icon={IconPlus} onClick={toggleStudentSearch} />
-          </div>
-          {selectedStudents.length > 0 ? (
-            <div>
-              {selectedStudents.map(student => (
-                <div className={styles.list} key={student.name}>
-                  <div className={styles.listItem}>{student.name}</div>
-                  <IconButton
-                    icon={IconBan}
-                    onClick={() => removeStudent(student.name)}
-                  />
-                </div>
-              ))}
-            </div>
-          ) : (
-            <span>Выберите студентов</span>
-          )}
-        </div>
+        <AttachableList
+          label="Студенты"
+          emptyText="Выберите студентов"
+          entities={selectedStudents}
+          onAttach={toggleStudentSearch}
+          onDetach={removeStudent}
+          attachIcon={IconPlus}
+          detachIcon={IconBan}
+        />
       </div>
-      <Button
-        className={styles.submitButton}
+      <DefaultButton
+        buttonClass={styles.submitButton}
         disabled={isButtonDisabled}
-        label={buttonLabel ? buttonLabel : 'Создать'}
+        label={buttonLabel}
         onClick={onSubmit}
       />
     </div>
