@@ -1,28 +1,31 @@
 import { useState } from 'react';
 import { SelectItem } from 'primereact/selectitem';
-import { GroupStatus } from '@/types/Group';
+import { GroupFilters } from '@/types/Group';
 
 export const GroupFilterOptions: SelectItem[] = [
-  { value: GroupStatus.ACTIVE, label: 'Только активные' },
-  { value: GroupStatus.INACTIVE, label: 'Только скрытые' },
-  { value: 'all', label: 'Все' },
+  { value: GroupFilters.ACTIVE, label: 'Только активные' },
+  { value: GroupFilters.INACTIVE, label: 'Только скрытые' },
+  { value: GroupFilters.ALL, label: 'Все' },
 ];
 
-export const useGroupsPageTitle = () => {
-  const [selectedOption, setSelectedOption] = useState<GroupStatus | 'all'>(
-    GroupStatus.ACTIVE,
+export const useGroupsPageTitle = (
+  setFilter: (filter: GroupFilters) => void,
+) => {
+  const [selectedOption, setSelectedOption] = useState<GroupFilters>(
+    GroupFilters.ACTIVE,
   );
   const [options] = useState<SelectItem[]>(GroupFilterOptions);
 
-  const handleOptionChange = (value?: string) => {
-    if (value) {
-      setSelectedOption(value as GroupStatus | 'all');
-    }
+  const handleOptionSelect = (value?: string) => {
+    const newFilter = value as GroupFilters;
+
+    setSelectedOption(newFilter);
+    setFilter(newFilter);
   };
 
   return {
     options,
     selectedOption,
-    handleOptionChange,
+    handleOptionSelect,
   };
 };

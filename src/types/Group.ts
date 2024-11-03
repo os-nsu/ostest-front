@@ -3,6 +3,12 @@ export enum GroupStatus {
   INACTIVE = 'Скрыта',
 }
 
+export enum GroupFilters {
+  ACTIVE = GroupStatus.ACTIVE,
+  INACTIVE = GroupStatus.INACTIVE,
+  ALL = 'ALL',
+}
+
 export interface Group {
   id: number;
   name: string;

@@ -7,13 +7,27 @@ interface AboutGroupProps {
 }
 
 export default function AboutGroup({ group }: AboutGroupProps) {
-  const { status, studentsCount, teacher } = group;
+  const { status, studentsCount } = group;
+
+  const students = [
+    { name: 'student 1' },
+    { name: 'student 2' },
+    { name: 'student 3' },
+    { name: 'student 4' },
+  ];
+
+  const teachers = [
+    { name: 'teacher 1' },
+    { name: 'teacher 2' },
+    { name: 'teacher 3' },
+    { name: 'teacher 4' },
+  ];
 
   const blocks = [
     { title: 'Статус', text: status },
     { title: 'Число участников', text: studentsCount.toString() },
-    { title: 'Преподаватели', text: teacher },
-    { title: 'Студенты', text: 'Здесь будут студенты' },
+    { title: 'Преподаватели', text: teachers },
+    { title: 'Студенты', text: students },
   ];
 
   return (

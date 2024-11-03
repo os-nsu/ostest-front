@@ -49,3 +49,14 @@ p {
   line-height: 28px;
 }
 
+.p-autocomplete-panel {
+  max-width: 500px !important;
+  border: 1px solid #ccc;
+  overflow: auto;
+}
+
+.p-autocomplete-item {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
