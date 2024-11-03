@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Group, GroupStatus } from '@/types/Group';
 import { SelectItem } from 'primereact/selectitem';
-import { useStudents } from './useStudents';
+import { useAttachableListController } from './useAttachableListController';
 
 interface GroupFormData {
   status?: GroupStatus;
@@ -19,13 +19,24 @@ export const useGroupForm = (group?: Group) => {
   const [formData, setFormData] = useState<GroupFormData>();
   const [isButtonDisabled, setButtonDisabled] = useState(false);
 
+  const useTeachers = () => useAttachableListController();
+  const useStudents = () => useAttachableListController();
+
   const {
-    selectedStudents,
-    showStudentSearch,
-    handleStudentSelect,
-    toggleStudentSearch,
-    removeStudent,
+    selectedItems: selectedStudents,
+    showItemSearch: showStudentSearch,
+    handleSelect: handleStudentSelect,
+    toggleSearch: toggleStudentSearch,
+    removeItem: removeStudent,
   } = useStudents();
+
+  const {
+    selectedItems: selectedTeachers,
+    showItemSearch: showTeacherSearch,
+    handleSelect: handleTeacherSelect,
+    toggleSearch: toggleTeacherSearch,
+    removeItem: removeTeacher,
+  } = useTeachers();
 
   useEffect(() => {
     if (!group) {
@@ -47,9 +58,10 @@ export const useGroupForm = (group?: Group) => {
         !formData?.status ||
           !formData.teacher ||
           !formData.name ||
-          selectedStudents.length === 0,
+          selectedStudents.length === 0 ||
+          selectedTeachers.length === 0,
       ),
-    [formData, selectedStudents],
+    [formData, selectedStudents, selectedTeachers],
   );
 
   const onFieldChange = (
@@ -72,5 +84,10 @@ export const useGroupForm = (group?: Group) => {
     handleStudentSelect,
     toggleStudentSearch,
     removeStudent,
+    selectedTeachers,
+    showTeacherSearch,
+    handleTeacherSelect,
+    toggleTeacherSearch,
+    removeTeacher,
   };
 };

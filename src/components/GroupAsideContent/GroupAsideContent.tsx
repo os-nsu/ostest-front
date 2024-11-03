@@ -19,27 +19,27 @@ export default function GroupAsideContent({
   const { isEditing, setIsEditing, isDeleting, setIsDeleting } =
     useGroupAsideContent();
 
-  return (
-    <div className={styles.container}>
-      {isEditing ? (
+  if (isEditing) {
+    return (
+      <div className={styles.container}>
         <GroupAsideBackHeader
           groupName={group.name}
           onCloseIconClick={onClose}
           onBackIconClick={() => setIsEditing(false)}
         />
-      ) : (
-        <GroupAsideContentHeader
-          groupName={group.name}
-          onCloseIconClick={onClose}
-          onEditIconClick={() => setIsEditing(true)}
-          onDeleteIconClick={() => setIsDeleting(true)}
-        />
-      )}
-      {isEditing ? (
         <GroupAsideEditForm group={group} />
-      ) : (
-        <AboutGroup group={group} />
-      )}
+      </div>
+    );
+  }
+  return (
+    <div className={styles.container}>
+      <GroupAsideContentHeader
+        groupName={group.name}
+        onCloseIconClick={onClose}
+        onEditIconClick={() => setIsEditing(true)}
+        onDeleteIconClick={() => setIsDeleting(true)}
+      />
+      <AboutGroup group={group} />
       <ModalSubmitDelete
         displayed={isDeleting}
         name={group.name}

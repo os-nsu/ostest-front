@@ -1,0 +1,29 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 23.4px;
+    color: #000000;
+
+    .title {
+        font-size: 24px;
+        font-weight: 500;
+        line-height: 31.2px;
+    }
+
+    .item {
+        height: 23px;
+
+        font-size: 18px;
+        font-weight: 300;
+        line-height: 23.4px;
+
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        width: 100%;
+    }
+}

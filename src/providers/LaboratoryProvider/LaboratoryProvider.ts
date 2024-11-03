@@ -1,6 +1,7 @@
 import { AxiosClient } from '@/providers/AxiosClient/AxiosClient.ts';
 import {
-  LaboratoryRequestData,
+  LaboratoryPostRequestData,
+  LaboratoryPutRequestData,
   LaboratoryResponseData,
   LaboratorySearchRequestData,
 } from '@/DTO/LaboratoryDTO.ts';
@@ -15,11 +16,11 @@ export class LaboratoryProvider {
     this.instance = new AxiosClient({ baseURL: this.baseURL });
   }
 
-  editLaboratory(requestData: LaboratoryRequestData) {
+  editLaboratory(requestData: LaboratoryPutRequestData) {
     return this.instance.put<LaboratoryResponseData>('', requestData);
   }
 
-  addLaboratory(requestData: LaboratoryRequestData) {
+  addLaboratory(requestData: LaboratoryPostRequestData) {
     return this.instance.post<LaboratoryResponseData>('', requestData);
   }
 

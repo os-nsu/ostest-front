@@ -1,12 +1,34 @@
 import { Test } from '@/types/Test';
 
-export interface LaboratoryRequestData {
+export interface LaboratoryPostRequestData {
   [index: string]: unknown;
   name: string;
   description: string;
   semesterNumber: number;
   deadline: string;
   isHidden: boolean;
+  testsLinks: {
+    testId: number;
+    isSwitchedOn: boolean;
+  }[];
+}
+
+export interface LaboratoryPutRequestData {
+  [index: string]: unknown;
+  id: number;
+  name: string;
+  description: string;
+  semesterNumber: number;
+  deadline: string;
+  isHidden: boolean;
+  addTestsLinks: {
+    testId: number;
+    isSwitchedOn: boolean;
+  }[];
+  deleteTestsLinks: {
+    testId: number;
+    isSwitchedOn: boolean;
+  }[];
 }
 
 export interface LaboratorySearchRequestData {

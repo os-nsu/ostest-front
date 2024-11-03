@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Group, GroupStatus } from '@/types/Group';
+import { Group, GroupFilters, GroupStatus } from '@/types/Group';
 
 const mock: Group[] = [
   {
@@ -29,13 +29,13 @@ const mock: Group[] = [
 export const useGroupsPageContent = () => {
   const [groups, setGroups] = useState<Group[]>([]);
   const [isAsideDisplayed, setAsideDisplayed] = useState(false);
-  const [filter, setFilter] = useState<GroupStatus | 'all'>(GroupStatus.ACTIVE);
+  const [filter, setFilter] = useState(GroupFilters.ACTIVE);
 
   const filteredGroups = () => {
-    if (filter === GroupStatus.ACTIVE) {
+    if (filter === GroupFilters.ACTIVE) {
       return mock.filter(group => group.status === GroupStatus.ACTIVE);
     }
-    if (filter === GroupStatus.INACTIVE) {
+    if (filter === GroupFilters.INACTIVE) {
       return mock.filter(group => group.status === GroupStatus.INACTIVE);
     }
     return mock;

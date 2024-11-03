@@ -17,15 +17,16 @@ export function useDefaultSearchComponent<T>({
   const searchOptions = (event: { query: string }) => {
     if (!event.query || event.query.trim() === '') {
       setFilteredOptions(options);
-    } else {
-      setFilteredOptions(
-        options.filter(option =>
-          getOptionLabel(option)
-            .toLowerCase()
-            .includes(event.query.toLowerCase()),
-        ),
-      );
+      return;
     }
+
+    setFilteredOptions(
+      options.filter(option =>
+        getOptionLabel(option)
+          .toLowerCase()
+          .includes(event.query.toLowerCase()),
+      ),
+    );
   };
 
   const handleFocus = () => {
