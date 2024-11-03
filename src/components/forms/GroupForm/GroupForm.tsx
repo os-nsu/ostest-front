@@ -13,13 +13,17 @@ import DefaultButton from '@/UI/buttons/DefaultButton/DefaultButton';
 interface GroupFormProps {
   group?: Group;
   containerClass?: string;
+  isEditing: boolean;
   buttonLabel: string;
+  onUpdate: () => void;
 }
 
 export default function GroupForm({
   group,
   containerClass,
+  isEditing,
   buttonLabel,
+  onUpdate,
 }: GroupFormProps) {
   const {
     formData,
@@ -37,7 +41,7 @@ export default function GroupForm({
     handleTeacherSelect,
     toggleTeacherSearch,
     removeTeacher,
-  } = useGroupForm(group);
+  } = useGroupForm(isEditing, onUpdate);
 
   const students = [
     { name: 'student 1' },

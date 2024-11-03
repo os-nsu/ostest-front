@@ -7,16 +7,20 @@ import { GroupFilters } from '@/types/Group';
 
 interface GroupsPageTitleProps {
   setFilter: (filter: GroupFilters) => void;
+  onCreate: () => void;
 }
 
-export default function GroupsPageTitle({ setFilter }: GroupsPageTitleProps) {
+export default function GroupsPageTitle({
+  setFilter,
+  onCreate,
+}: GroupsPageTitleProps) {
   const { options, selectedOption, handleOptionSelect } =
     useGroupsPageTitle(setFilter);
 
   return (
     <div className={styles.container}>
       <span className={styles.title}>Группы</span>
-      <DefaultButton icon={IconPlus} label="Создать" />
+      <DefaultButton icon={IconPlus} label="Создать" onClick={onCreate} />
       <DefaultDropdown
         options={options}
         value={selectedOption}

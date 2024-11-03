@@ -25,7 +25,10 @@ export default function GroupAsideContent({
           onCloseIconClick={onClose}
           onBackIconClick={() => setIsEditing(false)}
         />
-        <GroupAsideEditForm group={group} />
+        <GroupAsideEditForm
+          group={group}
+          onUpdate={() => setIsEditing(false)}
+        />
       </div>
     );
   }

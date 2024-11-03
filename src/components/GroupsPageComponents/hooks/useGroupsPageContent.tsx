@@ -29,6 +29,7 @@ const mock: Group[] = [
 export const useGroupsPageContent = () => {
   const [groups, setGroups] = useState<Group[]>([]);
   const [isAsideDisplayed, setAsideDisplayed] = useState(false);
+  const [isModalVisible, setModalVisible] = useState(false);
   const [filter, setFilter] = useState(GroupFilters.ACTIVE);
 
   const filteredGroups = () => {
@@ -52,6 +53,8 @@ export const useGroupsPageContent = () => {
     mock,
     isAsideDisplayed,
     setAsideDisplayed,
+    isModalVisible,
+    setModalVisible,
     setFilter,
     filteredGroups,
   };
