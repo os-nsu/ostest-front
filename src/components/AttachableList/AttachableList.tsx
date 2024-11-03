@@ -30,13 +30,10 @@ export default function AttachableList({
       </div>
       {entities.length > 0 ? (
         <div>
-          {entities.map(entity => (
-            <div className={styles.list} key={entity.name}>
-              <div className={styles.listItem}>{entity.name}</div>
-              <IconButton
-                icon={detachIcon}
-                onClick={() => onDetach(entity.name)}
-              />
+          {entities.map(({ name }) => (
+            <div className={styles.list} key={name}>
+              <div className={styles.listItem}>{name}</div>
+              <IconButton icon={detachIcon} onClick={() => onDetach(name)} />
             </div>
           ))}
         </div>

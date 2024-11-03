@@ -14,8 +14,6 @@ export default function AboutGroupDataBlock({
       <span className={styles.title}>{title}</span>
       <div>
         {Array.isArray(text) ? (
-          // зависит от того, какие поля будут в преподавателях и студентах
-          // скорее всего, выводить поля с фамилией, именем и отчеством
           text.map((item, index) => (
             <div className={styles.item} key={index}>
               {item.name}

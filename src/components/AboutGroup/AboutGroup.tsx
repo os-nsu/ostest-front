@@ -7,7 +7,6 @@ interface AboutGroupProps {
 }
 
 export default function AboutGroup({ group }: AboutGroupProps) {
-  // const { status, studentsCount, teachers, students } = group;
   const { status, studentsCount } = group;
 
   const students = [

@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Group, GroupStatus } from '@/types/Group';
 import { SelectItem } from 'primereact/selectitem';
-import { useStudents } from './useStudents';
-import { useTeachers } from './useTeachers';
+import { useAttachableListController } from './useAttachableListController';
 
 interface GroupFormData {
   status?: GroupStatus;
@@ -20,20 +19,23 @@ export const useGroupForm = (group?: Group) => {
   const [formData, setFormData] = useState<GroupFormData>();
   const [isButtonDisabled, setButtonDisabled] = useState(false);
 
+  const useTeachers = () => useAttachableListController();
+  const useStudents = () => useAttachableListController();
+
   const {
-    selectedStudents,
-    showStudentSearch,
-    handleStudentSelect,
-    toggleStudentSearch,
-    removeStudent,
+    selectedItems: selectedStudents,
+    showItemSearch: showStudentSearch,
+    handleSelect: handleStudentSelect,
+    toggleSearch: toggleStudentSearch,
+    removeItem: removeStudent,
   } = useStudents();
 
   const {
-    selectedTeachers,
-    showTeacherSearch,
-    handleTeacherSelect,
-    toggleTeacherSearch,
-    removeTeacher,
+    selectedItems: selectedTeachers,
+    showItemSearch: showTeacherSearch,
+    handleSelect: handleTeacherSelect,
+    toggleSearch: toggleTeacherSearch,
+    removeItem: removeTeacher,
   } = useTeachers();
 
   useEffect(() => {
