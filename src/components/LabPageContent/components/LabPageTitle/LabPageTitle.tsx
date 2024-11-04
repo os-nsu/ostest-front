@@ -4,7 +4,7 @@ import styles from '@styles/components/LabPageTitle.module.scss';
 import DefaultButton from '@UI/buttons/DefaultButton/DefaultButton.tsx';
 import { useState } from 'react';
 
-export default function LabPageTitle() {
+export default function LabPageTitle({ onUpdate }: { onUpdate: () => void }) {
   const [isModalVisible, setModalVisible] = useState(false);
 
   return (
@@ -20,6 +20,7 @@ export default function LabPageTitle() {
         onPrevent={() => setModalVisible(false)}
         onUpdate={() => {
           setModalVisible(false);
+          onUpdate();
         }}
       />
     </div>

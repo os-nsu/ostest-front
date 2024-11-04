@@ -16,6 +16,11 @@ export default function ModalCreateLab({
   onUpdate,
   onPrevent,
 }: ModalCreateLabProps) {
+  const handleUpdate = () => {
+    onUpdate();
+    onPrevent();
+  };
+
   return (
     <Dialog
       visible={displayed}
@@ -24,7 +29,7 @@ export default function ModalCreateLab({
       content={() => (
         <div className={styles.container}>
           <span className={styles.title}>Добавить лаб. работу</span>
-          <LabForm isEditing={false} onUpdate={onUpdate} />
+          <LabForm isEditing={false} onUpdate={handleUpdate} />
           <Button
             className={styles.close}
             icon={<img src={IconClose} alt="" />}

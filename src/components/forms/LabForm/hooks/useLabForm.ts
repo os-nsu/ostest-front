@@ -147,7 +147,7 @@ export const useLabForm = (
     laboratoryProvider
       .addLaboratory(data)
       .then(({ status }) => {
-        if (status !== 200) {
+        if (status !== 201) {
           return;
         }
         onUpdate();
