@@ -15,7 +15,11 @@ const groupOptions: SelectItem[] = [
   { value: GroupStatus.INACTIVE, label: 'Скрыта' },
 ];
 
-export const useGroupForm = (group?: Group) => {
+export const useGroupForm = (
+  isEditing: boolean,
+  onUpdate: () => void,
+  group?: Group,
+) => {
   const [formData, setFormData] = useState<GroupFormData>();
   const [isButtonDisabled, setButtonDisabled] = useState(false);
 
@@ -70,13 +74,23 @@ export const useGroupForm = (group?: Group) => {
   ) => setFormData({ ...formData, [fieldType]: value });
 
   const onSubmit = () => {
-    console.log(formData);
+    if (isEditing) {
+      if (!group?.id) {
+        return;
+      }
+      console.log('Edit group');
+      onUpdate();
+      return;
+    }
+
+    console.log('Add group');
+    onUpdate();
   };
 
   return {
     formData,
     isButtonDisabled,
-    groupOptions: groupOptions,
+    groupOptions,
     onFieldChange,
     onSubmit,
     selectedStudents,

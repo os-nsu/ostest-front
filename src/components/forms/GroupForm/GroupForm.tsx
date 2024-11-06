@@ -13,13 +13,17 @@ import DefaultButton from '@/UI/buttons/DefaultButton/DefaultButton';
 interface GroupFormProps {
   group?: Group;
   containerClass?: string;
+  isEditing: boolean;
   buttonLabel: string;
+  onUpdate: () => void;
 }
 
 export default function GroupForm({
   group,
   containerClass,
+  isEditing,
   buttonLabel,
+  onUpdate,
 }: GroupFormProps) {
   const {
     formData,
@@ -37,7 +41,7 @@ export default function GroupForm({
     handleTeacherSelect,
     toggleTeacherSearch,
     removeTeacher,
-  } = useGroupForm(group);
+  } = useGroupForm(isEditing, onUpdate);
 
   const students = [
     { name: 'student 1' },
@@ -92,7 +96,6 @@ export default function GroupForm({
           placeholder="Введите имя преподавателя"
           field="name"
           onSelect={handleTeacherSelect}
-          selectedValue={null}
           showSearch={showTeacherSearch}
           getOptionLabel={teacher => teacher.name}
         />
@@ -111,7 +114,6 @@ export default function GroupForm({
           placeholder="Введите имя студента"
           field="name"
           onSelect={handleStudentSelect}
-          selectedValue={null}
           showSearch={showStudentSearch}
           getOptionLabel={student => student.name}
         />

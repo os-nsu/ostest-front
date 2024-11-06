@@ -4,6 +4,7 @@ import { useGroupsPageContent } from './hooks/useGroupsPageContent';
 import GroupsList from './components/GroupsList/GroupsList';
 import DefaultAside from '../asides/DefaultAside/DefaultAside';
 import GroupAsideContent from '../GroupAsideContent/GroupAsideContent';
+import ModalCreateGroup from '../modals/ModalCreateGroup/ModalCreateGroup';
 
 export default function GroupsPageContent() {
   const {
@@ -13,11 +14,16 @@ export default function GroupsPageContent() {
     setAsideDisplayed,
     setFilter,
     filteredGroups,
+    isModalVisible,
+    setModalVisible,
   } = useGroupsPageContent();
 
   return (
     <div className={styles.container}>
-      <GroupsPageTitle setFilter={setFilter} />
+      <GroupsPageTitle
+        setFilter={setFilter}
+        onCreate={() => setModalVisible(true)}
+      />
       {!mock.length ? (
         <span className={styles.placeholder}>Создайте первую группу</span>
       ) : (
@@ -36,6 +42,11 @@ export default function GroupsPageContent() {
             onClose={() => setAsideDisplayed(false)}
           />
         }
+      />
+      <ModalCreateGroup
+        displayed={isModalVisible}
+        onPrevent={() => setModalVisible(false)}
+        onCreate={() => setModalVisible(false)}
       />
     </div>
   );

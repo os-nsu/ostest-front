@@ -3,7 +3,6 @@ import { AutoComplete } from 'primereact/autocomplete';
 
 interface UseDefaultSearchComponentProps<T> {
   options: T[];
-  onSelect: (value: T) => void;
   getOptionLabel: (option: T) => string;
 }
 
@@ -13,6 +12,7 @@ export function useDefaultSearchComponent<T>({
 }: UseDefaultSearchComponentProps<T>) {
   const [filteredOptions, setFilteredOptions] = useState<T[]>([]);
   const autoCompleteRef = useRef<AutoComplete>(null);
+  const [searchText, setSearchText] = useState<string>('');
 
   const searchOptions = (event: { query: string }) => {
     if (!event.query || event.query.trim() === '') {
@@ -39,5 +39,7 @@ export function useDefaultSearchComponent<T>({
     filteredOptions,
     searchOptions,
     handleFocus,
+    setSearchText,
+    searchText,
   };
 }
