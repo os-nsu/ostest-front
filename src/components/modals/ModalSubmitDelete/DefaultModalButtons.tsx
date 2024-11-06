@@ -1,5 +1,6 @@
 import { Button } from 'primereact/button';
 import styles from '@styles/components/DefaultModalButtons.module.scss';
+import DefaultButton from '@/UI/buttons/DefaultButton/DefaultButton';
 
 interface DefaultModalButtonsProps {
   onPrevent: () => void;
@@ -17,11 +18,7 @@ export default function DefaultModalButtons({
         label="Отмена"
         onClick={onPrevent}
       />
-      <Button
-        className={styles.deleteButton}
-        label="Удалить"
-        onClick={onSubmit}
-      />
+      <DefaultButton label="Удалить" onClick={onSubmit} />
     </div>
   );
 }

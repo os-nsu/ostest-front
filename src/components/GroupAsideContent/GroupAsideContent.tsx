@@ -42,7 +42,7 @@ export default function GroupAsideContent({
       <AboutGroup group={group} />
       <ModalSubmitDelete
         displayed={isDeleting}
-        name={group.name}
+        name={'группу ' + group.name}
         id={group.id.toString()}
         onPrevent={() => setIsDeleting(false)}
         onSubmit={() => {}}
