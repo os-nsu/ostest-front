@@ -5,11 +5,11 @@ import styles from '@styles/components/LabPageContent.module.scss';
 import DefaultLoader from '@UI/loaders/DefaultLoader/DefaultLoader.tsx';
 
 export default function LabPageContent() {
-  const { isLoading, labs } = useLabPageContent();
+  const { isLoading, labs, fetchLabs } = useLabPageContent();
 
   return (
     <div className={styles.container}>
-      <LabPageTitle />
+      <LabPageTitle onUpdate={fetchLabs} />
       {isLoading ? <DefaultLoader /> : <LabTable laboratories={labs} />}
     </div>
   );
