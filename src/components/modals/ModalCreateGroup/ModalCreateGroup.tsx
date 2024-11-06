@@ -30,11 +30,13 @@ export default function ModalCreateGroup({
               type="no_bg"
             />
           </div>
-          <GroupForm
-            buttonLabel="Создать"
-            isEditing={false}
-            onUpdate={onCreate}
-          />
+          <div className={styles.formContainer}>
+            <GroupForm
+              buttonLabel="Создать"
+              isEditing={false}
+              onUpdate={onCreate}
+            />
+          </div>
         </div>
       )}
     />

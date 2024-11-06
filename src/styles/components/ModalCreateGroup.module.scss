@@ -9,13 +9,17 @@
 
     display: flex;
     flex-direction: column;
-    overflow: auto;
 
-    &::-webkit-scrollbar {
-      display: none;
-    }
-    
     padding: 21px;
+
+    & .formContainer {
+      overflow: auto;
+      height: 70vh;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
 
     & .buttonContainer {
       display: flex;
