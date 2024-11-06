@@ -5,6 +5,7 @@ import GroupAsideContentHeader from './components/GroupAsideContentHeader/GroupA
 import GroupAsideEditForm from './components/GroupAsideEditForm/GroupAsideEditForm';
 import AboutGroup from '../AboutGroup/AboutGroup';
 import GroupAsideBackHeader from './components/GroupAsideBackHeader/GroupAsideBackHeader';
+import ModalSubmitDelete from '../modals/ModalSubmitDelete/ModalSubmitDelete';
 
 interface GroupAsideContentProps {
   group: Group;
@@ -15,7 +16,8 @@ export default function GroupAsideContent({
   group,
   onClose,
 }: GroupAsideContentProps) {
-  const { isEditing, setIsEditing } = useGroupAsideContent();
+  const { isEditing, setIsEditing, isDeleting, setIsDeleting } =
+    useGroupAsideContent();
 
   if (isEditing) {
     return (
@@ -38,8 +40,16 @@ export default function GroupAsideContent({
         groupName={group.name}
         onCloseIconClick={onClose}
         onEditIconClick={() => setIsEditing(true)}
+        onDeleteIconClick={() => setIsDeleting(true)}
       />
       <AboutGroup group={group} />
+      <ModalSubmitDelete
+        displayed={isDeleting}
+        name={'группу ' + group.name}
+        id={group.id.toString()}
+        onPrevent={() => setIsDeleting(false)}
+        onSubmit={() => {}}
+      />
     </div>
   );
 }
