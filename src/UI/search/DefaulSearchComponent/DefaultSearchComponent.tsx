@@ -9,7 +9,6 @@ interface DefaultSearchComponentProps<T> {
   placeholder?: string;
   required?: boolean;
   onSelect: (value: T) => void;
-  selectedValue: T | null;
   showSearch: boolean;
   getOptionLabel: (option: T) => string;
   field: keyof T & string;
@@ -21,17 +20,21 @@ export default function DefaultSearchComponent<T>({
   placeholder,
   required,
   onSelect,
-  selectedValue,
   showSearch,
   getOptionLabel,
   field,
 }: DefaultSearchComponentProps<T>) {
-  const { autoCompleteRef, filteredOptions, searchOptions, handleFocus } =
-    useDefaultSearchComponent({
-      options,
-      onSelect,
-      getOptionLabel,
-    });
+  const {
+    autoCompleteRef,
+    filteredOptions,
+    searchOptions,
+    handleFocus,
+    setSearchText,
+    searchText,
+  } = useDefaultSearchComponent({
+    options,
+    getOptionLabel,
+  });
 
   return (
     <>
@@ -42,12 +45,16 @@ export default function DefaultSearchComponent<T>({
           ) : null}
           <AutoComplete
             ref={autoCompleteRef}
-            value={selectedValue}
+            value={searchText}
             suggestions={filteredOptions}
             completeMethod={searchOptions}
             field={field}
             placeholder={placeholder}
-            onChange={e => onSelect(e.value)}
+            onChange={e => setSearchText(e.value)}
+            onSelect={e => {
+              setSearchText('');
+              onSelect(e.value);
+            }}
             onFocus={handleFocus}
             onClick={handleFocus}
           />

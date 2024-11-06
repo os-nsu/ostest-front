@@ -96,7 +96,6 @@ export default function GroupForm({
           placeholder="Введите имя преподавателя"
           field="name"
           onSelect={handleTeacherSelect}
-          selectedValue={null}
           showSearch={showTeacherSearch}
           getOptionLabel={teacher => teacher.name}
         />
@@ -115,7 +114,6 @@ export default function GroupForm({
           placeholder="Введите имя студента"
           field="name"
           onSelect={handleStudentSelect}
-          selectedValue={null}
           showSearch={showStudentSearch}
           getOptionLabel={student => student.name}
         />
