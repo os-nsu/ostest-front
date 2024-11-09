@@ -24,9 +24,9 @@ export class GroupProvider {
     return this.instance.post<MinimizedGroup>('', requestData);
   }
 
-  searchGroups(data: GroupSearchRequestData) {
+  searchGroups({ page, size, sort }: GroupSearchRequestData) {
     return this.instance.get<GroupSearchResponseData>(
-      `/search?page=${data.page}&size=${data.size}&sort=${data.sort}`,
+      `/search?page=${page}&size=${size}&sort=${sort}`,
     );
   }
 

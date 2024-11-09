@@ -1,21 +1,15 @@
 import { useEffect, useState } from 'react';
 import { Group, GroupFilters, GroupStatus } from '@/types/Group';
 import { useGroupProvider } from '@/providers/GroupProvider/useGroupProvider';
+import { usePagination } from './usePagination';
 
 export const useGroupsPageContent = () => {
   const [isAsideDisplayed, setAsideDisplayed] = useState(false);
   const [isModalVisible, setModalVisible] = useState(false);
   const [selectedGroup, setSelectedGroup] = useState<Group | null>(null);
   const [filter, setFilter] = useState(GroupFilters.ACTIVE);
-
-  const [groups, setGroups] = useState<Group[]>([]);
-  const [currentPage, setCurrentPage] = useState(0);
-  const [pageSize] = useState(10);
   const [isLoading, setIsLoading] = useState(false);
-
-  const [isLastPage, setIsLastPage] = useState(false);
-  const [isFirstPage, setIsFirstPage] = useState(true);
-  const [totalPages, setTotalPages] = useState(0);
+  const [groups, setGroups] = useState<Group[]>([]);
 
   const filteredGroups = () => {
     if (filter === GroupFilters.ACTIVE) {
@@ -26,6 +20,17 @@ export const useGroupsPageContent = () => {
     }
     return groups;
   };
+
+  const {
+    pageSize,
+    currentPage,
+    isFirstPage,
+    isLastPage,
+    setPages,
+    setCurrentPage,
+    handleNextPage,
+    handlePrevPage,
+  } = usePagination();
 
   useEffect(() => {
     loadGroups(0);
@@ -44,9 +49,7 @@ export const useGroupsPageContent = () => {
       .searchGroups(requestData)
       .then(({ status, data }) => {
         if (status === 200 && data) {
-          setIsLastPage(data.last);
-          setIsFirstPage(data.first);
-          setTotalPages(data.totalPages);
+          setPages(data.last, data.first, data.totalPages);
 
           Promise.all(
             data.content.map(async group => {
@@ -64,18 +67,6 @@ export const useGroupsPageContent = () => {
       })
       .catch(err => console.error(err))
       .finally(() => setIsLoading(false));
-  };
-
-  const handleNextPage = () => {
-    if (!isLastPage) {
-      loadGroups(currentPage + 1);
-    }
-  };
-
-  const handlePrevPage = () => {
-    if (!isFirstPage) {
-      loadGroups(currentPage - 1);
-    }
   };
 
   const onEditGroup = () => {
@@ -111,6 +102,7 @@ export const useGroupsPageContent = () => {
     filteredGroups,
     handleNextPage,
     handlePrevPage,
+    loadGroups,
     isLoading,
     isFirstPage,
     isLastPage,

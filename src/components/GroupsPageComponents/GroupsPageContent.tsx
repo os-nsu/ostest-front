@@ -5,7 +5,7 @@ import GroupsList from './components/GroupsList/GroupsList';
 import DefaultAside from '../asides/DefaultAside/DefaultAside';
 import GroupAsideContent from '../GroupAsideContent/GroupAsideContent';
 import ModalCreateGroup from '../modals/ModalCreateGroup/ModalCreateGroup';
-import DefaultButton from '@/UI/buttons/DefaultButton/DefaultButton';
+import PaginationButtons from '../PaginationButtons/PaginationButtons';
 
 export default function GroupsPageContent() {
   const {
@@ -18,6 +18,7 @@ export default function GroupsPageContent() {
     setModalVisible,
     handleNextPage,
     handlePrevPage,
+    loadGroups,
     isLoading,
     isFirstPage,
     isLastPage,
@@ -45,18 +46,14 @@ export default function GroupsPageContent() {
               setAsideDisplayed(true);
             }}
           />
-          <div className={styles.buttonContainer}>
-            <DefaultButton
-              label="Назад"
-              onClick={handlePrevPage}
-              disabled={isFirstPage || isLoading}
-            />
-            <DefaultButton
-              label="Вперед"
-              onClick={handleNextPage}
-              disabled={isLastPage || isLoading}
-            />
-          </div>
+          <PaginationButtons
+            isLoading={isLoading}
+            isFirstPage={isFirstPage}
+            isLastPage={isLastPage}
+            handleNextPage={handleNextPage}
+            handlePrevPage={handlePrevPage}
+            loadPage={loadGroups}
+          />
         </>
       )}
       <DefaultAside

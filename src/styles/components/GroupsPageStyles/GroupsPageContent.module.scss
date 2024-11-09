@@ -3,12 +3,6 @@
     flex-direction: column;
     gap: 48px;
     padding: 40px;
-
-    & .buttonContainer {
-      gap: 24px;
-      display: flex;
-      justify-content: center;
-    }
   
     & .placeholder {
       color: rgba(0, 0, 0, 0.6);
