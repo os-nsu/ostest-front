@@ -10,6 +10,9 @@
     font-weight: 500;
     line-height: 36.4px;
     color: #000000;
+
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
 
   & .buttonContainer {

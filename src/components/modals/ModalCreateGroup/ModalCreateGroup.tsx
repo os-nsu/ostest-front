@@ -2,7 +2,7 @@ import { Dialog } from 'primereact/dialog';
 import styles from '@styles/components/ModalCreateGroup.module.scss';
 import IconClose from '@/UI/icons/IconClose/IconClose';
 import IconButton from '@/UI/buttons/IconButton/IconButton';
-import GroupForm from '@/components/forms/GroupForm/GroupForm';
+import CreateGroupForm from '@/components/forms/CreateGroupForm/CreateGroupForm';
 
 interface ModalCreateGroupProps {
   displayed?: boolean;
@@ -30,13 +30,7 @@ export default function ModalCreateGroup({
               type="no_bg"
             />
           </div>
-          <div className={styles.formContainer}>
-            <GroupForm
-              buttonLabel="Создать"
-              isEditing={false}
-              onUpdate={onCreate}
-            />
-          </div>
+          <CreateGroupForm onUpdate={onCreate} />
         </div>
       )}
     />

@@ -1,13 +1,17 @@
 import { useEffect, useState } from 'react';
-import { Group, GroupStatus } from '@/types/Group';
+import { Group, GroupStatus, User } from '@/types/Group';
 import { SelectItem } from 'primereact/selectitem';
 import { useAttachableListController } from './useAttachableListController';
+import { RoleTypes } from '@/types/Role';
+import { useGroupProvider } from '@/providers/GroupProvider/useGroupProvider';
 
 interface GroupFormData {
-  status?: GroupStatus;
-  name?: string;
-  studentsCount?: number;
-  teacher?: string;
+  id: number;
+  status: GroupStatus;
+  name: string;
+  studentsCount: number;
+  teachers: User[];
+  students: User[];
 }
 
 const groupOptions: SelectItem[] = [
@@ -15,16 +19,37 @@ const groupOptions: SelectItem[] = [
   { value: GroupStatus.INACTIVE, label: 'Скрыта' },
 ];
 
-export const useGroupForm = (
-  isEditing: boolean,
-  onUpdate: () => void,
-  group?: Group,
-) => {
-  const [formData, setFormData] = useState<GroupFormData>();
+export const useGroupForm = (group: Group, onUpdate: () => void) => {
+  const [isNameError, setNameError] = useState('');
   const [isButtonDisabled, setButtonDisabled] = useState(false);
 
-  const useTeachers = () => useAttachableListController();
-  const useStudents = () => useAttachableListController();
+  const students = group.users.filter(user =>
+    user.roles.some(role => role.roleName === RoleTypes.STEDENT),
+  );
+  const studentNames = students.map(user => ({
+    id: user.id,
+    name: `${user.firstName} ${user.secondName}`,
+  }));
+
+  const teachers = group.users.filter(user =>
+    user.roles.some(role => role.roleName === RoleTypes.TEACHER),
+  );
+  const teacherNames = teachers.map(user => ({
+    id: user.id,
+    name: `${user.firstName} ${user.secondName}`,
+  }));
+
+  const [formData, setFormData] = useState<GroupFormData>({
+    id: group.id,
+    name: group.name,
+    status: group.status,
+    studentsCount: students.length,
+    teachers,
+    students,
+  });
+
+  const useTeachers = () => useAttachableListController(teachers);
+  const useStudents = () => useAttachableListController(students);
 
   const {
     selectedItems: selectedStudents,
@@ -43,53 +68,63 @@ export const useGroupForm = (
   } = useTeachers();
 
   useEffect(() => {
-    if (!group) {
-      return;
-    }
-
-    const { name, studentsCount, status, teacher } = group;
-    setFormData({
-      name,
-      studentsCount,
-      status,
-      teacher,
-    });
-  }, [group]);
-
-  useEffect(
-    () =>
-      setButtonDisabled(
-        !formData?.status ||
-          !formData.teacher ||
-          !formData.name ||
-          selectedStudents.length === 0 ||
-          selectedTeachers.length === 0,
-      ),
-    [formData, selectedStudents, selectedTeachers],
-  );
+    setButtonDisabled(!formData.name.trim());
+  }, [formData.name]);
 
   const onFieldChange = (
     fieldType: keyof GroupFormData,
-    value: string | number | GroupStatus,
+    value: string | number | GroupStatus | User[],
   ) => setFormData({ ...formData, [fieldType]: value });
 
   const onSubmit = () => {
-    if (isEditing) {
-      if (!group?.id) {
-        return;
-      }
-      console.log('Edit group');
-      onUpdate();
-      return;
-    }
+    const studentIds = new Set<number>(students.map(student => student.id));
+    const teacherIds = new Set<number>(teachers.map(teacher => teacher.id));
+    const allIds = new Set([...studentIds, ...teacherIds]);
 
-    console.log('Add group');
-    onUpdate();
+    const selectedStudentIds = new Set<number>(
+      selectedStudents.map(student => student.id),
+    );
+    const selectedTeacherIds = new Set<number>(
+      selectedTeachers.map(teacher => teacher.id),
+    );
+    const selectedAllIds = new Set([
+      ...selectedStudentIds,
+      ...selectedTeacherIds,
+    ]);
+
+    const addUsers = Array.from(selectedAllIds).filter(id => !allIds.has(id));
+    const deleteUsers = Array.from(allIds).filter(
+      id => !selectedAllIds.has(id),
+    );
+
+    useGroupProvider()
+      .editGroup({
+        id: formData.id,
+        name: formData.name,
+        addUsers: addUsers,
+        deleteUsers: deleteUsers,
+      })
+      .then(({ status }) => {
+        if (status !== 200) {
+          return;
+        }
+        onUpdate();
+      })
+      .catch(({ response }) => {
+        if (response.status === 400) {
+          setNameError(response.data.message);
+          return;
+        }
+        console.error(response);
+      });
   };
 
   return {
     formData,
+    isNameError,
     isButtonDisabled,
+    studentNames,
+    teacherNames,
     groupOptions,
     onFieldChange,
     onSubmit,

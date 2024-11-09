@@ -1,8 +1,8 @@
 import DefaultInput from '@UI/inputs/DefaultInput/DefaultInput.tsx';
 import DefaultDropdown from '@UI/inputs/DefaultDropdown/DefaultDropdown.tsx';
 import { useRegisterForm } from '@/components/forms/RegisterForm/hooks/useRegisterForm.tsx';
-import { Button } from 'primereact/button';
 import styles from '@styles/components/UserForm.module.scss';
+import DefaultButton from '@/UI/buttons/DefaultButton/DefaultButton';
 
 export default function RegisterForm() {
   const { isButtonDisabled, roleOptions, onFieldChange, onSubmit } =
@@ -36,8 +36,7 @@ export default function RegisterForm() {
         placeholder="Введите номер группы"
         onChange={value => onFieldChange('groupNumber', value || '')}
       />
-      <Button
-        className={styles.submitButton}
+      <DefaultButton
         disabled={isButtonDisabled}
         label="Зарегистрировать"
         onClick={onSubmit}

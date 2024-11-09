@@ -1,3 +1,5 @@
+import { RoleTypes } from './Role';
+
 export enum GroupStatus {
   ACTIVE = 'Активна',
   INACTIVE = 'Скрыта',
@@ -9,10 +11,24 @@ export enum GroupFilters {
   ALL = 'ALL',
 }
 
-export interface Group {
+export interface MinimizedGroup {
   id: number;
   name: string;
-  studentsCount: number;
-  teacher: string;
+}
+
+export interface User {
+  id: 0;
+  username: string;
+  firstName: string;
+  secondName: string;
+  roles: [
+    {
+      roleName: RoleTypes;
+    },
+  ];
+}
+
+export interface Group extends MinimizedGroup {
   status: GroupStatus;
+  users: User[];
 }
