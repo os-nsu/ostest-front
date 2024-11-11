@@ -77,8 +77,10 @@ export default function LabForm({
       <SelectedTests onDeselect={handleDeselectTest} tests={formData.tests} />
       <DefaultButton
         buttonClass={styles.submitButton}
-        label={isEditing ? 'Сохранить' : 'Создать'}
+        labelClass={styles.labelButton}
+        label={isEditing ? 'Сохранить' : 'Добавить'}
         onClick={onSubmit}
+        disabled={formData.name.trim() === ''}
       />
     </div>
   );
