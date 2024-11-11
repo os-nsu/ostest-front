@@ -36,6 +36,19 @@ export const useGroupsPageContent = () => {
     loadGroups(0);
   }, []);
 
+  const validateAndFormatGroup = (group: Partial<Group>): Group => {
+    if (!group.name) {
+      throw new Error(
+        `Missing required field(s) in group data: ${JSON.stringify(group)}`,
+      );
+    }
+
+    return {
+      users: group.users ?? [],
+      ...group,
+    } as Group;
+  };
+
   const loadGroups = (page: number) => {
     setIsLoading(true);
 
@@ -56,7 +69,10 @@ export const useGroupsPageContent = () => {
               return useGroupProvider()
                 .getGroup(`${group.id}`)
                 .then(details => {
-                  return { ...details.data, status: GroupStatus.ACTIVE };
+                  return validateAndFormatGroup({
+                    ...details.data,
+                    status: GroupStatus.ACTIVE,
+                  });
                 });
             }),
           ).then(detailedGroups => {
