@@ -29,3 +29,15 @@
         background-color: #F3F3F3;
     }
 }
+
+.closeButton {
+    @include icon_button;
+    padding: 7px;
+    width: 28px;
+    height: 28px;
+
+    .icon {
+        width: 14px;
+        height: 14px;
+    }
+}

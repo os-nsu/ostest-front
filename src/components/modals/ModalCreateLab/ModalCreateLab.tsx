@@ -1,9 +1,8 @@
 import LabForm from '@/components/forms/LabForm/LabForm.tsx';
 import { Dialog } from 'primereact/dialog';
 import styles from '@styles/components/ModalCreateLab.module.scss';
-import { Button } from 'primereact/button';
-import IconClose from '@public/close.svg';
-import { useState } from 'react';
+import IconClose from '@/UI/icons/IconClose/IconClose';
+import IconButton from '@UI/buttons/IconButton/IconButton.tsx';
 
 interface ModalCreateLabProps {
   displayed?: boolean;
@@ -28,14 +27,16 @@ export default function ModalCreateLab({
       className={styles.wrapper}
       content={() => (
         <div className={styles.container}>
-          <span className={styles.title}>Добавить лаб. работу</span>
+          <div className={styles.titleContainer}>
+            <span className={styles.title}>Добавить лаб. работу</span>
+            <IconButton
+              onClick={onPrevent}
+              icon={IconClose({ color: '#6B7280' })}
+              type="no_bg"
+              className="closeButton"
+            />
+          </div>
           <LabForm isEditing={false} onUpdate={handleUpdate} />
-          <Button
-            className={styles.close}
-            icon={<img src={IconClose} alt="" />}
-            rounded
-            onClick={onPrevent}
-          />
         </div>
       )}
     />

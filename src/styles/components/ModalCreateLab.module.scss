@@ -12,6 +12,12 @@
       flex-direction: column;
       gap: 16px;
       overflow-y: auto;
+
+      & .titleContainer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
   
       & .title {
         font-family: Inter, sans-serif;

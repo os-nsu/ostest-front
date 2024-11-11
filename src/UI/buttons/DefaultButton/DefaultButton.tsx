@@ -3,6 +3,7 @@ import styles from '@styles/components/DefaultButton.module.scss';
 
 interface DefaultButtonProps {
   buttonClass?: string;
+  labelClass?: string;
   label: string;
   icon?: string;
   disabled?: boolean;
@@ -11,6 +12,7 @@ interface DefaultButtonProps {
 
 export default function DefaultButton({
   buttonClass,
+  labelClass,
   label,
   icon,
   disabled,
@@ -21,7 +23,7 @@ export default function DefaultButton({
       className={[styles.button, buttonClass].join(' ')}
       disabled={disabled}
       onClick={onClick}>
-      <span>{label}</span>
+      <span className={labelClass}>{label}</span>
       {icon && <img src={icon} alt="test-page-title-icon" />}
     </Button>
   );
