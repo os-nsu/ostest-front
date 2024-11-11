@@ -1,5 +1,5 @@
 import { Dialog } from 'primereact/dialog';
-import styles from '@styles/components/ModalEditLab.module.scss';
+import styles from '@styles/components/ModalLab.module.scss';
 import IconClose from '@/UI/icons/IconClose/IconClose';
 import { Laboratory } from '@/types/Laboratory';
 import LabForm from '@/components/forms/LabForm/LabForm';
@@ -26,19 +26,22 @@ export default function ModalEditLab({
       className={styles.wrapper}
       content={() => (
         <div className={styles.container}>
-          <div className={styles.buttonContainer}>
+          <div className={styles.titleContainer}>
             <span className={styles.title}>Редактирование лаб. работы</span>
             <IconButton
-              icon={IconClose({ color: 'black' })}
+              icon={IconClose({ color: '#6B7280' })}
               onClick={onPrevent}
               type="no_bg"
+              className="closeButton"
             />
           </div>
-          <LabForm
-            isEditing={true}
-            laboratory={laboratory}
-            onUpdate={onUpdate}
-          />
+          <div className={styles.formContainer}>
+            <LabForm
+              isEditing={true}
+              laboratory={laboratory}
+              onUpdate={onUpdate}
+            />
+          </div>
         </div>
       )}
     />

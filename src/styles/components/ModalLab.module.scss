@@ -1,0 +1,44 @@
+.wrapper {
+  border-radius: 6px;
+
+  & .container {
+    position: relative;
+    width: 492px;
+    background-color: white;
+    border-radius: 6px;
+
+    display: flex;
+    flex-direction: column;
+
+    & .formContainer {
+      overflow: auto;
+      height: 80vh;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+
+    & .titleContainer {
+      display: flex;
+      justify-content: space-between;
+
+      padding: 21px;
+    }
+
+    & .title {
+      font-size: 24px;
+      font-weight: 500;
+      line-height: 29.05px;
+    }
+
+    & .close {
+      width: 24px;
+      height: 24px;
+
+      &:hover {
+        background-color: #ECEBF9;
+      }
+    }
+  }
+}
