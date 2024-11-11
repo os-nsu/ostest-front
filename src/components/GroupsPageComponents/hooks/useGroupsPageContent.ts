@@ -37,13 +37,8 @@ export const useGroupsPageContent = () => {
   }, []);
 
   const validateAndFormatGroup = (group: Partial<Group>): Group => {
-    if (!group.name) {
-      throw new Error(
-        `Missing required field(s) in group data: ${JSON.stringify(group)}`,
-      );
-    }
-
     return {
+      name: group.name ?? '',
       users: group.users ?? [],
       ...group,
     } as Group;

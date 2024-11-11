@@ -27,7 +27,7 @@ export default function GroupAsideContent({
     return (
       <div className={styles.container}>
         <GroupAsideBackHeader
-          groupName={group.name ?? ''}
+          groupName={group.name}
           onCloseIconClick={onClose}
           onBackIconClick={() => setIsEditing(false)}
         />
@@ -44,7 +44,7 @@ export default function GroupAsideContent({
   return (
     <div className={styles.container}>
       <GroupAsideContentHeader
-        groupName={group.name ?? ''}
+        groupName={group.name}
         onCloseIconClick={onClose}
         onEditIconClick={() => setIsEditing(true)}
         onDeleteIconClick={() => setIsDeleting(true)}

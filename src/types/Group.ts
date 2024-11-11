@@ -13,7 +13,7 @@ export enum GroupFilters {
 
 export interface MinimizedGroup {
   id: number;
-  name?: string;
+  name: string;
 }
 
 export interface User {
@@ -30,5 +30,5 @@ export interface User {
 
 export interface Group extends MinimizedGroup {
   status: GroupStatus;
-  users?: User[];
+  users: User[];
 }
