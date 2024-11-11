@@ -5,17 +5,28 @@ import GroupsList from './components/GroupsList/GroupsList';
 import DefaultAside from '../asides/DefaultAside/DefaultAside';
 import GroupAsideContent from '../GroupAsideContent/GroupAsideContent';
 import ModalCreateGroup from '../modals/ModalCreateGroup/ModalCreateGroup';
+import PaginationButtons from '../PaginationButtons/PaginationButtons';
 
 export default function GroupsPageContent() {
   const {
     groups,
-    mock,
     isAsideDisplayed,
     setAsideDisplayed,
     setFilter,
     filteredGroups,
     isModalVisible,
     setModalVisible,
+    handleNextPage,
+    handlePrevPage,
+    loadGroups,
+    isLoading,
+    isFirstPage,
+    isLastPage,
+    onEditGroup,
+    selectedGroup,
+    setSelectedGroup,
+    onUpdate,
+    onDelete,
   } = useGroupsPageContent();
 
   return (
@@ -24,29 +35,49 @@ export default function GroupsPageContent() {
         setFilter={setFilter}
         onCreate={() => setModalVisible(true)}
       />
-      {!mock.length ? (
+      {!groups.length ? (
         <span className={styles.placeholder}>Создайте первую группу</span>
       ) : (
-        <GroupsList
-          groups={filteredGroups()}
-          onSelectGroup={group => setAsideDisplayed(true)}
-        />
+        <>
+          <GroupsList
+            groups={filteredGroups()}
+            onSelectGroup={group => {
+              setSelectedGroup(group);
+              setAsideDisplayed(true);
+            }}
+          />
+          <PaginationButtons
+            isLoading={isLoading}
+            isFirstPage={isFirstPage}
+            isLastPage={isLastPage}
+            handleNextPage={handleNextPage}
+            handlePrevPage={handlePrevPage}
+            loadPage={loadGroups}
+          />
+        </>
       )}
       <DefaultAside
         visible={isAsideDisplayed}
         onHide={() => setAsideDisplayed(false)}
         style={{ width: '500px' }}
         children={
-          <GroupAsideContent
-            group={mock[0]}
-            onClose={() => setAsideDisplayed(false)}
-          />
+          selectedGroup && (
+            <GroupAsideContent
+              group={selectedGroup}
+              onClose={() => setAsideDisplayed(false)}
+              onEditGroup={onEditGroup}
+              onDeleteGroup={onDelete}
+            />
+          )
         }
       />
       <ModalCreateGroup
         displayed={isModalVisible}
         onPrevent={() => setModalVisible(false)}
-        onCreate={() => setModalVisible(false)}
+        onCreate={() => {
+          setModalVisible(false);
+          onUpdate();
+        }}
       />
     </div>
   );

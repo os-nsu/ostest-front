@@ -10,14 +10,18 @@ import ModalSubmitDelete from '../modals/ModalSubmitDelete/ModalSubmitDelete';
 interface GroupAsideContentProps {
   group: Group;
   onClose?: () => void;
+  onEditGroup: () => void;
+  onDeleteGroup: () => void;
 }
 
 export default function GroupAsideContent({
   group,
   onClose,
+  onEditGroup,
+  onDeleteGroup,
 }: GroupAsideContentProps) {
-  const { isEditing, setIsEditing, isDeleting, setIsDeleting } =
-    useGroupAsideContent();
+  const { isEditing, setIsEditing, isDeleting, setIsDeleting, onSubmit } =
+    useGroupAsideContent(group.id, onDeleteGroup);
 
   if (isEditing) {
     return (
@@ -29,7 +33,10 @@ export default function GroupAsideContent({
         />
         <GroupAsideEditForm
           group={group}
-          onUpdate={() => setIsEditing(false)}
+          onUpdate={() => {
+            setIsEditing(false);
+            onEditGroup();
+          }}
         />
       </div>
     );
@@ -48,7 +55,10 @@ export default function GroupAsideContent({
         name={'группу ' + group.name}
         id={group.id.toString()}
         onPrevent={() => setIsDeleting(false)}
-        onSubmit={() => {}}
+        onSubmit={() => {
+          setIsDeleting(false);
+          onSubmit();
+        }}
       />
     </div>
   );

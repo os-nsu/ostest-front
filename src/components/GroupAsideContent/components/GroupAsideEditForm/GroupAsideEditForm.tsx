@@ -14,7 +14,6 @@ export default function GroupAsideEditForm({
   return (
     <GroupForm
       group={group}
-      isEditing={true}
       containerClass={styles.form}
       buttonLabel="Сохранить"
       onUpdate={onUpdate}

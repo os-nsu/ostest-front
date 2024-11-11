@@ -11,9 +11,8 @@ import AttachableList from '@/components/AttachableList/AttachableList';
 import DefaultButton from '@/UI/buttons/DefaultButton/DefaultButton';
 
 interface GroupFormProps {
-  group?: Group;
+  group: Group;
   containerClass?: string;
-  isEditing: boolean;
   buttonLabel: string;
   onUpdate: () => void;
 }
@@ -21,13 +20,15 @@ interface GroupFormProps {
 export default function GroupForm({
   group,
   containerClass,
-  isEditing,
   buttonLabel,
   onUpdate,
 }: GroupFormProps) {
   const {
     formData,
+    isNameError,
     isButtonDisabled,
+    studentNames,
+    teacherNames,
     groupOptions,
     onFieldChange,
     onSubmit,
@@ -41,34 +42,7 @@ export default function GroupForm({
     handleTeacherSelect,
     toggleTeacherSearch,
     removeTeacher,
-  } = useGroupForm(isEditing, onUpdate);
-
-  const students = [
-    { name: 'student 1' },
-    { name: 'student 2' },
-    { name: 'student 3' },
-    { name: 'student 4' },
-    { name: 'student 5' },
-    { name: 'student 6' },
-    { name: 'student 7' },
-    { name: 'student 8' },
-    { name: 'student 9' },
-    { name: 'student 10' },
-    {
-      name: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Totam, aut beatae. Cumque, earum sit repellendus vero ratione dolorem veniam deserunt eligendi expedita? Nam possimus debitis natus animi ad dignissimos omnis!',
-    },
-  ];
-
-  const teachers = [
-    { name: 'teacher 1' },
-    { name: 'teacher 2' },
-    { name: 'teacher 3' },
-    { name: 'teacher 4' },
-    { name: 'teacher 5' },
-    { name: 'teacher 6' },
-    { name: 'teacher 7' },
-    { name: 'teacher 8' },
-  ];
+  } = useGroupForm(group, onUpdate);
 
   return (
     <div className={[styles.container, containerClass].join(' ')}>
@@ -76,8 +50,10 @@ export default function GroupForm({
         <DefaultInput
           label="Название"
           placeholder="Введите название"
-          value={formData?.name}
-          onChange={value => onFieldChange('name', value)}
+          value={formData.name}
+          onChange={value => onFieldChange('name', value || '')}
+          invalid={isNameError.length > 0}
+          errorLabel={isNameError}
         />
         <DefaultDropdown
           options={groupOptions}
@@ -91,7 +67,7 @@ export default function GroupForm({
           <span>{selectedStudents.length}</span>
         </div>
         <DefaultSearchComponent
-          options={teachers}
+          options={teacherNames}
           label="Поиск преподавателей"
           placeholder="Введите имя преподавателя"
           field="name"
@@ -109,7 +85,7 @@ export default function GroupForm({
           detachIcon={IconBan}
         />
         <DefaultSearchComponent
-          options={students}
+          options={studentNames}
           label="Поиск студентов"
           placeholder="Введите имя студента"
           field="name"
