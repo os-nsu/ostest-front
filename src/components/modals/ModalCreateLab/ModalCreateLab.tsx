@@ -1,6 +1,6 @@
 import LabForm from '@/components/forms/LabForm/LabForm.tsx';
 import { Dialog } from 'primereact/dialog';
-import styles from '@styles/components/ModalCreateLab.module.scss';
+import styles from '@styles/components/ModalLab.module.scss';
 import IconClose from '@/UI/icons/IconClose/IconClose';
 import IconButton from '@UI/buttons/IconButton/IconButton.tsx';
 
@@ -36,7 +36,9 @@ export default function ModalCreateLab({
               className="closeButton"
             />
           </div>
-          <LabForm isEditing={false} onUpdate={handleUpdate} />
+          <div className={styles.formContainer}>
+            <LabForm isEditing={false} onUpdate={handleUpdate} />
+          </div>
         </div>
       )}
     />
