@@ -4,6 +4,14 @@
 - Choose react nabigator yourselves
 - Choose cookie management strategy
 
+## How to run project with docker locally?
+`docker compose --env-file env.local up`
+
+If any problems, you can 
+```
+docker compose down
+docker compose --env-file env.local up --build
+```
 
 ## How to run project locally
 

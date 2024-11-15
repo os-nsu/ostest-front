@@ -3,8 +3,10 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    environment:
+      VITE_SERVER_DOMAIN: ${VITE_SERVER_DOMAIN:-http://localhost:8080}
     ports:
-      - "5173:5173"
+      - "${PORT:-80}:5173"
     volumes:
       - .:/app
       - /app/node_modules
