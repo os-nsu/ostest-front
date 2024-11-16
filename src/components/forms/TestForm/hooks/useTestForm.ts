@@ -1,12 +1,12 @@
 import { SelectItem } from 'primereact/selectitem';
 import { useEffect, useState } from 'react';
 import { Test, TestCategory } from '@/types/Test.ts';
+import { useTestProvider } from '@/providers/TestProvider/useTestProvider.ts';
 
-interface TestFormData {
-  name?: string;
-  type?: string;
-  description?: string;
-  files?: File[];
+type TestFormFieldValues = boolean | string | TestCategory;
+
+interface TestFormData extends Omit<Test, 'id'> {
+  active?: boolean;
 }
 
 const testOptions: SelectItem[] = [
@@ -14,7 +14,12 @@ const testOptions: SelectItem[] = [
 ];
 
 export const useTestForm = (test?: Test) => {
-  const [formData, setFormData] = useState<TestFormData>();
+  const [formData, setFormData] = useState<TestFormData>({
+    name: '',
+    description: '',
+    category: TestCategory.DEFAULT,
+    active: false,
+  });
   const [isButtonDisabled, setButtonDisabled] = useState(false);
 
   useEffect(() => {
@@ -26,22 +31,37 @@ export const useTestForm = (test?: Test) => {
     setFormData({
       name,
       description,
-      type: category,
+      category,
+      active: false,
     });
   }, [test]);
 
   useEffect(
-    () =>
-      setButtonDisabled(!formData?.files || !formData.type || !formData.name),
+    () => setButtonDisabled(!formData?.category || !formData?.name),
     [formData],
   );
 
   const onFieldChange = (
     fieldType: keyof TestFormData,
-    value: string | File[],
+    value: TestFormFieldValues,
   ) => setFormData({ ...formData, [fieldType]: value });
 
-  const onSubmit = () => console.log(formData);
+  const onSubmit = () => {
+    const requestData = new FormData();
+    requestData.append(
+      'data',
+      new Blob([JSON.stringify(formData)], {
+        type: 'application/json',
+      }),
+    );
+    requestData.append('file', new Blob(), 'empty.txt');
+
+    useTestProvider()
+      .createTest(requestData)
+      .then(({ data, status }) => {
+        console.log(status, data);
+      });
+  };
 
   return {
     formData,

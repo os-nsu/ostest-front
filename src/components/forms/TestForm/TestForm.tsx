@@ -41,12 +41,15 @@ export default function TestForm({
           options={testOptions}
           label="Категория тестирования"
           placeholder="Выберите тип тестирования"
-          value={formData?.type}
+          value={formData?.category}
           required
-          onSelect={value => onFieldChange('type', value || '')}
+          onSelect={value => onFieldChange('category', value || '')}
         />
 
-        <SwitchBoxField label="Включить текст" />
+        <SwitchBoxField
+          label="Включить текст"
+          onCheck={checked => onFieldChange('active', checked)}
+        />
       </div>
 
       <DefaultButton

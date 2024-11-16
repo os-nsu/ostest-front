@@ -11,8 +11,11 @@ export class TestProvider {
     this.instance = new AxiosClient({ baseURL: this.baseURL });
   }
 
-  createTest(requestData: CreateTestRequestData) {
-    return this.instance.post<Test>('', requestData);
+  createTest(requestData: FormData) {
+    return this.instance.post<Test>('', requestData, {
+      data: requestData,
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
   }
 
   updateTest(requestData: CreateTestRequestData) {
