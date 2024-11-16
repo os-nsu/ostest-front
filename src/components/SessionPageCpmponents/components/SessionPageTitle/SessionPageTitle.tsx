@@ -1,6 +1,6 @@
 import styles from '@styles/components/SessionPageStyles/SessionPageTitle.module.scss';
 import IconLink from '@public/link.svg';
-import WorkStatus from '../WorkState/WorkState';
+import WorkStatus from '../WorkStatus/WorkStatus';
 import { useNavigate } from 'react-router-dom';
 import IconButton from '@/UI/buttons/IconButton/IconButton';
 import DefaultButton from '@/UI/buttons/DefaultButton/DefaultButton';

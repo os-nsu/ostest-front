@@ -1,5 +1,5 @@
 import styles from '@styles/components/SessionPageStyles/WorkState.module.scss';
-import { useWorkStatus } from './hooks/useWorkState';
+import { useWorkStatus } from './hooks/useWorkStatus';
 
 interface WorkStatusProps {
   status: string;
