@@ -1,0 +1,51 @@
+.blockData {
+    display: flex;
+    width: 720px;
+    padding: 8px;
+    border-radius: 12px;
+    justify-content: space-between;
+
+    & .data {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        & .number {
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 23.4px;
+        }
+
+        & .tests {
+            display: flex;
+            gap: 16px;
+
+            & .info {
+                font-size: 16px;
+                font-weight: 400;
+                line-height: 20.8px;
+                color: #00000099;
+            }
+        }
+    }
+
+    & .status {
+        height: max-content;
+
+        padding: 8px;
+        border-radius: 12px;
+
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 23.4px;
+        color: white;
+
+        &.error {
+            background-color: #EF4444;
+        }
+    
+        &.accepted {
+            background-color: #10B981;
+        }
+    }
+}

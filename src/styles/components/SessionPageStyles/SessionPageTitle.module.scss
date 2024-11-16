@@ -1,0 +1,24 @@
+.container {
+    display: flex;
+    gap: 16px;
+
+    & .titleContainer {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+
+        & button {
+            width: max-content;
+        }
+
+        & .title {
+            display: flex;
+            gap: 16px;
+
+            font-weight: 400;
+            font-size: 42px;
+            line-height: 42px;
+            color: #000000;
+        }
+    }
+}
