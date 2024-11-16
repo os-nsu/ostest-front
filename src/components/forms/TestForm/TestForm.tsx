@@ -5,6 +5,7 @@ import { useTestForm } from '@/components/forms/TestForm/hooks/useTestForm.ts';
 import styles from '@styles/components/TestForm.module.scss';
 import { Test } from '@/types/Test.ts';
 import DefaultButton from '@UI/buttons/DefaultButton/DefaultButton.tsx';
+import SwitchBoxField from '@/components/formFields/SwitchBoxField/SwitchBoxField.tsx';
 
 interface TestFormProps {
   test?: Test;
@@ -44,12 +45,14 @@ export default function TestForm({
           required
           onSelect={value => onFieldChange('type', value || '')}
         />
+
+        <SwitchBoxField label="Включить текст" />
       </div>
 
       <DefaultButton
         buttonClass={styles.submitButton}
         disabled={isButtonDisabled}
-        label={buttonLabel ? buttonLabel : 'Создать'}
+        label={buttonLabel ? buttonLabel : 'Добавить'}
         onClick={onSubmit}
       />
     </div>
