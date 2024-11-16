@@ -5,6 +5,7 @@ import { Test } from '@/types/Test.ts';
 export const useTestsPageContent = () => {
   const [tests, setTests] = useState<Test[]>([]);
   const [isAsideDisplayed, setAsideDisplayed] = useState(false);
+  const [isCreateModalDisplayed, setCreateModalDisplayed] = useState(false);
 
   const requestTests = () => {
     useTestProvider()
@@ -21,5 +22,11 @@ export const useTestsPageContent = () => {
 
   useEffect(() => requestTests(), []);
 
-  return { tests, isAsideDisplayed, setAsideDisplayed };
+  return {
+    tests,
+    isAsideDisplayed,
+    setAsideDisplayed,
+    isCreateModalDisplayed,
+    setCreateModalDisplayed,
+  };
 };

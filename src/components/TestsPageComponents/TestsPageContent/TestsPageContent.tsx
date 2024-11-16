@@ -4,13 +4,21 @@ import { useTestsPageContent } from '@/components/TestsPageComponents/TestsPageC
 import TestsList from '@/components/TestsPageComponents/TestsPageContent/components/TestsList/TestsList.tsx';
 import DefaultAside from '@/components/asides/DefaultAside/DefaultAside.tsx';
 import TestAsideContent from '@/components/TestAsideContent/TestAsideContent.tsx';
+import ModalCreateTest from '@/components/modals/ModalCreateTest/ModalCreateTest.tsx';
 
 export default function TestsPageContent() {
-  const { tests, isAsideDisplayed, setAsideDisplayed } = useTestsPageContent();
+  const {
+    tests,
+    isAsideDisplayed,
+    setAsideDisplayed,
+    isCreateModalDisplayed,
+    setCreateModalDisplayed,
+  } = useTestsPageContent();
 
+  console.log(isCreateModalDisplayed);
   return (
     <div className={styles.container}>
-      <TestsPageTitle />
+      <TestsPageTitle onCreateTest={() => setCreateModalDisplayed(true)} />
       {!tests.length ? (
         <span className={styles.placeholder}>Создайте первое тестирование</span>
       ) : (
@@ -29,6 +37,11 @@ export default function TestsPageContent() {
             onClose={() => setAsideDisplayed(false)}
           />
         }
+      />
+
+      <ModalCreateTest
+        displayed={isCreateModalDisplayed}
+        onClose={() => setCreateModalDisplayed(false)}
       />
     </div>
   );

@@ -7,14 +7,16 @@ import { useState } from 'react';
 
 interface ModalCreateTestProps {
   displayed?: boolean;
+  onClose?: () => void;
 }
 
-export default function ModalCreateTest({ displayed }: ModalCreateTestProps) {
-  const [isDisplayed, setDisplayed] = useState(displayed);
-
+export default function ModalCreateTest({
+  displayed,
+  onClose,
+}: ModalCreateTestProps) {
   return (
     <Dialog
-      visible={isDisplayed}
+      visible={displayed}
       onHide={() => {}}
       className={styles.wrapper}
       content={() => (
@@ -25,7 +27,7 @@ export default function ModalCreateTest({ displayed }: ModalCreateTestProps) {
             className={styles.close}
             icon={<img src={IconClose} alt="" />}
             rounded
-            onClick={() => setDisplayed(false)}
+            onClick={onClose}
           />
         </div>
       )}
