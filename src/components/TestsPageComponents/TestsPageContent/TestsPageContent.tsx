@@ -6,17 +6,16 @@ import DefaultAside from '@/components/asides/DefaultAside/DefaultAside.tsx';
 import TestAsideContent from '@/components/TestAsideContent/TestAsideContent.tsx';
 
 export default function TestsPageContent() {
-  const { tests, mock, isAsideDisplayed, setAsideDisplayed } =
-    useTestsPageContent();
+  const { tests, isAsideDisplayed, setAsideDisplayed } = useTestsPageContent();
 
   return (
     <div className={styles.container}>
       <TestsPageTitle />
-      {!mock.length ? (
+      {!tests.length ? (
         <span className={styles.placeholder}>Создайте первое тестирование</span>
       ) : (
         <TestsList
-          tests={mock}
+          tests={tests}
           onSelectTest={test => setAsideDisplayed(true)}
         />
       )}
@@ -26,7 +25,7 @@ export default function TestsPageContent() {
         style={{ width: '500px' }}
         children={
           <TestAsideContent
-            test={mock[2]}
+            test={tests[2]}
             onClose={() => setAsideDisplayed(false)}
           />
         }
