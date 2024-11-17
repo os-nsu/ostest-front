@@ -1,11 +1,11 @@
-import { Test } from '@/types/Test.ts';
+import { MinimizedTest, Test } from '@/types/Test.ts';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import styles from '@styles/components/TestsPageStyles/TestsList.module.scss';
 import TestStatus from '@/components/TestsPageComponents/TestsPageContent/components/TestsList/components/TestStatus/TestStatus.tsx';
 
 interface TestsListProps {
-  tests: Test[];
+  tests: MinimizedTest[];
   onSelectTest?: (id?: number) => void;
 }
 

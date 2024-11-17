@@ -1,11 +1,11 @@
 import styles from '@styles/components/TestsPageStyles/TestsPageContent.module.scss';
 import TestsList from '@/components/TestsPageComponents/TestsPageContent/components/TestsList/TestsList.tsx';
-import { Test } from '@/types/Test.ts';
+import { MinimizedTest } from '@/types/Test.ts';
 import DefaultLoader from '@UI/loaders/DefaultLoader/DefaultLoader.tsx';
 
 interface TestListBlockProps {
   loading?: boolean;
-  tests: Test[];
+  tests: MinimizedTest[];
   onSelectTest: (id?: number) => void;
 }
 

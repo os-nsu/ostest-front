@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useTestProvider } from '@/providers/TestProvider/useTestProvider.ts';
-import { Test } from '@/types/Test.ts';
+import { MinimizedTest, Test } from '@/types/Test.ts';
 
 export const useTestsPageContent = () => {
-  const [tests, setTests] = useState<Test[]>([]);
+  const [tests, setTests] = useState<MinimizedTest[]>([]);
   const [selectedTest, setSelectedTest] = useState<Test>();
   const [isAsideDisplayed, setAsideDisplayed] = useState(false);
   const [isCreateModalDisplayed, setCreateModalDisplayed] = useState(false);

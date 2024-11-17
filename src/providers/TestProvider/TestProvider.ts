@@ -1,6 +1,5 @@
 import { AxiosClient } from '@/providers/AxiosClient/AxiosClient.ts';
-import { CreateTestRequestData } from '@/DTO/TestDTO.ts';
-import { Test } from '@/types/Test.ts';
+import { MinimizedTest, Test } from '@/types/Test.ts';
 
 export class TestProvider {
   instance: AxiosClient;
@@ -30,7 +29,7 @@ export class TestProvider {
   }
 
   getAllTests() {
-    return this.instance.get<Test[]>(`/search`);
+    return this.instance.get<MinimizedTest[]>(`/search`);
   }
 
   getTestFile(id: number) {
