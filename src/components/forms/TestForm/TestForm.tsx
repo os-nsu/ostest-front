@@ -9,17 +9,19 @@ import SwitchBoxField from '@/components/formFields/SwitchBoxField/SwitchBoxFiel
 
 interface TestFormProps {
   test?: Test;
+  isEditing?: boolean;
   containerClass?: string;
   buttonLabel?: string;
 }
 
 export default function TestForm({
   test,
+  isEditing,
   containerClass,
   buttonLabel,
 }: TestFormProps) {
   const { formData, isButtonDisabled, testOptions, onFieldChange, onSubmit } =
-    useTestForm(test);
+    useTestForm(test, isEditing);
 
   return (
     <div className={[styles.container, containerClass].join(' ')}>
@@ -47,7 +49,7 @@ export default function TestForm({
         />
 
         <SwitchBoxField
-          label="Включить текст"
+          label="Включить тест?"
           onCheck={checked => onFieldChange('active', checked)}
         />
       </div>

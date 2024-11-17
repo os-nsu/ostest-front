@@ -13,7 +13,12 @@ const testOptions: SelectItem[] = [
   { value: TestCategory.DEFAULT, label: 'Обычный тест' },
 ];
 
-export const useTestForm = (test?: Test) => {
+const createDataBlob = (data: unknown) =>
+  new Blob([JSON.stringify(data)], {
+    type: 'application/json',
+  });
+
+export const useTestForm = (test?: Test, isEditing?: boolean) => {
   const [formData, setFormData] = useState<TestFormData>({
     name: '',
     description: '',
@@ -48,16 +53,33 @@ export const useTestForm = (test?: Test) => {
 
   const onSubmit = () => {
     const requestData = new FormData();
-    requestData.append(
-      'data',
-      new Blob([JSON.stringify(formData)], {
-        type: 'application/json',
-      }),
-    );
+
+    if (isEditing) {
+      requestData.append('data', createDataBlob({ id: test?.id, ...formData }));
+    } else {
+      requestData.append('data', createDataBlob(formData));
+    }
     requestData.append('file', new Blob(), 'empty.txt');
 
+    if (isEditing) {
+      updateTest(requestData);
+      return;
+    }
+
+    createTest(requestData);
+  };
+
+  const createTest = (requestData: FormData) => {
     useTestProvider()
       .createTest(requestData)
+      .then(({ data, status }) => {
+        console.log(status, data);
+      });
+  };
+
+  const updateTest = (requestData: FormData) => {
+    useTestProvider()
+      .updateTest(requestData)
       .then(({ data, status }) => {
         console.log(status, data);
       });

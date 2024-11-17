@@ -18,8 +18,11 @@ export class TestProvider {
     });
   }
 
-  updateTest(requestData: CreateTestRequestData) {
-    return this.instance.put<Test>('', requestData);
+  updateTest(requestData: FormData) {
+    return this.instance.put<Test>('', requestData, {
+      data: requestData,
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
   }
 
   getTestById(id: number) {

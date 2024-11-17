@@ -12,6 +12,7 @@ export default function TestAsideEditForm({ test }: TestAsideEditFormProps) {
       test={test}
       containerClass={styles.form}
       buttonLabel="Сохранить"
+      isEditing
     />
   );
 }
