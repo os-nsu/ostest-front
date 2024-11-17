@@ -7,4 +7,9 @@
   padding: 16px 16px 32px 16px;
   overflow-x: hidden;
   overflow-y: scroll;
+
+  & .form {
+    flex: 1;
+    justify-content: space-between;
+  }
 }

@@ -12,6 +12,7 @@ interface TestFormProps {
   isEditing?: boolean;
   containerClass?: string;
   buttonLabel?: string;
+  onResponded?: () => void;
 }
 
 export default function TestForm({
@@ -19,9 +20,10 @@ export default function TestForm({
   isEditing,
   containerClass,
   buttonLabel,
+  onResponded,
 }: TestFormProps) {
   const { formData, isButtonDisabled, testOptions, onFieldChange, onSubmit } =
-    useTestForm(test, isEditing);
+    useTestForm(test, isEditing, onResponded);
 
   return (
     <div className={[styles.container, containerClass].join(' ')}>

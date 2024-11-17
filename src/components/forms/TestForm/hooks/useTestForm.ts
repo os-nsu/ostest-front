@@ -18,7 +18,11 @@ const createDataBlob = (data: unknown) =>
     type: 'application/json',
   });
 
-export const useTestForm = (test?: Test, isEditing?: boolean) => {
+export const useTestForm = (
+  test?: Test,
+  isEditing?: boolean,
+  onResponded?: () => void,
+) => {
   const [formData, setFormData] = useState<TestFormData>({
     name: '',
     description: '',
@@ -72,16 +76,24 @@ export const useTestForm = (test?: Test, isEditing?: boolean) => {
   const createTest = (requestData: FormData) => {
     useTestProvider()
       .createTest(requestData)
-      .then(({ data, status }) => {
-        console.log(status, data);
+      .then(() => {
+        if (!onResponded) {
+          return;
+        }
+
+        onResponded();
       });
   };
 
   const updateTest = (requestData: FormData) => {
     useTestProvider()
       .updateTest(requestData)
-      .then(({ data, status }) => {
-        console.log(status, data);
+      .then(() => {
+        if (!onResponded) {
+          return;
+        }
+
+        onResponded();
       });
   };
 

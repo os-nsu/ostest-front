@@ -47,6 +47,11 @@ export const useTestsPageContent = () => {
     setAsideDisplayed(false);
   };
 
+  const onEditTest = () => {
+    onCloseAside();
+    requestTests();
+  };
+
   return {
     tests,
     selectedTest,
@@ -56,6 +61,7 @@ export const useTestsPageContent = () => {
     setAsideDisplayed,
     setCreateModalDisplayed,
     onCloseAside,
+    onEditTest,
     requestSelectedTest,
   };
 };

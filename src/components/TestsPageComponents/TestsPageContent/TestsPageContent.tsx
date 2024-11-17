@@ -17,6 +17,7 @@ export default function TestsPageContent() {
     setCreateModalDisplayed,
     requestSelectedTest,
     onCloseAside,
+    onEditTest,
   } = useTestsPageContent();
 
   return (
@@ -32,7 +33,11 @@ export default function TestsPageContent() {
         onHide={() => setAsideDisplayed(false)}
         style={{ width: '500px' }}
         children={
-          <TestAsideContent test={selectedTest} onClose={onCloseAside} />
+          <TestAsideContent
+            test={selectedTest}
+            onClose={onCloseAside}
+            onEditTest={onEditTest}
+          />
         }
       />
 
