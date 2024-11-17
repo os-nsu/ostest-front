@@ -1,32 +1,28 @@
 import TestForm from '@/components/forms/TestForm/TestForm.tsx';
 import { Dialog } from 'primereact/dialog';
-import styles from '@styles/components/ModalCreateTest.module.scss';
-import { Button } from 'primereact/button';
-import IconClose from '@public/close.svg';
-import { useState } from 'react';
+import styles from '@styles/components/TestsPageStyles/ModalCreateTest.module.scss';
+import ModalCreateTestHeader from '@/components/modals/ModalCreateTest/components/ModalCreateTestHeader/ModalCreateTestHeader.tsx';
 
 interface ModalCreateTestProps {
   displayed?: boolean;
+  onClose?: () => void;
+  onCreated?: () => void;
 }
 
-export default function ModalCreateTest({ displayed }: ModalCreateTestProps) {
-  const [isDisplayed, setDisplayed] = useState(displayed);
-
+export default function ModalCreateTest({
+  displayed,
+  onClose,
+  onCreated,
+}: ModalCreateTestProps) {
   return (
     <Dialog
-      visible={isDisplayed}
+      style={{ border: 'none' }}
+      visible={displayed}
       onHide={() => {}}
-      className={styles.wrapper}
       content={() => (
         <div className={styles.container}>
-          <span className={styles.title}>Создать тест</span>
-          <TestForm />
-          <Button
-            className={styles.close}
-            icon={<img src={IconClose} alt="" />}
-            rounded
-            onClick={() => setDisplayed(false)}
-          />
+          <ModalCreateTestHeader title="Добавить тест" onClose={onClose} />
+          <TestForm onResponded={onCreated} />
         </div>
       )}
     />

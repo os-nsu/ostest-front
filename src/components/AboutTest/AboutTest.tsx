@@ -11,10 +11,8 @@ export default function AboutTest({ test }: AboutTestProps) {
   const { category, description } = test;
 
   const blocks = [
-    { title: 'Статус', text: 'Активен' },
     { title: 'Описание', text: description },
     { title: 'Категория', text: useTestCategoryName(category) },
-    { title: 'Загруженный файл', text: 'test.bin' },
   ];
 
   return (

@@ -1,27 +1,30 @@
 import DefaultInput from '@UI/inputs/DefaultInput/DefaultInput.tsx';
 import DefaultTextArea from '@UI/textAreas/DefaultTextArea/DefaultTextArea.tsx';
-import DefaultFileUploader from '@UI/inputs/DefaultFileUploader/DefaultFileUploader.tsx';
 import DefaultDropdown from '@UI/inputs/DefaultDropdown/DefaultDropdown.tsx';
 import { useTestForm } from '@/components/forms/TestForm/hooks/useTestForm.ts';
-import { Button } from 'primereact/button';
 import styles from '@styles/components/TestForm.module.scss';
 import { Test } from '@/types/Test.ts';
+import DefaultButton from '@UI/buttons/DefaultButton/DefaultButton.tsx';
+import SwitchBoxField from '@/components/formFields/SwitchBoxField/SwitchBoxField.tsx';
 
 interface TestFormProps {
   test?: Test;
+  isEditing?: boolean;
   containerClass?: string;
   buttonLabel?: string;
+  onResponded?: () => void;
 }
 
 export default function TestForm({
   test,
+  isEditing,
   containerClass,
   buttonLabel,
+  onResponded,
 }: TestFormProps) {
   const { formData, isButtonDisabled, testOptions, onFieldChange, onSubmit } =
-    useTestForm(test);
+    useTestForm(test, isEditing, onResponded);
 
-  console.log('formData', formData?.name);
   return (
     <div className={[styles.container, containerClass].join(' ')}>
       <div className={styles.fieldContainer}>
@@ -32,32 +35,31 @@ export default function TestForm({
           required
           onChange={value => onFieldChange('name', value)}
         />
-        <DefaultDropdown
-          options={testOptions}
-          label="Тип теста"
-          placeholder="Выберите тип тестирования"
-          value={formData?.type}
-          required
-          onSelect={value => onFieldChange('type', value || '')}
-        />
         <DefaultTextArea
           label="Описание"
           placeholder="Опишите создаваемый тест"
           value={formData?.description}
           onChange={value => onFieldChange('description', value || '')}
         />
-        <DefaultFileUploader
-          label="Файл теста"
-          placeholder="Загрузить"
+        <DefaultDropdown
+          options={testOptions}
+          label="Категория тестирования"
+          placeholder="Выберите тип тестирования"
+          value={formData?.category}
           required
-          onSelect={files => onFieldChange('files', files)}
+          onSelect={value => onFieldChange('category', value || '')}
+        />
+
+        <SwitchBoxField
+          label="Включить тест?"
+          onCheck={checked => onFieldChange('active', checked)}
         />
       </div>
 
-      <Button
-        className={styles.submitButton}
+      <DefaultButton
+        buttonClass={styles.submitButton}
         disabled={isButtonDisabled}
-        label={buttonLabel ? buttonLabel : 'Создать'}
+        label={buttonLabel ? buttonLabel : 'Добавить'}
         onClick={onSubmit}
       />
     </div>

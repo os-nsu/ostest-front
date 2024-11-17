@@ -3,18 +3,24 @@ import { Test } from '@/types/Test.ts';
 import AboutTest from '@/components/AboutTest/AboutTest.tsx';
 import styles from '@styles/components/TestsPageStyles/TestAsideContent.module.scss';
 import { useTestAsideContent } from '@/components/TestAsideContent/hooks/useTestAsideContent.ts';
-import TestAsideEditForm from '@/components/TestAsideContent/components/TestAsideEditForm/TestAsideEditForm.tsx';
+import TestForm from '@/components/forms/TestForm/TestForm.tsx';
 
 interface TestAsideContentProps {
-  test: Test;
+  test?: Test;
   onClose?: () => void;
+  onEditTest?: () => void;
 }
 
 export default function TestAsideContent({
   test,
   onClose,
+  onEditTest,
 }: TestAsideContentProps) {
   const { isEditing, setIsEditing } = useTestAsideContent();
+
+  if (!test) {
+    return;
+  }
 
   return (
     <div className={styles.container}>
@@ -24,7 +30,13 @@ export default function TestAsideContent({
         onEditIconClick={() => setIsEditing(true)}
       />
       {isEditing ? (
-        <TestAsideEditForm test={test} />
+        <TestForm
+          test={test}
+          containerClass={styles.form}
+          buttonLabel="Сохранить"
+          onResponded={onEditTest}
+          isEditing
+        />
       ) : (
         <AboutTest test={test} />
       )}

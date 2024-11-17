@@ -1,6 +1,5 @@
 import { AxiosClient } from '@/providers/AxiosClient/AxiosClient.ts';
-import { CreateTestRequestData } from '@/DTO/TestDTO.ts';
-import { Test } from '@/types/Test.ts';
+import { MinimizedTest, Test } from '@/types/Test.ts';
 
 export class TestProvider {
   instance: AxiosClient;
@@ -11,12 +10,18 @@ export class TestProvider {
     this.instance = new AxiosClient({ baseURL: this.baseURL });
   }
 
-  createTest(requestData: CreateTestRequestData) {
-    return this.instance.post<Test>('', requestData);
+  createTest(requestData: FormData) {
+    return this.instance.post<Test>('', requestData, {
+      data: requestData,
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
   }
 
-  updateTest(requestData: CreateTestRequestData) {
-    return this.instance.put<Test>('', requestData);
+  updateTest(requestData: FormData) {
+    return this.instance.put<Test>('', requestData, {
+      data: requestData,
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
   }
 
   getTestById(id: number) {
@@ -24,7 +29,7 @@ export class TestProvider {
   }
 
   getAllTests() {
-    return this.instance.get<Test[]>(`/search`);
+    return this.instance.get<MinimizedTest[]>(`/search`);
   }
 
   getTestFile(id: number) {
