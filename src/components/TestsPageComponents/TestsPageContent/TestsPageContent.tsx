@@ -18,7 +18,6 @@ export default function TestsPageContent() {
     onCloseAside,
   } = useTestsPageContent();
 
-  console.log(isCreateModalDisplayed);
   return (
     <div className={styles.container}>
       <TestsPageTitle onCreateTest={() => setCreateModalDisplayed(true)} />
