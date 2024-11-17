@@ -1,0 +1,27 @@
+.status {
+    height: 39px;
+    width: max-content;
+    padding: 8px;
+    border-radius: 12px;
+
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 23.4px;
+    color: white;
+}
+
+.execution {
+    background-color: #6B7280;
+}
+
+.progress {
+    background-color: #3B82F6;
+}
+
+.success {
+    background-color: #22C55E;
+}
+
+.default {
+    background-color: antiquewhite;
+}
