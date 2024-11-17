@@ -6,7 +6,7 @@ import TestStatus from '@/components/TestsPageComponents/TestsPageContent/compon
 
 interface TestsListProps {
   tests: Test[];
-  onSelectTest?: (test: Test) => void;
+  onSelectTest?: (id?: number) => void;
 }
 
 export default function TestsList({ tests, onSelectTest }: TestsListProps) {
@@ -19,7 +19,7 @@ export default function TestsList({ tests, onSelectTest }: TestsListProps) {
     <DataTable
       value={tests}
       className={styles.table}
-      onRowClick={({ index }) => onSelectTest && onSelectTest(tests[index])}
+      onRowClick={({ index }) => onSelectTest && onSelectTest(tests[index]?.id)}
       rowHover>
       {columns.map(({ field, header }, index) => (
         <Column

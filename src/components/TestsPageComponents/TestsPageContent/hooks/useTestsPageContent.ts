@@ -4,6 +4,7 @@ import { Test } from '@/types/Test.ts';
 
 export const useTestsPageContent = () => {
   const [tests, setTests] = useState<Test[]>([]);
+  const [selectedTest, setSelectedTest] = useState<Test>();
   const [isAsideDisplayed, setAsideDisplayed] = useState(false);
   const [isCreateModalDisplayed, setCreateModalDisplayed] = useState(false);
 
@@ -22,11 +23,36 @@ export const useTestsPageContent = () => {
 
   useEffect(() => requestTests(), []);
 
+  const requestSelectedTest = (id?: number) => {
+    if (!id) {
+      return;
+    }
+
+    useTestProvider()
+      .getTestById(id)
+      .then(({ status, data }) => {
+        if (status !== 200 || !data) {
+          return;
+        }
+
+        setSelectedTest(data);
+        setAsideDisplayed(true);
+      });
+  };
+
+  const onCloseAside = () => {
+    setSelectedTest(undefined);
+    setAsideDisplayed(false);
+  };
+
   return {
     tests,
+    selectedTest,
     isAsideDisplayed,
     setAsideDisplayed,
     isCreateModalDisplayed,
     setCreateModalDisplayed,
+    onCloseAside,
+    requestSelectedTest,
   };
 };

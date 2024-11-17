@@ -6,7 +6,7 @@ import { useTestAsideContent } from '@/components/TestAsideContent/hooks/useTest
 import TestAsideEditForm from '@/components/TestAsideContent/components/TestAsideEditForm/TestAsideEditForm.tsx';
 
 interface TestAsideContentProps {
-  test: Test;
+  test?: Test;
   onClose?: () => void;
 }
 
@@ -15,6 +15,10 @@ export default function TestAsideContent({
   onClose,
 }: TestAsideContentProps) {
   const { isEditing, setIsEditing } = useTestAsideContent();
+
+  if (!test) {
+    return;
+  }
 
   return (
     <div className={styles.container}>

@@ -9,10 +9,13 @@ import ModalCreateTest from '@/components/modals/ModalCreateTest/ModalCreateTest
 export default function TestsPageContent() {
   const {
     tests,
+    selectedTest,
     isAsideDisplayed,
-    setAsideDisplayed,
     isCreateModalDisplayed,
+    setAsideDisplayed,
     setCreateModalDisplayed,
+    requestSelectedTest,
+    onCloseAside,
   } = useTestsPageContent();
 
   console.log(isCreateModalDisplayed);
@@ -22,20 +25,14 @@ export default function TestsPageContent() {
       {!tests.length ? (
         <span className={styles.placeholder}>Создайте первое тестирование</span>
       ) : (
-        <TestsList
-          tests={tests}
-          onSelectTest={test => setAsideDisplayed(true)}
-        />
+        <TestsList tests={tests} onSelectTest={requestSelectedTest} />
       )}
       <DefaultAside
         visible={isAsideDisplayed}
         onHide={() => setAsideDisplayed(false)}
         style={{ width: '500px' }}
         children={
-          <TestAsideContent
-            test={tests[2]}
-            onClose={() => setAsideDisplayed(false)}
-          />
+          <TestAsideContent test={selectedTest} onClose={onCloseAside} />
         }
       />
 
