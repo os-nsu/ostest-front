@@ -1,4 +1,4 @@
-import { MinimizedTest, Test } from '@/types/Test.ts';
+import { MinimizedTest } from '@/types/Test.ts';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import styles from '@styles/components/TestsPageStyles/TestsList.module.scss';
