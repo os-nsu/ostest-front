@@ -7,8 +7,10 @@ export const useTestsPageContent = () => {
   const [selectedTest, setSelectedTest] = useState<Test>();
   const [isAsideDisplayed, setAsideDisplayed] = useState(false);
   const [isCreateModalDisplayed, setCreateModalDisplayed] = useState(false);
+  const [isListLoading, setListLoading] = useState(false);
 
   const requestTests = () => {
+    setListLoading(true);
     useTestProvider()
       .getAllTests()
       .then(({ status, data }) => {
@@ -18,7 +20,7 @@ export const useTestsPageContent = () => {
 
         setTests(data);
       })
-      .catch(err => console.log(err));
+      .finally(() => setListLoading(false));
   };
 
   useEffect(() => requestTests(), []);
@@ -49,8 +51,9 @@ export const useTestsPageContent = () => {
     tests,
     selectedTest,
     isAsideDisplayed,
-    setAsideDisplayed,
+    isListLoading,
     isCreateModalDisplayed,
+    setAsideDisplayed,
     setCreateModalDisplayed,
     onCloseAside,
     requestSelectedTest,

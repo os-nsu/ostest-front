@@ -1,10 +1,10 @@
 import TestsPageTitle from '@/components/TestsPageComponents/TestsPageContent/components/TestsPageTitle/TestsPageTitle.tsx';
 import styles from '@styles/components/TestsPageStyles/TestsPageContent.module.scss';
 import { useTestsPageContent } from '@/components/TestsPageComponents/TestsPageContent/hooks/useTestsPageContent.ts';
-import TestsList from '@/components/TestsPageComponents/TestsPageContent/components/TestsList/TestsList.tsx';
 import DefaultAside from '@/components/asides/DefaultAside/DefaultAside.tsx';
 import TestAsideContent from '@/components/TestAsideContent/TestAsideContent.tsx';
 import ModalCreateTest from '@/components/modals/ModalCreateTest/ModalCreateTest.tsx';
+import TestListBlock from '@/components/TestsPageComponents/TestsPageContent/components/TestListBlock/TestListBlock.tsx';
 
 export default function TestsPageContent() {
   const {
@@ -12,6 +12,7 @@ export default function TestsPageContent() {
     selectedTest,
     isAsideDisplayed,
     isCreateModalDisplayed,
+    isListLoading,
     setAsideDisplayed,
     setCreateModalDisplayed,
     requestSelectedTest,
@@ -21,11 +22,11 @@ export default function TestsPageContent() {
   return (
     <div className={styles.container}>
       <TestsPageTitle onCreateTest={() => setCreateModalDisplayed(true)} />
-      {!tests.length ? (
-        <span className={styles.placeholder}>Создайте первое тестирование</span>
-      ) : (
-        <TestsList tests={tests} onSelectTest={requestSelectedTest} />
-      )}
+      <TestListBlock
+        loading={isListLoading}
+        tests={tests}
+        onSelectTest={requestSelectedTest}
+      />
       <DefaultAside
         visible={isAsideDisplayed}
         onHide={() => setAsideDisplayed(false)}
