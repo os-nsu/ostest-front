@@ -1,11 +1,12 @@
-import styles from '@styles/components/SessionPageStyles/WorkState.module.scss';
+import { ProcessStatus } from '@/types/ProcessStatus.ts';
 
-export const useWorkStatus = (status: string) => {
-  let statusClass: string;
-  if (status === 'К выполнению') statusClass = styles.execution;
-  else if (status === 'Выполнено') statusClass = styles.success;
-  else if (status === 'В процессе') statusClass = styles.progress;
-  else statusClass = styles.default;
+export const useWorkStatus = () => {
+  const defaultTextVariants: Record<ProcessStatus, string> = {
+    [ProcessStatus.SUCCESS]: 'Выполнено',
+    [ProcessStatus.ERROR]: 'Не принято',
+    [ProcessStatus.INPROGRESS]: 'В процессе',
+    [ProcessStatus.TODO]: 'К выполнению',
+  };
 
-  return { statusClass };
+  return { defaultTextVariants };
 };
