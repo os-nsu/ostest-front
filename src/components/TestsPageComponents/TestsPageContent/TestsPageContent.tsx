@@ -18,6 +18,7 @@ export default function TestsPageContent() {
     requestSelectedTest,
     onCloseAside,
     onEditTest,
+    onCreatedTest,
   } = useTestsPageContent();
 
   return (
@@ -44,6 +45,7 @@ export default function TestsPageContent() {
       <ModalCreateTest
         displayed={isCreateModalDisplayed}
         onClose={() => setCreateModalDisplayed(false)}
+        onCreated={onCreatedTest}
       />
     </div>
   );

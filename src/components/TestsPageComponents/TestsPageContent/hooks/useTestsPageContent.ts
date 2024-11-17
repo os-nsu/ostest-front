@@ -23,8 +23,6 @@ export const useTestsPageContent = () => {
       .finally(() => setListLoading(false));
   };
 
-  useEffect(() => requestTests(), []);
-
   const requestSelectedTest = (id?: number) => {
     if (!id) {
       return;
@@ -52,6 +50,13 @@ export const useTestsPageContent = () => {
     requestTests();
   };
 
+  const onCreatedTest = () => {
+    setCreateModalDisplayed(false);
+    requestTests();
+  };
+
+  useEffect(() => requestTests(), []);
+
   return {
     tests,
     selectedTest,
@@ -62,6 +67,7 @@ export const useTestsPageContent = () => {
     setCreateModalDisplayed,
     onCloseAside,
     onEditTest,
+    onCreatedTest,
     requestSelectedTest,
   };
 };

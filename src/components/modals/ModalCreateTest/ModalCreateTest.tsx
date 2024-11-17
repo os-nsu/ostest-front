@@ -6,11 +6,13 @@ import ModalCreateTestHeader from '@/components/modals/ModalCreateTest/component
 interface ModalCreateTestProps {
   displayed?: boolean;
   onClose?: () => void;
+  onCreated?: () => void;
 }
 
 export default function ModalCreateTest({
   displayed,
   onClose,
+  onCreated,
 }: ModalCreateTestProps) {
   return (
     <Dialog
@@ -20,7 +22,7 @@ export default function ModalCreateTest({
       content={() => (
         <div className={styles.container}>
           <ModalCreateTestHeader title="Добавить тест" onClose={onClose} />
-          <TestForm />
+          <TestForm onResponded={onCreated} />
         </div>
       )}
     />
