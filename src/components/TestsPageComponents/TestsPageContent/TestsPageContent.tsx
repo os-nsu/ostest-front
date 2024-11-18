@@ -5,6 +5,7 @@ import DefaultAside from '@/components/asides/DefaultAside/DefaultAside.tsx';
 import TestAsideContent from '@/components/TestAsideContent/TestAsideContent.tsx';
 import ModalCreateTest from '@/components/modals/ModalCreateTest/ModalCreateTest.tsx';
 import TestListBlock from '@/components/TestsPageComponents/TestsPageContent/components/TestListBlock/TestListBlock.tsx';
+import ModalSubmitDelete from '@/components/modals/ModalSubmitDelete/ModalSubmitDelete.tsx';
 
 export default function TestsPageContent() {
   const {
@@ -12,13 +13,16 @@ export default function TestsPageContent() {
     selectedTest,
     isAsideDisplayed,
     isCreateModalDisplayed,
+    isDeleteModalDisplayed,
     isListLoading,
     setAsideDisplayed,
     setCreateModalDisplayed,
+    setDeleteModalDisplayed,
     requestSelectedTest,
     onCloseAside,
     onEditTest,
     onCreatedTest,
+    onDeleteTest,
   } = useTestsPageContent();
 
   return (
@@ -38,6 +42,7 @@ export default function TestsPageContent() {
             test={selectedTest}
             onClose={onCloseAside}
             onEditTest={onEditTest}
+            onDeleteTest={() => setDeleteModalDisplayed(true)}
           />
         }
       />
@@ -46,6 +51,11 @@ export default function TestsPageContent() {
         displayed={isCreateModalDisplayed}
         onClose={() => setCreateModalDisplayed(false)}
         onCreated={onCreatedTest}
+      />
+      <ModalSubmitDelete
+        displayed={isDeleteModalDisplayed}
+        onPrevent={() => setDeleteModalDisplayed(false)}
+        onSubmit={onDeleteTest}
       />
     </div>
   );

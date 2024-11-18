@@ -7,6 +7,7 @@ export const useTestsPageContent = () => {
   const [selectedTest, setSelectedTest] = useState<Test>();
   const [isAsideDisplayed, setAsideDisplayed] = useState(false);
   const [isCreateModalDisplayed, setCreateModalDisplayed] = useState(false);
+  const [isDeleteModalDisplayed, setDeleteModalDisplayed] = useState(false);
   const [isListLoading, setListLoading] = useState(false);
 
   const requestTests = () => {
@@ -55,6 +56,20 @@ export const useTestsPageContent = () => {
     requestTests();
   };
 
+  const onDeleteTest = () => {
+    if (!selectedTest) {
+      return;
+    }
+
+    useTestProvider()
+      .deleteTestById(selectedTest.id)
+      .then(() => {
+        setDeleteModalDisplayed(false);
+        onCloseAside();
+        requestTests();
+      });
+  };
+
   useEffect(() => requestTests(), []);
 
   return {
@@ -63,11 +78,14 @@ export const useTestsPageContent = () => {
     isAsideDisplayed,
     isListLoading,
     isCreateModalDisplayed,
+    isDeleteModalDisplayed,
     setAsideDisplayed,
     setCreateModalDisplayed,
+    setDeleteModalDisplayed,
     onCloseAside,
     onEditTest,
     onCreatedTest,
+    onDeleteTest,
     requestSelectedTest,
   };
 };

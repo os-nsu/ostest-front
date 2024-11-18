@@ -9,12 +9,14 @@ interface TestAsideContentProps {
   test?: Test;
   onClose?: () => void;
   onEditTest?: () => void;
+  onDeleteTest?: () => void;
 }
 
 export default function TestAsideContent({
   test,
   onClose,
   onEditTest,
+  onDeleteTest,
 }: TestAsideContentProps) {
   const { isEditing, setIsEditing } = useTestAsideContent();
 
@@ -28,6 +30,7 @@ export default function TestAsideContent({
         testName={test.name}
         onCloseIconClick={onClose}
         onEditIconClick={() => setIsEditing(true)}
+        onDeleteIconClick={onDeleteTest}
       />
       {isEditing ? (
         <TestForm
