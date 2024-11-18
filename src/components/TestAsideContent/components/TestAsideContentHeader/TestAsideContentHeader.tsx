@@ -8,12 +8,14 @@ interface TestAsideContentHeaderProps {
   testName: string;
   onCloseIconClick?: () => void;
   onEditIconClick?: () => void;
+  onDeleteIconClick?: () => void;
 }
 
 export default function TestAsideContentHeader({
   testName,
   onCloseIconClick,
   onEditIconClick,
+  onDeleteIconClick,
 }: TestAsideContentHeaderProps) {
   return (
     <div className={styles.container}>
@@ -21,7 +23,7 @@ export default function TestAsideContentHeader({
       <div className={styles.buttonContainer}>
         <div className={styles.menuContainer}>
           <IconButton icon={IconPencil} onClick={onEditIconClick} />
-          <IconButton icon={IconTrash} />
+          <IconButton icon={IconTrash} onClick={onDeleteIconClick} />
         </div>
         <IconButton icon={IconClose} type="no_bg" onClick={onCloseIconClick} />
       </div>
