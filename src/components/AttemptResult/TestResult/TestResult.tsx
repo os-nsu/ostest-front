@@ -32,7 +32,7 @@ export default function TestResult({
           <span className={styles.title}>Использовано памяти</span>
           <span className={styles.text}>{memory}MB</span>
         </div>
-        <div className={styles.description}>
+        <div className={`${styles.description} ${styles.column}`}>
           <span className={styles.title}>Описание</span>
           <span className={styles.text}>{description}</span>
         </div>

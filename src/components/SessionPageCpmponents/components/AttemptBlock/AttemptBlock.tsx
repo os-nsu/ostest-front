@@ -5,11 +5,16 @@ import BlockAttemptData from './components/BlockAttemptData/BlockAttemptData';
 interface AttemptBlockProps {
   number: number;
   status: string;
+  onClick?: () => void;
 }
 
-export default function AttemptBlock({ number, status }: AttemptBlockProps) {
+export default function AttemptBlock({
+  number,
+  status,
+  onClick,
+}: AttemptBlockProps) {
   return (
-    <div className={styles.container}>
+    <div className={styles.container} onClick={onClick}>
       <TimeLine />
       <BlockAttemptData number={number} status={status} />
     </div>

@@ -1,12 +1,13 @@
-import { Test } from '@/types/Test.ts';
+import { MinimizedTest } from '@/types/Test.ts';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import styles from '@styles/components/TestsPageStyles/TestsList.module.scss';
-import TestStatus from '@/components/TestsPageComponents/TestsPageContent/components/TestsList/components/TestStatus/TestStatus.tsx';
+import WorkStatus from '@/components/SessionPageCpmponents/components/WorkStatus/WorkStatus.tsx';
+import { ProcessStatus } from '@/types/ProcessStatus.ts';
 
 interface TestsListProps {
-  tests: Test[];
-  onSelectTest?: (test: Test) => void;
+  tests: MinimizedTest[];
+  onSelectTest?: (id?: number) => void;
 }
 
 export default function TestsList({ tests, onSelectTest }: TestsListProps) {
@@ -19,7 +20,7 @@ export default function TestsList({ tests, onSelectTest }: TestsListProps) {
     <DataTable
       value={tests}
       className={styles.table}
-      onRowClick={({ index }) => onSelectTest && onSelectTest(tests[index])}
+      onRowClick={({ index }) => onSelectTest && onSelectTest(tests[index]?.id)}
       rowHover>
       {columns.map(({ field, header }, index) => (
         <Column
@@ -35,7 +36,9 @@ export default function TestsList({ tests, onSelectTest }: TestsListProps) {
         header="Статус"
         headerClassName={styles.header}
         bodyClassName={styles.cell}
-        body={({ isActive }) => <TestStatus isActive={isActive} />}
+        body={() => (
+          <WorkStatus status={ProcessStatus.SUCCESS} text="Активен" />
+        )}
       />
     </DataTable>
   );

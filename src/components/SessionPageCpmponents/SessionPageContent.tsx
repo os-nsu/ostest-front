@@ -3,35 +3,41 @@ import ExecutionHistory from './components/ExecutionHistory/ExecutionHistory';
 import SessionPageTitle from './components/SessionPageTitle/SessionPageTitle';
 import styles from '@styles/components/SessionPageStyles/SessionPageContent.module.scss';
 import { useSessionPageContent } from './hooks/useSessionPageContent';
-import ModalDownloadSolution from '../modals/ModalDownloadSolution/ModalDownloadSolution';
+import ModalDownloadAttempt from '../modals/ModalDownloadAttempt/ModalDownloadAttempt';
 
 export default function SessionPageContent() {
   const { id } = useParams<{ id: string }>();
-  const { isError, isLoading, isModalVisible, setModalVisible, mock } =
-    useSessionPageContent(id);
+  const {
+    session,
+    isError,
+    error,
+    isLoading,
+    isModalVisible,
+    setModalVisible,
+  } = useSessionPageContent(id);
 
   if (isLoading) {
     return <div>Загрузка...</div>;
   }
 
   if (isError) {
-    return <div>{isError}</div>;
+    return <div>{error}</div>;
   }
 
-  if (!mock || !id) {
+  if (!session || !id) {
     return <div>Сессия сдачи не найдена</div>;
   }
 
   return (
     <div className={styles.container}>
       <SessionPageTitle
-        name={mock.labarotory.name}
+        name={session.labarotory.name}
         status="К выполнению"
         id={id}
         onDownload={() => setModalVisible(true)}
       />
-      <ExecutionHistory attempts={mock.attempts} />
-      <ModalDownloadSolution
+      <ExecutionHistory attempts={session.attempts} />
+      <ModalDownloadAttempt
         displayed={isModalVisible}
         id={id}
         onPrevent={() => setModalVisible(false)}

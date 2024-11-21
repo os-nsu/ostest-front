@@ -1,19 +1,19 @@
 import DefaultInput from '@UI/inputs/DefaultInput/DefaultInput.tsx';
-import styles from '@styles/components/DownloadSolutionForm.module.scss';
+import styles from '@styles/components/DownloadAttemptForm.module.scss';
 import DefaultButton from '@/UI/buttons/DefaultButton/DefaultButton';
-import { useDownloadSolutionForm } from './hooks/useDownloadSolutionForm';
+import { useDownloadAttemptForm } from './hooks/useDownloadAttemptForm';
 
-interface DownloadSolutionFormProps {
+interface DownloadAttemptFormProps {
   id: string;
   onDownload: () => void;
 }
 
-export default function DownloadSolutionForm({
+export default function DownloadAttemptForm({
   id,
   onDownload,
-}: DownloadSolutionFormProps) {
+}: DownloadAttemptFormProps) {
   const { isButtonDisabled, onFieldChange, onSubmit } =
-    useDownloadSolutionForm(id);
+    useDownloadAttemptForm(id);
 
   return (
     <>

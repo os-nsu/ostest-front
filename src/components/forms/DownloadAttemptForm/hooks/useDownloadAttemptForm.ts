@@ -1,4 +1,5 @@
-import { useSessionProvider } from '@/providers/SessionProvider/useSessionProvider';
+import { useAppDispatch } from '@/store/hooks';
+import { addAtempt } from '@/store/sessions/sessionsSlice';
 import { useEffect, useState } from 'react';
 
 interface FormData {
@@ -6,12 +7,14 @@ interface FormData {
   branch: string;
 }
 
-export const useDownloadSolutionForm = (id: string) => {
+export const useDownloadAttemptForm = (id: string) => {
   const [formData, setFormData] = useState<FormData>({
     repositoryUrl: '',
     branch: '',
   });
   const [isButtonDisabled, setButtonDisabled] = useState(false);
+
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     setButtonDisabled(!formData.repositoryUrl || !formData.branch);
@@ -23,16 +26,12 @@ export const useDownloadSolutionForm = (id: string) => {
   const onSubmit = () => {
     if (!formData) return;
 
-    useSessionProvider()
-      .addSolution(id, { laboratoryId: +id, ...formData })
-      .then(({ status }) => {
-        if (status !== 200) {
-          return;
-        }
-      })
-      .catch(({ response }) => {
-        console.error(response);
-      });
+    dispatch(
+      addAtempt({
+        sessionId: +id,
+        attempt: { laboratoryId: +id, ...formData },
+      }),
+    );
   };
 
   return {

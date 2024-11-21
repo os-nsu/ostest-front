@@ -12,11 +12,11 @@ export class SessionProvider {
     this.instance = new AxiosClient({ baseURL: this.baseURL });
   }
 
-  getSession(id: string) {
+  getSession(id: number) {
     return this.instance.get<Session>(`/${id}`);
   }
 
-  addSolution(id: string, requestData: AttemptPostRequestData) {
+  addAttempt(id: number, requestData: AttemptPostRequestData) {
     return this.instance.post<Attempt>(`/${id}/attempt`, requestData);
   }
 

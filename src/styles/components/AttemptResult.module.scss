@@ -1,12 +1,14 @@
 .container {
-    width: 750px;
-    height: 998px;
+    width: min(750px, 50vw);
+    max-height: 998px;
     padding: 32px;
     border-radius: 12px;
 
     display: flex;
     flex-direction: column;
     gap: 32px;
+
+    background-color: #F3F3F780;
 
     & .titleContainer {
         display: flex;
@@ -16,6 +18,18 @@
             font-size: 32px;
             font-weight: 400;
             line-height: 41.6px;
+        }
+    }
+
+    & .testsContainer {
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+
+        overflow: auto;
+
+        &::-webkit-scrollbar {
+            display: none;
         }
     }
 }

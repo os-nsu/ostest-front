@@ -23,12 +23,12 @@ export class AxiosClient {
     return this.instance.get<Response>(path, requestData);
   }
 
-  post<Response>(path = '', data?: Record<string, unknown>) {
-    return this.instance.post<Response>(path, data);
+  post<Response>(path = '', data?: unknown, config?: AxiosRequestConfig) {
+    return this.instance.post<Response>(path, data, config);
   }
 
-  put<Response>(path = '', data: Record<string, unknown>) {
-    return this.instance.put<Response>(path, data);
+  put<Response>(path = '', data?: unknown, config?: AxiosRequestConfig) {
+    return this.instance.put<Response>(path, data, config);
   }
 
   delete<Response>(path = '', requestData: AxiosRequestConfig = {}) {

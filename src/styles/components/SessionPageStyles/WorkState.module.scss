@@ -10,16 +10,20 @@
     color: white;
 }
 
-.execution {
+.todo {
     background-color: #6B7280;
 }
 
-.progress {
+.inprogress {
     background-color: #3B82F6;
 }
 
 .success {
     background-color: #22C55E;
+}
+
+.error {
+    background-color: #EF4444;
 }
 
 .default {

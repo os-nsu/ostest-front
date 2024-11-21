@@ -1,22 +1,14 @@
-import { useSessionProvider } from '@/providers/SessionProvider/useSessionProvider';
-import { Attempt } from '@/types/Attempt';
-import { useEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { getAttempt } from '@/store/sessions/sessionsSlice';
+import { useEffect } from 'react';
 
 export const useAttemptResult = (id: string) => {
-  const [attempt, setAttempt] = useState<Attempt | null>(null);
+  const attempt = useAppSelector(state => state.sessions.attemptDetails[id]);
+
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    useSessionProvider()
-      .getAttempt(id)
-      .then(({ status, data }) => {
-        if (status !== 200 || !data) {
-          return;
-        }
-        setAttempt(data);
-      })
-      .catch(({ response }) => {
-        console.error(response);
-      });
+    dispatch(getAttempt(id));
   }, [id]);
 
   return {
