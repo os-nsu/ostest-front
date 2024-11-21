@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import IconButton from '@/UI/buttons/IconButton/IconButton';
 import DefaultButton from '@/UI/buttons/DefaultButton/DefaultButton';
 import IconLeft from '@/UI/icons/IconLeft/IconLeft';
+import { ProcessStatus } from '@/types/ProcessStatus';
 
 interface SessionPageTitleProps {
   id: string;
@@ -36,7 +37,7 @@ export default function SessionPageTitle({
             type="no_bg"
             onClick={() => navigate(`/lab/${id}`)}
           />
-          <WorkStatus status={status} />
+          <WorkStatus text={status} status={ProcessStatus.INPROGRESS} />
         </div>
         <DefaultButton label="Загрузить решение" onClick={onDownload} />
       </div>
