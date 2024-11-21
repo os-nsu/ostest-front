@@ -1,0 +1,59 @@
+name: deploy-front
+
+on:
+  push:
+    branches: [ master ]
+    
+jobs:
+  connect_to_server:
+    name: run pull
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Install ssh keys
+      run:
+        install -m 600 -D /dev/null ~/.ssh/front_rsa
+        echo "${{ secrets.FRONT_SSH_PRIVATE_KEY }}" > ~/.ssh/front_rsa
+        ssh-keyscan -H ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
+    
+    - name: Connnect and pull
+      run: |
+        ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
+          cd ${{ secrets.FRONT_WORK_DIR }} 
+          git checkout ${{ secrets.FRONT_MAIN_BRANCH }}
+          git pull
+
+          if [ ! -f env.front_vm]; then
+            git clone git@github.com:os-nsu/ostest-plan.git
+            mv ostest-plan/env.front_vm .
+            rm -rf ostest-plan
+          fi
+
+          exit
+        EOF
+      
+    - name: Cleanup
+      run: rm -rf ~/.ssh
+    
+  build:
+      runs-on: ubuntu-latest
+
+      steps:
+        - name: Checkout repo
+          uses: actions/checkout@v3
+
+        - name: Deploy to our remote server
+          run: |
+            ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
+              cd ${{ secrets.FRONT_WORK_DIR }}
+              git pull origin master
+              
+              docker-compose down
+              docker compose --env-file env.front_vm up --build
+            
+            EOF | tee deployment_log.txt
+
+        - name: See logs
+          uses: actions/upload-artifact@v4
+          with:
+            path: deployment_log.txt
