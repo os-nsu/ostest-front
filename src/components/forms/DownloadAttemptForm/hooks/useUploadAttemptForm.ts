@@ -1,5 +1,5 @@
 import { useAppDispatch } from '@/store/hooks';
-import { addAtempt } from '@/store/sessions/sessionsSlice';
+import { addAttempt } from '@/store/sessions/sessionsSlice';
 import { useEffect, useState } from 'react';
 
 interface FormData {
@@ -27,7 +27,7 @@ export const useUploadAttemptForm = (id: string) => {
     if (!formData) return;
 
     dispatch(
-      addAtempt({
+      addAttempt({
         sessionId: +id,
         attempt: { laboratoryId: +id, ...formData },
       }),

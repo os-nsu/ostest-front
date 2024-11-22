@@ -3,7 +3,6 @@ import { Session } from '@/types/Session';
 import { ThunkApiConfig } from '../store';
 import { Attempt, AttemptStatus, TestStatus } from '@/types/Attempt';
 import { AttemptPostRequestData } from '@/DTO/SessionDTO';
-// import { useSessionProvider } from '@/providers/SessionProvider/useSessionProvider';
 
 export interface SessionsState {
   list: Partial<{ [id: number]: Session }>;
@@ -40,8 +39,7 @@ export const sessionsSlice = createSlice({
       state.error[id] = action.error.message;
     });
 
-    // attempt
-    builder.addCase(addAtempt.fulfilled, (state, action) => {
+    builder.addCase(addAttempt.fulfilled, (state, action) => {
       state.list[action.payload.sessionId]?.attempts.push(
         action.payload.attempt,
       );
@@ -61,9 +59,6 @@ export const loadSession = createAsyncThunk<Session, number, ThunkApiConfig>(
     const state = getState();
     let session = state.sessions.list[id];
     if (!session) {
-      // const response = await useSessionProvider().getSession(id);
-      // session = response.data;
-
       session = {
         id: 0,
         labarotory: {
@@ -92,18 +87,17 @@ export const loadSession = createAsyncThunk<Session, number, ThunkApiConfig>(
   },
 );
 
-type SaveAttemptRrequest = {
+type SaveAttemptRequest = {
   sessionId: number;
   attempt: AttemptPostRequestData;
 };
 type SaveAttemptResponse = { sessionId: number; attempt: Attempt };
 
-export const addAtempt = createAsyncThunk<
+export const addAttempt = createAsyncThunk<
   SaveAttemptResponse,
-  SaveAttemptRrequest,
+  SaveAttemptRequest,
   ThunkApiConfig
->('sessions/addAtempt', async (payload: SaveAttemptRrequest) => {
-  // const response = await useSessionProvider().addAttempt(payload.sessionId, payload.attempt);
+>('sessions/addAttempt', async (payload: SaveAttemptRequest) => {
   const response: { data: Attempt } = {
     data: {
       id: '1',
@@ -127,9 +121,6 @@ export const getAttempt = createAsyncThunk<Attempt, string, ThunkApiConfig>(
     let attempt = state.sessions.attemptDetails[id];
 
     if (!attempt) {
-      // const response = await useSessionProvider().getAttempt(id);
-      // attempt = response.data;
-
       attempt = {
         id: `${id}`,
         branch: 'sdfgfg',
