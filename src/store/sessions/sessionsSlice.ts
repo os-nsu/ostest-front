@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { Session } from '@/types/Session';
 import { ThunkApiConfig } from '../store';
-import { Attempt, AttemptStatus } from '@/types/Attempt';
+import { Attempt, AttemptStatus, TestStatus } from '@/types/Attempt';
 import { AttemptPostRequestData } from '@/DTO/SessionDTO';
 // import { useSessionProvider } from '@/providers/SessionProvider/useSessionProvider';
 
@@ -108,7 +108,7 @@ export const addAtempt = createAsyncThunk<
     data: {
       id: '1',
       branch: payload.attempt.branch,
-      testResults: { status: 'dfdf' },
+      testResults: { status: TestStatus.SUCCESS },
       sequenceOrder: 3,
       status: AttemptStatus.IN_PROGRESS,
       repositoryUrl: payload.attempt.repositoryUrl,
@@ -133,7 +133,7 @@ export const getAttempt = createAsyncThunk<Attempt, string, ThunkApiConfig>(
       attempt = {
         id: `${id}`,
         branch: 'sdfgfg',
-        testResults: { status: 'dfdf' },
+        testResults: { status: TestStatus.SUCCESS },
         sequenceOrder: 3,
         status: AttemptStatus.IN_PROGRESS,
         repositoryUrl: 'sdfg',
