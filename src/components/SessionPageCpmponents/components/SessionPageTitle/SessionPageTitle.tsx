@@ -11,14 +11,14 @@ interface SessionPageTitleProps {
   id: string;
   status: string;
   name?: string;
-  onDownload: () => void;
+  onUpload: () => void;
 }
 
 export default function SessionPageTitle({
   name,
   status,
   id,
-  onDownload,
+  onUpload,
 }: SessionPageTitleProps) {
   const navigate = useNavigate();
 
@@ -39,7 +39,7 @@ export default function SessionPageTitle({
           />
           <WorkStatus text={status} status={ProcessStatus.INPROGRESS} />
         </div>
-        <DefaultButton label="Загрузить решение" onClick={onDownload} />
+        <DefaultButton label="Загрузить решение" onClick={onUpload} />
       </div>
     </div>
   );

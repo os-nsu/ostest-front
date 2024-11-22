@@ -7,7 +7,7 @@ interface FormData {
   branch: string;
 }
 
-export const useDownloadAttemptForm = (id: string) => {
+export const useUploadAttemptForm = (id: string) => {
   const [formData, setFormData] = useState<FormData>({
     repositoryUrl: '',
     branch: '',

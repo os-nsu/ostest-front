@@ -1,19 +1,19 @@
 import DefaultInput from '@UI/inputs/DefaultInput/DefaultInput.tsx';
-import styles from '@styles/components/DownloadAttemptForm.module.scss';
+import styles from '@styles/components/UploadAttemptForm.module.scss';
 import DefaultButton from '@/UI/buttons/DefaultButton/DefaultButton';
-import { useDownloadAttemptForm } from './hooks/useDownloadAttemptForm';
+import { useUploadAttemptForm } from './hooks/useUploadAttemptForm';
 
-interface DownloadAttemptFormProps {
+interface UploadAttemptFormProps {
   id: string;
-  onDownload: () => void;
+  onUpload: () => void;
 }
 
-export default function DownloadAttemptForm({
+export default function UploadAttemptForm({
   id,
-  onDownload,
-}: DownloadAttemptFormProps) {
+  onUpload,
+}: UploadAttemptFormProps) {
   const { isButtonDisabled, onFieldChange, onSubmit } =
-    useDownloadAttemptForm(id);
+    useUploadAttemptForm(id);
 
   return (
     <>
@@ -35,7 +35,7 @@ export default function DownloadAttemptForm({
           label="Загрузить"
           onClick={() => {
             onSubmit();
-            onDownload();
+            onUpload();
           }}
         />
       </div>

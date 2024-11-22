@@ -1,16 +1,18 @@
 import styles from '@styles/components/SessionPageStyles/BlockAttemptData.module.scss';
 import TestsStatusBlock from '../TestsStatusBlock/TestsStatusBlock';
+import { AttemptStatus } from '@/types/Attempt';
 
 interface BlockAttemptDataProps {
   number: number;
-  status: string;
+  status: AttemptStatus;
 }
 
 export default function BlockAttemptData({
   number,
   status,
 }: BlockAttemptDataProps) {
-  const statusClass = status === 'Принято' ? styles.accepted : styles.error;
+  const statusClass =
+    status === AttemptStatus.SUCCESS ? styles.accepted : styles.error;
 
   return (
     <div className={styles.blockData}>

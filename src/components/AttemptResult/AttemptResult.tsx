@@ -3,6 +3,7 @@ import IconClose from '@/UI/icons/IconClose/IconClose';
 import styles from '@styles/components/AttemptResult.module.scss';
 import TestResult from './TestResult/TestResult';
 import { useAttemptResult } from './hooks/useAttemptResult';
+import { TestStatus } from '@/types/Attempt';
 
 interface AttemptResultProps {
   number?: number;
@@ -36,14 +37,14 @@ export default function AttemptResult({
           testNumber={1}
           memory="5"
           time="123"
-          status="Не пройден"
+          status={TestStatus.FAILURE}
           description="Тест завершился с ошибкой и в этом блоке будет описана причина ее возникновения"
         />
         <TestResult
           testNumber={2}
           memory="5"
           time="123"
-          status="Пройден"
+          status={TestStatus.SUCCESS}
           description="Тест был пройден и в этом блоке возможно  будет какая-то полезная информация, но не факт"
         />
       </div>

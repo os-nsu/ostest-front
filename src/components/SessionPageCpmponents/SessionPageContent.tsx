@@ -3,7 +3,7 @@ import ExecutionHistory from './components/ExecutionHistory/ExecutionHistory';
 import SessionPageTitle from './components/SessionPageTitle/SessionPageTitle';
 import styles from '@styles/components/SessionPageStyles/SessionPageContent.module.scss';
 import { useSessionPageContent } from './hooks/useSessionPageContent';
-import ModalDownloadAttempt from '../modals/ModalDownloadAttempt/ModalDownloadAttempt';
+import ModalUploadAttempt from '../modals/ModalUploadAttempt/ModalUploadAttempt';
 
 export default function SessionPageContent() {
   const { id } = useParams<{ id: string }>();
@@ -34,14 +34,14 @@ export default function SessionPageContent() {
         name={session.labarotory.name}
         status="К выполнению"
         id={id}
-        onDownload={() => setModalVisible(true)}
+        onUpload={() => setModalVisible(true)}
       />
       <ExecutionHistory attempts={session.attempts} />
-      <ModalDownloadAttempt
+      <ModalUploadAttempt
         displayed={isModalVisible}
         id={id}
         onPrevent={() => setModalVisible(false)}
-        onDownload={() => {
+        onUpload={() => {
           setModalVisible(false);
         }}
       />

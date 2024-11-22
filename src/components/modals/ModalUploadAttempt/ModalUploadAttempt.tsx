@@ -2,21 +2,21 @@ import { Dialog } from 'primereact/dialog';
 import styles from '@styles/components/ModalDownloadAttempt.module.scss';
 import IconButton from '@/UI/buttons/IconButton/IconButton';
 import IconClose from '@/UI/icons/IconClose/IconClose';
-import DownloadAttemptForm from '@/components/forms/DownloadAttemptForm/DownloadAttemptForm';
+import UploadAttemptForm from '@/components/forms/DownloadAttemptForm/UploadAttemptForm';
 
-interface ModalDownloadAttemptProps {
+interface ModalUploadAttemptProps {
   id: string;
   displayed?: boolean;
   onPrevent: () => void;
-  onDownload: () => void;
+  onUpload: () => void;
 }
 
-export default function ModalDownloadAttempt({
+export default function ModalUploadAttempt({
   id,
   displayed,
   onPrevent,
-  onDownload,
-}: ModalDownloadAttemptProps) {
+  onUpload,
+}: ModalUploadAttemptProps) {
   return (
     <Dialog
       visible={displayed}
@@ -32,7 +32,7 @@ export default function ModalDownloadAttempt({
               type="no_bg"
             />
           </div>
-          <DownloadAttemptForm id={id} onDownload={onDownload} />
+          <UploadAttemptForm id={id} onUpload={onUpload} />
         </div>
       )}
     />

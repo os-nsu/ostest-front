@@ -6,6 +6,11 @@ export enum AttemptStatus {
   ERROR = 'Ошибка',
 }
 
+export enum TestStatus {
+  SUCCESS = 'Пройден',
+  FAILURE = 'Не пройден',
+}
+
 export interface MinimizedAttempt {
   id: string;
   sequenceOrder: number;
@@ -16,6 +21,6 @@ export interface Attempt extends MinimizedAttempt {
   repositoryUrl: string;
   branch: string;
   testResults: {
-    status: string;
+    status: TestStatus;
   };
 }

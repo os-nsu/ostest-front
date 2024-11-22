@@ -3,7 +3,7 @@ import SessionPageContent from '@/components/SessionPageCpmponents/SessionPageCo
 
 export default function SessionPage() {
   return (
-    <DefaultPageLayout activeTab="groups">
+    <DefaultPageLayout>
       <SessionPageContent />
     </DefaultPageLayout>
   );

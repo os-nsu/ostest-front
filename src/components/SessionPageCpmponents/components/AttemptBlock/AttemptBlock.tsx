@@ -1,10 +1,11 @@
 import styles from '@styles/components/SessionPageStyles/AttemptBlock.module.scss';
 import TimeLine from './components/TimeLine/TimeLine';
 import BlockAttemptData from './components/BlockAttemptData/BlockAttemptData';
+import { AttemptStatus } from '@/types/Attempt';
 
 interface AttemptBlockProps {
   number: number;
-  status: string;
+  status: AttemptStatus;
   onClick?: () => void;
 }
 

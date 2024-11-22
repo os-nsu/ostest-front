@@ -1,9 +1,10 @@
 .blockData {
     display: flex;
-    width: min(720px, 50vw);
     padding: 8px;
     border-radius: 12px;
     justify-content: space-between;
+
+    width: 100%;
 
     & .data {
         display: flex;
