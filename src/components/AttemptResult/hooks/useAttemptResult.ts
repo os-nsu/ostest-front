@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { getAttempt } from '@/store/sessions/sessionsSlice';
+import { getAttempt } from '@/store/sessions/sessionsThunks';
 import { useEffect } from 'react';
 
 export const useAttemptResult = (id: string) => {

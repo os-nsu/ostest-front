@@ -1,5 +1,5 @@
 import { useAppDispatch } from '@/store/hooks';
-import { addAttempt } from '@/store/sessions/sessionsSlice';
+import { addAttempt } from '@/store/sessions/sessionsThunks';
 import { useEffect, useState } from 'react';
 
 interface FormData {

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { loadSession } from '@/store/sessions/sessionsSlice';
+import { loadSession } from '@/store/sessions/sessionsThunks';
 
 export const useSessionPageContent = (id?: string) => {
   const [isModalVisible, setModalVisible] = useState(false);
