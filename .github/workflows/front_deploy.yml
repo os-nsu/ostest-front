@@ -1,7 +1,7 @@
 name: deploy-front
 
 on:
-  pull_request:
+  push:
     branches: 
     - 13269-check
     
