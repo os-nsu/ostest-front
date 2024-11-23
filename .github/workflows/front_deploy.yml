@@ -2,7 +2,7 @@ name: deploy-front
 
 on:
   push:
-    branches: [ master ]
+    branches: [ 13269-check ]
     
 jobs:
   connect_to_server:
@@ -20,7 +20,7 @@ jobs:
       run: |
         ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
           cd ${{ secrets.FRONT_WORK_DIR }} 
-          git checkout ${{ secrets.FRONT_MAIN_BRANCH }}
+          git checkout 13269-check
           git pull
 
           if [ ! -f env.front_vm]; then
@@ -46,7 +46,7 @@ jobs:
           run: |
             ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
               cd ${{ secrets.FRONT_WORK_DIR }}
-              git pull origin master
+              git pull 
               
               docker-compose down
               docker compose --env-file env.front_vm up --build
