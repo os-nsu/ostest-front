@@ -3,7 +3,7 @@ name: deploy-front
 on:
   push:
     branches: 
-    - checkactions13269
+    - 13269
     
 jobs:
   connect_to_server:
