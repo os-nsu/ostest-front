@@ -2,7 +2,8 @@ name: deploy-front
 
 on:
   push:
-    branches: [ 13269-check ]
+    branches: 
+    - 13269-check
     
 jobs:
   connect_to_server:
