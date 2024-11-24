@@ -24,7 +24,6 @@ export const useSessionPageContent = (id?: string) => {
   return {
     session,
     isLoading,
-    // isError: !!error,
     isError: false,
     error,
     isModalVisible,
