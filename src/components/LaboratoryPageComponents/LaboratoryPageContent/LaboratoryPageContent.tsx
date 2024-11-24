@@ -11,7 +11,7 @@ import { useLaboratoryPageContent } from './hooks/useLaboratoryPageContent.ts';
 
 interface LaboratoryPageContentProps {
   laboratory: Laboratory;
-  id?: string;
+  id: string;
   tests: Test[];
   onEditLab: () => void;
 }
@@ -34,6 +34,7 @@ export default function LaboratoryPageContent({
     <div className={styles.wrapper}>
       <LaboratoryPageTitle
         name={laboratory.name}
+        id={id}
         onDelete={() => {
           setModalVisible(true);
           setModalType('delete');
