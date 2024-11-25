@@ -3,7 +3,7 @@ import NavigationHeader from '../NavigationHeader/NavigationHeader';
 
 type DefaultPageLayoutProps = {
   children: React.ReactNode;
-  activeTab: string;
+  activeTab?: string;
 };
 
 const DefaultPageLayout: React.FC<DefaultPageLayoutProps> = ({
