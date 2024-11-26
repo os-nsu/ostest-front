@@ -1,4 +1,7 @@
-import { AttemptPostRequestData } from '@/DTO/SessionDTO';
+import {
+  AttemptPostRequestData,
+  SessionPostRequestData,
+} from '@/DTO/SessionDTO';
 import { AxiosClient } from '@/providers/AxiosClient/AxiosClient.ts';
 import { Attempt } from '@/types/Attempt';
 import { Session } from '@/types/Session';
@@ -22,5 +25,13 @@ export class SessionProvider {
 
   getAttempt(id: string) {
     return this.instance.get<Attempt>(`/attempt/${id}`);
+  }
+
+  getExistingSession(requestData: SessionPostRequestData) {
+    return this.instance.post<Session>('/lab-student', requestData);
+  }
+
+  startSession(requestData: SessionPostRequestData) {
+    return this.instance.post<Session>('/start', requestData);
   }
 }

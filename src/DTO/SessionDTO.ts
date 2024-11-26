@@ -4,3 +4,9 @@ export interface AttemptPostRequestData {
   branch: string;
   laboratoryId: number;
 }
+
+export interface SessionPostRequestData {
+  [index: string]: unknown;
+  studentId: number;
+  laboratoryId: number;
+}

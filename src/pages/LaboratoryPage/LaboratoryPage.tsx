@@ -15,7 +15,7 @@ export default function LaboratoryPage() {
     return <div>{isError}</div>;
   }
 
-  if (!laboratory) {
+  if (!laboratory || !id) {
     return <div>Лабораторная работа не найдена</div>;
   }
 
