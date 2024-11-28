@@ -10,19 +10,19 @@
     color: white;
 }
 
-.todo {
+.todo, .inactive, .new {
     background-color: #6B7280;
 }
 
-.inprogress {
+.inprogress, .in_progress {
     background-color: #3B82F6;
 }
 
-.success {
+.success, .done {
     background-color: #22C55E;
 }
 
-.error {
+.error, .failure {
     background-color: #EF4444;
 }
 

@@ -1,9 +1,10 @@
 import styles from '@styles/components/SessionPageStyles/WorkState.module.scss';
 import { useWorkStatus } from './hooks/useWorkStatus';
 import { ProcessStatus } from '@/types/ProcessStatus.ts';
+import { SessionStatus } from '@/types/Session';
 
 interface WorkStatusProps {
-  status: ProcessStatus;
+  status: ProcessStatus | SessionStatus;
   text?: string;
 }
 

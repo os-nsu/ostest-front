@@ -1,6 +1,8 @@
 import {
   AttemptPostRequestData,
   SessionPostRequestData,
+  SessionsGetRequestData,
+  SessionsGetResponseData,
 } from '@/DTO/SessionDTO';
 import { AxiosClient } from '@/providers/AxiosClient/AxiosClient.ts';
 import { Attempt } from '@/types/Attempt';
@@ -25,6 +27,12 @@ export class SessionProvider {
 
   getAttempt(id: string) {
     return this.instance.get<Attempt>(`/attempt/${id}`);
+  }
+
+  getAttempts(id: number, { page, size, sort }: SessionsGetRequestData) {
+    return this.instance.get<SessionsGetResponseData>(
+      `/user/${id}?page=${page}&size=${size}&sort=${sort}`,
+    );
   }
 
   getExistingSession(requestData: SessionPostRequestData) {
