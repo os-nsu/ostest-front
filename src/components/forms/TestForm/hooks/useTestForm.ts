@@ -25,6 +25,7 @@ export const useTestForm = (
 ) => {
   const [formData, setFormData] = useState<TestFormData>({
     name: '',
+    code: '',
     description: '',
     category: TestCategory.DEFAULT,
     active: false,
@@ -36,9 +37,10 @@ export const useTestForm = (
       return;
     }
 
-    const { name, description, category } = test;
+    const { name, code, description, category } = test;
     setFormData({
       name,
+      code,
       description,
       category,
       active: false,
