@@ -3,7 +3,7 @@ import { SessionStatus } from '@/types/Session';
 
 export const useWorkStatus = () => {
   const defaultTextVariants: Record<ProcessStatus | SessionStatus, string> = {
-    [ProcessStatus.SUCCESS]: 'Успешно',
+    [ProcessStatus.SUCCESS]: 'Выполнено',
     [ProcessStatus.ERROR]: 'Не принято',
     [ProcessStatus.INPROGRESS]: 'В процессе',
     [ProcessStatus.TODO]: 'К выполнению',
