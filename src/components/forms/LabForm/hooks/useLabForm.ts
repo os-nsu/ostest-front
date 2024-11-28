@@ -1,8 +1,8 @@
 import { useLaboratoryProvider } from '@/providers/LaboratoryProvider/useLaboratoryProvider';
-import { Test } from '@/types/Test';
+import { useTestProvider } from '@/providers/TestProvider/useTestProvider';
+import { MinimizedTest, Test } from '@/types/Test';
 import { SelectItem } from 'primereact/selectitem';
 import { useEffect, useState } from 'react';
-import { TestCategory } from '@/types/Test';
 import { Laboratory } from '@/types/Laboratory';
 import {
   LaboratoryPostRequestData,
@@ -14,74 +14,31 @@ export const useLabForm = (
   laboratory: Laboratory,
   onUpdate: () => void,
 ) => {
-  const [formData, setFormData] = useState(laboratory);
+  const [formData, setFormData] = useState<Laboratory>(laboratory);
   const [isButtonDisabled, setButtonDisabled] = useState(false);
   const [isNameError, setNameError] = useState('');
-  const initialTests = laboratory.tests;
+  const [isTestsLoading, setTestsLoading] = useState(false);
+  const [availableTests, setAvailableTests] = useState<MinimizedTest[]>([]);
+  const [selectedTests, setSelectedTests] = useState<Test[]>(
+    laboratory.tests || [],
+  );
 
-  // потом должны быть все тесты из бд
-  const availableTests: Test[] = [
-    {
-      id: 1,
-      name: 'test 1',
-      description: 'descr 1',
-      category: TestCategory.DEFAULT,
-    },
-    {
-      id: 2,
-      name: 'test 2',
-      description: 'descr 2',
-      category: TestCategory.DEFAULT,
-    },
-    {
-      id: 3,
-      name: 'test 3',
-      description: 'descr 2',
-      category: TestCategory.DEFAULT,
-    },
-    {
-      id: 4,
-      name: 'test 4',
-      description: 'descr 2',
-      category: TestCategory.DEFAULT,
-    },
-    {
-      id: 5,
-      name: 'test 5',
-      description: 'descr 2',
-      category: TestCategory.DEFAULT,
-    },
-    {
-      id: 6,
-      name: 'test 6',
-      description: 'descr 2',
-      category: TestCategory.DEFAULT,
-    },
-    {
-      id: 7,
-      name: 'test 7',
-      description: 'descr 2',
-      category: TestCategory.DEFAULT,
-    },
-    {
-      id: 8,
-      name: 'test 8',
-      description: 'descr 2',
-      category: TestCategory.DEFAULT,
-    },
-    {
-      id: 9,
-      name: 'test 9',
-      description: 'descr 2',
-      category: TestCategory.DEFAULT,
-    },
-    {
-      id: 10,
-      name: 'test 10',
-      description: 'descr 3',
-      category: TestCategory.DEFAULT,
-    },
-  ];
+  const fetchAvailableTests = () => {
+    setTestsLoading(true);
+    useTestProvider()
+      .getAllTests()
+      .then(({ status, data }) => {
+        if (status !== 200 || !data) {
+          return;
+        }
+        setAvailableTests(data);
+      })
+      .finally(() => setTestsLoading(false));
+  };
+
+  useEffect(() => {
+    fetchAvailableTests();
+  }, []);
 
   useEffect(() => {
     setButtonDisabled(!formData.name.trim());
@@ -89,21 +46,21 @@ export const useLabForm = (
 
   const handleSelectTest = (testId: string) => {
     const selectedTest = availableTests.find(test => test.id === +testId);
-    if (selectedTest && !formData.tests.find(t => t.id === selectedTest.id)) {
-      const updatedTests = [...formData.tests, selectedTest];
-      formData.tests = updatedTests;
+    if (selectedTest && !selectedTests.find(t => t.id === selectedTest.id)) {
+      const updatedTests = [...selectedTests, selectedTest as Test];
+      setSelectedTests(updatedTests);
       onFieldChange('tests', updatedTests);
     }
   };
 
   const handleDeselectTest = (test: Test) => {
-    const updatedTests = formData.tests.filter(t => t.id !== test.id);
-    formData.tests = updatedTests;
+    const updatedTests = selectedTests.filter(t => t.id !== test.id);
+    setSelectedTests(updatedTests);
     onFieldChange('tests', updatedTests);
   };
 
-  const convertTestsToSelectItems = (tests: Test[]): SelectItem[] => {
-    return tests.map(test => ({
+  const convertAvailableTestsToSelectItems = (): SelectItem[] => {
+    return availableTests.map(test => ({
       label: test.name,
       value: test.id,
     }));
@@ -115,12 +72,12 @@ export const useLabForm = (
     const { id, tests, ...laboratoryData } = formData;
 
     const addTests = tests
-      .filter(test => !initialTests.find(t => t.id === test.id))
+      .filter(test => !laboratory.tests.find(t => t.id === test.id))
       .map(test => ({ testId: test.id, isSwitchedOn: true }));
 
-    const deleteTests = initialTests
+    const deleteTests = laboratory.tests
       .filter(test => !tests.find(t => t.id === test.id))
-      .map(test => ({ testId: test.id, isSwitchedOn: true }));
+      .map(test => ({ testId: test.id, isSwitchedOn: false }));
 
     if (isEditing) {
       if (!laboratory.id) {
@@ -176,11 +133,13 @@ export const useLabForm = (
   return {
     formData,
     isButtonDisabled,
-    availableTests: convertTestsToSelectItems(availableTests),
+    availableTests: convertAvailableTestsToSelectItems(),
+    selectedTests,
     onSubmit,
     onFieldChange,
     handleSelectTest,
     handleDeselectTest,
+    isTestsLoading,
     isNameError,
   };
 };
