@@ -20,7 +20,7 @@ jobs:
     
     - name: Connect and pull
       run: |
-        ssh -o StrictHostKeyChecking=no -vvv -tt -p 22202 -i ~/.ssh/front_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}
+        ssh -p 22202 -i ~/.ssh/front_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}
         echo "Connected to server"
         EOF
 
