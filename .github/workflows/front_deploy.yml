@@ -35,24 +35,29 @@ jobs:
         
         echo "Current dir before cd:"
         pwd
-        ls -la /home/${{ secrets.SSH_USER }}
 
-        cd /home/${{ secrets.SSH_USER }}
+        cd ~
+        echo "after cd ~:"
+        pwd
 
-        cd ${{ secrets.FRONT_WORK_DIR }} 
-        git checkout checkactions13269
-        git pull
+        # ls -la /home/${{ secrets.SSH_USER }}
 
-        if [ ! -f env.front_vm ]; then
-          git clone git@github.com:os-nsu/ostest-plan.git
-          mv ostest-plan/env.front_vm .
-          rm -rf ostest-plan
-        fi
+        # cd /home/${{ secrets.SSH_USER }}
 
-        exit
+        # cd ${{ secrets.FRONT_WORK_DIR }} 
+        # git checkout checkactions13269
+        # git pull
+
+        # if [ ! -f env.front_vm ]; then
+        #   git clone git@github.com:os-nsu/ostest-plan.git
+        #   mv ostest-plan/env.front_vm .
+        #   rm -rf ostest-plan
+        # fi
+
+        # exit
       
-    - name: Cleanup
-      run: rm -rf ~/.ssh
+    # - name: Cleanup
+    #   run: rm -rf ~/.ssh
     
   # build:
   #   runs-on: ubuntu-latest
