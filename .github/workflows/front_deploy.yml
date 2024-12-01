@@ -37,9 +37,9 @@ jobs:
         pwd
         ls -la /home/${{ secrets.SSH_USER }}
 
-        cd ositest_project/ostest-front/
+        cd /home/${{ secrets.SSH_USER }}
 
-        # cd ${{ secrets.FRONT_WORK_DIR }} 
+        cd ${{ secrets.FRONT_WORK_DIR }} 
         git checkout checkactions13269
         git pull
 
