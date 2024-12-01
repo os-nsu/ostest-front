@@ -30,7 +30,7 @@ jobs:
 
     - name: Connect and pull
       run: |
-        ssh -o StrictHostKeyChecking=no -p ${{ secrets.SSH_PORT }} -i ~/.ssh/front_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}
+        ssh -p ${{ secrets.SSH_PORT }} -i ~/.ssh/front_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}
         echo "Connected to server"
 
 
