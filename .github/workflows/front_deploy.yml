@@ -30,7 +30,7 @@ jobs:
 
     - name: Connect and pull
       run: |
-        ssh -p ${{ secrets.SSH_PORT }} -i ~/.ssh/front_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}
+        ssh -p ${{ secrets.SSH_PORT }} -i ~/.ssh/front_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << EOF
         echo "----- Connected to server -----"
         
         echo "Current dir before cd:"
@@ -45,24 +45,21 @@ jobs:
         pwd
 
 
-        # ls -la /home/${{ secrets.SSH_USER }}
+       
+        git checkout checkactions13269
+        git pull
 
-        # cd /home/${{ secrets.SSH_USER }}
+        if [ ! -f env.front_vm ]; then
+          git clone git@github.com:os-nsu/ostest-plan.git
+          mv ostest-plan/env.front_vm .
+          rm -rf ostest-plan
+        fi
 
-        # cd ${{ secrets.FRONT_WORK_DIR }} 
-        # git checkout checkactions13269
-        # git pull
+        exit
+      EOF
 
-        # if [ ! -f env.front_vm ]; then
-        #   git clone git@github.com:os-nsu/ostest-plan.git
-        #   mv ostest-plan/env.front_vm .
-        #   rm -rf ostest-plan
-        # fi
-
-        # exit
-      
-    # - name: Cleanup
-    #   run: rm -rf ~/.ssh
+    - name: Cleanup
+      run: rm -rf ~/.ssh
     
   # build:
   #   runs-on: ubuntu-latest
