@@ -56,7 +56,7 @@ jobs:
         fi
 
         exit
-      EOF
+    EOF
 
     - name: Cleanup
       run: rm -rf ~/.ssh
