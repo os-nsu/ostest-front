@@ -30,31 +30,31 @@ jobs:
 
     - name: Connect and pull
       run: |
-      ssh -p ${{ secrets.SSH_PORT }} -i ~/.ssh/front_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
-        echo "----- Connected to server -----"
-        
-        echo "Current dir before cd:"
-        pwd
+        ssh -p ${{ secrets.SSH_PORT }} -i ~/.ssh/front_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} '
+          echo "----- Connected to server -----"
+          
+          echo "Current dir before cd:"
+          pwd
 
-        cd /home/${{ secrets.SSH_USER }}
-        echo "after cd /home/${{ secrets.SSH_USER }}:"
-        pwd
+          cd /home/${{ secrets.SSH_USER }}
+          echo "after cd /home/${{ secrets.SSH_USER }}:"
+          pwd
 
-        cd /home/${{ secrets.SSH_USER }}/ositest_project/ostest-front/
-        echo "Now in project dir:"
-        pwd
+          cd /home/${{ secrets.SSH_USER }}/ositest_project/ostest-front/
+          echo "Now in project dir:"
+          pwd
 
-        git checkout checkactions13269
-        git pull
+          git checkout checkactions13269
+          git pull
 
-        if [ ! -f env.front_vm ]; then
-          git clone git@github.com:os-nsu/ostest-plan.git
-          mv ostest-plan/env.front_vm .
-          rm -rf ostest-plan
-        fi
+          if [ ! -f env.front_vm ]; then
+            git clone git@github.com:os-nsu/ostest-plan.git
+            mv ostest-plan/env.front_vm .
+            rm -rf ostest-plan
+          fi
 
-        exit
-      EOF
+          exit
+        '
 
     - name: Cleanup
       run: rm -rf ~/.ssh
