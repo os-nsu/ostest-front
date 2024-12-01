@@ -20,7 +20,7 @@ jobs:
     
     - name: Connect and pull
       run: |
-        ssh -p 22202 -i ~/.ssh/front_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}
+        ssh -vvv -tt -p 22202 ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}
         echo "Connected to server"
         EOF
 
