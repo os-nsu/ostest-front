@@ -11,12 +11,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Remove old host key
-      run: ssh-keygen -R [${{ secrets.SSH_HOST }}]:${{ secrets.SSH_PORT }}
+    - name: Setup SSH directory
+      run: |
+        mkdir -p ~/.ssh
+        touch ~/.ssh/known_hosts
 
     - name: Install ssh keys
       run: |
-        mkdir -p ~/.ssh
         echo "${{ secrets.FRONT_SSH_PRIVATE_KEY }}" > ~/.ssh/front_rsa
         chmod 600 ~/.ssh/front_rsa
         ssh-keyscan -H ${{ secrets.SSH_HOST }} | tee -a ~/.ssh/known_hosts ~/.ssh/known_hosts2
