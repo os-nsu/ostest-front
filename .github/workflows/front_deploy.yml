@@ -40,7 +40,7 @@ jobs:
         echo "after cd /home/${{ secrets.SSH_USER }}:"
         pwd
 
-        cd /home/${{ secrets.SSH_USER }}/evd/ositest_project/ostest-front/
+        cd /home/${{ secrets.SSH_USER }}/ositest_project/ostest-front/
         echo "Now in project dir:"
         pwd
 
