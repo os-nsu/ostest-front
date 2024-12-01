@@ -32,6 +32,12 @@ jobs:
       run: |
         ssh -p ${{ secrets.SSH_PORT }} -i ~/.ssh/front_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}
         echo "----- Connected to server -----"
+        
+        echo "show curr dir"
+        pwd
+        ls -la /home/${{ secrets.SSH_USER }}
+        ls -la ${FRONT_WORK_DIR}
+        cd ${FRONT_WORK_DIR}
 
         cd ${{ secrets.FRONT_WORK_DIR }} 
         git checkout checkactions13269
