@@ -31,7 +31,7 @@ jobs:
     - name: Connect and pull
       run: |
         ssh -p ${{ secrets.SSH_PORT }} -i ~/.ssh/front_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}
-        echo "Connected to server"
+        echo "----- Connected to server -----"
 
         cd ${{ secrets.FRONT_WORK_DIR }} 
         git checkout checkactions13269
