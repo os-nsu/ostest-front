@@ -36,9 +36,14 @@ jobs:
         echo "Current dir before cd:"
         pwd
 
-        cd ~
-        echo "after cd ~:"
+        cd /home/${{ secrets.SSH_USER }}
+        echo "after cd /home/${{ secrets.SSH_USER }}:"
         pwd
+
+        cd /home/${{ secrets.SSH_USER }}/evd/ositest_project/ostest-front/
+        echo "Now in project dir:"
+        pwd
+
 
         # ls -la /home/${{ secrets.SSH_USER }}
 
