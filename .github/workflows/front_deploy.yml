@@ -16,13 +16,19 @@ jobs:
         mkdir -p ~/.ssh
         echo "${{ secrets.NEW_FRONT_KEY }}" > ~/.ssh/front_rsa
         chmod 600 ~/.ssh/front_rsa
-        ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+        ssh-keyscan -H ${{ secrets.SSH_HOST }} | tee -a ~/.ssh/known_hosts ~/.ssh/known_hosts2
+        ssh-keyscan -t ecdsa,rsa,ed25519 ${{ secrets.SSH_HOST }} | tee -a ~/.ssh/known_hosts
+    
+    - name: Debug SSH keys
+      run: |
+        ls -la ~/.ssh
+        cat ~/.ssh/known_hosts
+        cat ~/.ssh/front_rsa
     
     - name: Connect and pull
       run: |
         ssh -vvv -tt -p 22202 -i ~/.ssh/front_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}
         echo "Connected to server"
-        EOF
 
     #       cd ${{ secrets.FRONT_WORK_DIR }} 
     #       git checkout checkactions13269
