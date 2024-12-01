@@ -22,33 +22,32 @@ jobs:
     - name: Add host to known_hosts
       run: ssh-keyscan -H -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
 
-    - name: Debug SSH keys
-      run: |
-        ls -la ~/.ssh
-        echo "known_hosts:"
-        cat ~/.ssh/known_hosts
+    # - name: Debug SSH keys
+    #   run: |
+    #     ls -la ~/.ssh
+    #     echo "known_hosts:"
+    #     cat ~/.ssh/known_hosts
 
     - name: Connect and pull
       run: |
         ssh -p ${{ secrets.SSH_PORT }} -i ~/.ssh/front_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}
         echo "Connected to server"
 
+        cd ${{ secrets.FRONT_WORK_DIR }} 
+        git checkout checkactions13269
+        git pull
 
-    #       cd ${{ secrets.FRONT_WORK_DIR }} 
-    #       git checkout checkactions13269
-    #       git pull
+        if [ ! -f env.front_vm ]; then
+          git clone git@github.com:os-nsu/ostest-plan.git
+          mv ostest-plan/env.front_vm .
+          rm -rf ostest-plan
+        fi
 
-    #       if [ ! -f env.front_vm ]; then
-    #         git clone git@github.com:os-nsu/ostest-plan.git
-    #         mv ostest-plan/env.front_vm .
-    #         rm -rf ostest-plan
-    #       fi
-
-    #       exit
-    #     EOF
+        exit
+      EOF
       
-    # - name: Cleanup
-    #   run: rm -rf ~/.ssh
+    - name: Cleanup
+      run: rm -rf ~/.ssh
     
   # build:
   #   runs-on: ubuntu-latest
