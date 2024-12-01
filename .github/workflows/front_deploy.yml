@@ -16,11 +16,14 @@ jobs:
         mkdir -p ~/.ssh
         echo "${{ secrets.FRONT_SSH_PRIVATE_KEY }}" > ~/.ssh/front_rsa
         chmod 600 ~/.ssh/front_rsa
-        ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts2
+        ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
     
     - name: Connect and pull
       run: |
-        ssh -vvv -tt -p 22202 -i ~/.ssh/front_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
+        ssh -o StrictHostKeyChecking=no -vvv -tt -p 22202 -i ~/.ssh/front_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}
+        echo "Connected to server"
+        EOF
+
     #       cd ${{ secrets.FRONT_WORK_DIR }} 
     #       git checkout checkactions13269
     #       git pull
