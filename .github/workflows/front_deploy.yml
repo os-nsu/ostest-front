@@ -20,7 +20,7 @@ jobs:
     
     - name: Connect and pull
       run: |
-        ssh -vvv -tt -p 22202 -i ~/.ssh/front_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << `EOF'
+        ssh -vvv -tt -p 22202 -i ~/.ssh/front_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
     #       cd ${{ secrets.FRONT_WORK_DIR }} 
     #       git checkout checkactions13269
     #       git pull
