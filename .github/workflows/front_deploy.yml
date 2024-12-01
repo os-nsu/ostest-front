@@ -14,15 +14,16 @@ jobs:
     - name: Install ssh keys
       run: |
         mkdir -p ~/.ssh
-        echo "${{ secrets.NEW_FRONT_KEY }}" > ~/.ssh/front_rsa
+        echo "${{ secrets.FRONT_SSH_PRIVATE_KEY }}" > ~/.ssh/front_rsa
         chmod 600 ~/.ssh/front_rsa
         ssh-keyscan -H ${{ secrets.SSH_HOST }} | tee -a ~/.ssh/known_hosts ~/.ssh/known_hosts2
-        ssh-keyscan -t ecdsa,rsa,ed25519 ${{ secrets.SSH_HOST }} | tee -a ~/.ssh/known_hosts
     
     - name: Debug SSH keys
       run: |
         ls -la ~/.ssh
+        echo "known hosts:--------"
         cat ~/.ssh/known_hosts
+        echo "front rsa:--------"
         cat ~/.ssh/front_rsa
     
     - name: Connect and pull
