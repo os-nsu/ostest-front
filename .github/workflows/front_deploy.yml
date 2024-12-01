@@ -30,7 +30,7 @@ jobs:
 
     - name: Connect and pull
       run: |
-        ssh -p ${{ secrets.SSH_PORT }} -i ~/.ssh/front_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << EOF
+        ssh -p ${{ secrets.SSH_PORT }} -i ~/.ssh/front_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
         echo "----- Connected to server -----"
         
         echo "Current dir before cd:"
