@@ -2,7 +2,8 @@ import { MinimizedGroup } from '@/types/Group';
 
 export interface GroupPostRequestData {
   [index: string]: unknown;
-  name: string;
+  groupName: string;
+  isArchived: boolean;
 }
 
 export interface GroupPutRequestData {
