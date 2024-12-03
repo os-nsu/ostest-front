@@ -102,7 +102,9 @@ jobs:
           cd ${{ secrets.FRONT_WORK_DIR }}
           git pull
           docker-compose down
-          docker compose --env-file env.front_vm up --build
+          docker compose --env-file env.front_vm up --build -d
+          sleep 10
+          docker logs $(docker ps -q --filter "ancestor=ostest-front-frontend")
           EOF
 
       - name: See logs
