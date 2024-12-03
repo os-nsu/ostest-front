@@ -40,15 +40,13 @@ jobs:
           git checkout origin/checkactions13269
           git pull
 
-          if [ ! -f env.front_vm ]; then
-            git clone git@github.com:os-nsu/ostest-plan.git
-            mv ostest-plan/env.front_vm .
-            rm -rf ostest-plan
-          fi
-
           exit
         '
-
+# if [ ! -f env.front_vm ]; then
+#   git clone git@github.com:os-nsu/ostest-plan.git
+#   mv ostest-plan/env.front_vm .
+#   rm -rf ostest-plan
+# fi
     - name: Cleanup
       run: rm -rf ~/.ssh
     
