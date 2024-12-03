@@ -50,6 +50,9 @@ jobs:
           eval "$(ssh-agent -s)"
           ssh-add ~/.ssh/osplan_rsa
 
+          echo "Fixing permissions..."
+          sudo chown -R $USER:$USER .git || echo "No permissions to change ownership"
+
           git fetch --all
           git checkout checkactions13269
           git pull origin checkactions13269
