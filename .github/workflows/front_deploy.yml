@@ -37,6 +37,8 @@ jobs:
           echo "Now in project dir:"
           pwd
 
+          ssh-keyscan -H github.com >> ~/.ssh/known_hosts
+
           git checkout origin/checkactions13269
           git pull
 
