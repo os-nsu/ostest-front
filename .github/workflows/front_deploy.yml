@@ -81,13 +81,24 @@ jobs:
     needs: connect_to_server
 
     steps:
+      - name: Setup SSH directory
+        run: mkdir -p ~/.ssh
+
+      - name: Install ssh keys
+        run: |
+          echo "${{ secrets.FRONT_SSH_PRIVATE_KEY }}" > ~/.ssh/front_rsa
+          chmod 600 ~/.ssh/front_rsa
+
+      - name: Add host to known_hosts
+        run: ssh-keyscan -H -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+
       - name: Checkout repo
         uses: actions/checkout@v3
 
       - name: Deploy to our remote server
         run: |
-          ssh -p ${{ secrets.SSH_PORT }} -i ~/.ssh/front_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << EOF | tee deployment_log.txt
           set -e
+          ssh -p ${{ secrets.SSH_PORT }} -i ~/.ssh/front_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << EOF | tee deployment_log.txt
           cd ${{ secrets.FRONT_WORK_DIR }}
           git pull
           docker-compose down
