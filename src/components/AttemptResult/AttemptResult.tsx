@@ -3,7 +3,6 @@ import IconClose from '@/UI/icons/IconClose/IconClose';
 import styles from '@styles/components/AttemptResult.module.scss';
 import TestResult from './TestResult/TestResult';
 import { useAttemptResult } from './hooks/useAttemptResult';
-import { TestStatus } from '@/types/Attempt';
 
 interface AttemptResultProps {
   number?: number;
@@ -19,7 +18,7 @@ export default function AttemptResult({
   const { attempt } = useAttemptResult(attemptId);
 
   if (!attempt) {
-    return <div>Ошибка</div>;
+    return <div></div>;
   }
 
   return (
@@ -33,20 +32,20 @@ export default function AttemptResult({
         />
       </div>
       <div className={styles.testsContainer}>
-        <TestResult
-          testNumber={1}
-          memory="5"
-          time="123"
-          status={TestStatus.FAILURE}
-          description="Тест завершился с ошибкой и в этом блоке будет описана причина ее возникновения"
-        />
-        <TestResult
-          testNumber={2}
-          memory="5"
-          time="123"
-          status={TestStatus.SUCCESS}
-          description="Тест был пройден и в этом блоке возможно  будет какая-то полезная информация, но не факт"
-        />
+        {attempt.attemptResult.testResults.length !== 0 ? (
+          attempt.attemptResult.testResults.map((result, index) => (
+            <TestResult
+              key={index}
+              testNumber={+result.name}
+              memory={result.memoryUsed.toString()}
+              time={result.duration.toString()}
+              isPassed={result.isPassed}
+              description={result.description || 'Описание отсутствует'}
+            />
+          ))
+        ) : (
+          <span>{attempt.attemptResult.errorDetails}</span>
+        )}
       </div>
     </div>
   );
