@@ -20,7 +20,7 @@ export const useCreateGroupForm = (onUpdate: () => void) => {
   const onSubmit = () => {
     if (!formData) return;
     useGroupProvider()
-      .addGroup({ name: formData.name })
+      .addGroup({ groupName: formData.name, isArchived: false })
       .then(({ status }) => {
         if (status !== 200) {
           return;
