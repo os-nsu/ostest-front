@@ -1,9 +1,9 @@
 export enum AttemptStatus {
-  IN_QUEUE = 'В очереди',
-  IN_PROGRESS = 'В процессе',
-  SUCCESS = 'Принято',
-  FAILURE = 'Не принято',
-  ERROR = 'Ошибка',
+  IN_QUEUE = 'IN_QUEUE',
+  IN_PROGRESS = 'IN_PROGRESS',
+  SUCCESS = 'SUCCESS',
+  FAILURE = 'FAILURE',
+  ERROR = 'ERROR',
 }
 
 export interface MinimizedAttempt {

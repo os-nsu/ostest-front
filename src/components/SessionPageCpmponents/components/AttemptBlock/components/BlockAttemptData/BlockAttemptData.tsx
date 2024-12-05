@@ -14,7 +14,7 @@ export default function BlockAttemptData({
   status,
   attemptId,
 }: BlockAttemptDataProps) {
-  const { testResults } = useBlockAttemptData(attemptId);
+  const { testResults, defaultTextVariants } = useBlockAttemptData(attemptId);
   const successfulTests = testResults?.filter(test => test.isPassed).length;
   const totalTests = testResults?.length;
 
@@ -32,7 +32,9 @@ export default function BlockAttemptData({
           <TestsStatusBlock testResults={testResults} />
         </div>
       </div>
-      <div className={`${styles.status} ${statusClass}`}>{status}</div>
+      <div className={`${styles.status} ${statusClass}`}>
+        {defaultTextVariants[status]}
+      </div>
     </div>
   );
 }

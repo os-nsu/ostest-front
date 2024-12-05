@@ -1,5 +1,6 @@
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { getAttempt } from '@/store/sessions/sessionsThunks';
+import { AttemptStatus } from '@/types/Attempt';
 import { useEffect } from 'react';
 
 export const useBlockAttemptData = (id: string) => {
@@ -12,7 +13,16 @@ export const useBlockAttemptData = (id: string) => {
     dispatch(getAttempt(id));
   }, [id]);
 
+  const defaultTextVariants: Record<AttemptStatus, string> = {
+    [AttemptStatus.SUCCESS]: 'Принято',
+    [AttemptStatus.ERROR]: 'Внутренняя ошибка',
+    [AttemptStatus.FAILURE]: 'Не принято',
+    [AttemptStatus.IN_QUEUE]: 'В очереди',
+    [AttemptStatus.IN_PROGRESS]: 'В процессе',
+  };
+
   return {
     testResults,
+    defaultTextVariants,
   };
 };
