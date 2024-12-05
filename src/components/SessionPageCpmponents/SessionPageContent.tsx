@@ -4,6 +4,7 @@ import SessionPageTitle from './components/SessionPageTitle/SessionPageTitle';
 import styles from '@styles/components/SessionPageStyles/SessionPageContent.module.scss';
 import { useSessionPageContent } from './hooks/useSessionPageContent';
 import ModalUploadAttempt from '../modals/ModalUploadAttempt/ModalUploadAttempt';
+import DefaultLoader from '@/UI/loaders/DefaultLoader/DefaultLoader';
 
 export default function SessionPageContent() {
   const { id } = useParams<{ id: string }>();
@@ -17,7 +18,7 @@ export default function SessionPageContent() {
   } = useSessionPageContent(id);
 
   if (isLoading) {
-    return <div>Загрузка...</div>;
+    return <DefaultLoader />;
   }
 
   if (isError) {
