@@ -17,7 +17,7 @@ export default function AttemptResult({
 }: AttemptResultProps) {
   const { attempt } = useAttemptResult(attemptId);
 
-  if (!attempt) {
+  if (!attempt || !attempt.attemptResult) {
     return <div></div>;
   }
 
