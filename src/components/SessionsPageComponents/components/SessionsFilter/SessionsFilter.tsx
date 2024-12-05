@@ -5,9 +5,10 @@ import IconBottom from '@public/chevron_bottom.svg';
 import styles from '@styles/components/SessionsPageStyles/SessionsFilter.module.scss';
 import { useState } from 'react';
 import { useSessionsFilter } from './hooks/useSessionsFilter';
+import { FilterType } from '../../hooks/useSessionsPageContent';
 
 export interface SessionsFilterProps {
-  onFilterChange: (filter: string) => void;
+  onFilterChange: (filter: FilterType) => void;
   filter: string;
 }
 

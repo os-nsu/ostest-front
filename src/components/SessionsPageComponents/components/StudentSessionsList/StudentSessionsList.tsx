@@ -22,7 +22,8 @@ export default function StudentSessionsList({
     { field: 'status', header: 'Статус выполнения' },
   ];
 
-  const { rowExtractors } = useStudentSessionsList();
+  const { rowExtractors, adaptSessionStatusToProcessStatus } =
+    useStudentSessionsList();
   const navigate = useNavigate();
 
   return (
@@ -41,7 +42,9 @@ export default function StudentSessionsList({
             key={index}
             body={(rowData: Omit<SessionsContent, 'user'>) => {
               if (field === 'status') {
-                return <WorkStatus status={rowData.status} />;
+                const { processStatus, label } =
+                  adaptSessionStatusToProcessStatus(rowData.status);
+                return <WorkStatus status={processStatus} text={label} />;
               }
 
               const extractor = rowExtractors[field];

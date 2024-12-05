@@ -1,16 +1,10 @@
-export const useToken = () => {
-  const token = localStorage.getItem('accessToken');
+import { useAuthProvider } from '@/providers/AuthProvider/useAuthProvider';
 
-  if (!token) {
-    console.error('Токен не найден в localStorage.');
-    return null;
-  }
+export const useRole = () => {
+  const roles = useAuthProvider().getRoleFromToken();
 
-  const base64Payload = token.split('.')[1];
-  const decodedPayload = atob(base64Payload);
-  const roles = JSON.parse(decodedPayload).roles;
   return (
-    roles.find((role: string) => role === 'STUDENT' || role === 'TEACHER') ||
+    roles?.find((role: string) => role === 'STUDENT' || role === 'TEACHER') ||
     null
   );
 };

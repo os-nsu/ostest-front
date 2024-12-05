@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { SessionsContent } from '@/DTO/SessionDTO';
 import styles from '@styles/components/SessionsPageStyles/StudentSessionsList.module.scss';
 import WorkStatus from '@/components/SessionPageCpmponents/components/WorkStatus/WorkStatus';
+import { useStudentSessionsList } from '../StudentSessionsList/hooks/useStudentSessionsList';
 
 interface TeacherSessionsListProps {
   attempts: Omit<SessionsContent, 'user'>[];
@@ -25,6 +26,7 @@ export default function TeacherSessionsList({
   ];
 
   const { rowExtractors } = useTeacherSessionsList();
+  const { adaptSessionStatusToProcessStatus } = useStudentSessionsList();
   const navigate = useNavigate();
 
   return (
@@ -43,7 +45,9 @@ export default function TeacherSessionsList({
             key={index}
             body={(rowData: Omit<SessionsContent, 'user'>) => {
               if (field === 'status') {
-                return <WorkStatus status={rowData.status} />;
+                const { processStatus, label } =
+                  adaptSessionStatusToProcessStatus(rowData.status);
+                return <WorkStatus status={processStatus} text={label} />;
               }
 
               const extractor = rowExtractors[field];
