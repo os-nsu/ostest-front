@@ -9,7 +9,7 @@ interface LaboratoryPageData {
   onEditLab: () => void;
 }
 
-export function useLaboratoryPage(id?: string): LaboratoryPageData {
+export function useLaboratory(id?: string): LaboratoryPageData {
   const [laboratory, setLaboratory] = useState<Laboratory | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState('');
