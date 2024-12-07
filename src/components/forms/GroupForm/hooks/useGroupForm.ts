@@ -24,7 +24,7 @@ export const useGroupForm = (group: Group, onUpdate: () => void) => {
   const [isButtonDisabled, setButtonDisabled] = useState(false);
 
   const students = group.users.filter(user =>
-    user.roles.some(role => role.roleName === RoleTypes.STEDENT),
+    user.roles.some(role => role.roleName === RoleTypes.STUDENT),
   );
   const studentNames = students.map(user => ({
     id: user.id,

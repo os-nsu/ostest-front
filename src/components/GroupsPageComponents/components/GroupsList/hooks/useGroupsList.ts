@@ -7,7 +7,7 @@ export const useGroupList = () => {
   const getStudentsCount = (group: Group) => {
     return group.users
       .filter(user =>
-        user.roles.some(role => role.roleName === RoleTypes.STEDENT),
+        user.roles.some(role => role.roleName === RoleTypes.STUDENT),
       )
       .length.toString();
   };

@@ -3,7 +3,7 @@ import { RoleTypes } from '@/types/Role';
 
 export const useAboutGroup = (group: Group) => {
   const students = group.users.filter(user =>
-    user.roles.some(role => role.roleName === RoleTypes.STEDENT),
+    user.roles.some(role => role.roleName === RoleTypes.STUDENT),
   );
 
   const teachers = group.users.filter(user =>
