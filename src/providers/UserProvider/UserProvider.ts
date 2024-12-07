@@ -1,3 +1,4 @@
+import { UserSearchRequestData, UserSearchResponseData } from '@/DTO/UserDTO';
 import { AxiosClient } from '@/providers/AxiosClient/AxiosClient.ts';
 import { User } from '@/types/User';
 
@@ -12,5 +13,9 @@ export class UserProvider {
 
   getCurrentUser() {
     return this.instance.get<User>('/me');
+  }
+
+  searchUsers(requestData: UserSearchRequestData) {
+    return this.instance.post<UserSearchResponseData>('/search', requestData);
   }
 }

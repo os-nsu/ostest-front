@@ -12,6 +12,8 @@ interface DefaultSearchComponentProps<T> {
   showSearch: boolean;
   getOptionLabel: (option: T) => string;
   field: keyof T & string;
+  searchText: string;
+  setSearchText: (text: string) => void;
 }
 
 export default function DefaultSearchComponent<T>({
@@ -23,18 +25,16 @@ export default function DefaultSearchComponent<T>({
   showSearch,
   getOptionLabel,
   field,
+  searchText,
+  setSearchText,
 }: DefaultSearchComponentProps<T>) {
-  const {
-    autoCompleteRef,
-    filteredOptions,
-    searchOptions,
-    handleFocus,
-    setSearchText,
-    searchText,
-  } = useDefaultSearchComponent({
-    options,
-    getOptionLabel,
-  });
+  const { autoCompleteRef, filteredOptions, searchOptions, handleFocus } =
+    useDefaultSearchComponent({
+      options,
+      getOptionLabel,
+      searchText,
+      setSearchText,
+    });
 
   return (
     <>

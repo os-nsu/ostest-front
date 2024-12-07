@@ -42,6 +42,10 @@ export default function GroupForm({
     handleTeacherSelect,
     toggleTeacherSearch,
     removeTeacher,
+    studentSearchText,
+    setStudentSearchText,
+    TeacherSearchText,
+    setTeacherSearchText,
   } = useGroupForm(group, onUpdate);
 
   return (
@@ -74,6 +78,8 @@ export default function GroupForm({
           onSelect={handleTeacherSelect}
           showSearch={showTeacherSearch}
           getOptionLabel={teacher => teacher.name}
+          setSearchText={setTeacherSearchText}
+          searchText={TeacherSearchText}
         />
         <AttachableList
           label="Преподаватели"
@@ -92,6 +98,8 @@ export default function GroupForm({
           onSelect={handleStudentSelect}
           showSearch={showStudentSearch}
           getOptionLabel={student => student.name}
+          setSearchText={setStudentSearchText}
+          searchText={studentSearchText}
         />
         <AttachableList
           label="Студенты"

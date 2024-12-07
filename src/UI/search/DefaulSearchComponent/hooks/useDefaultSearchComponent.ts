@@ -1,36 +1,42 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { AutoComplete } from 'primereact/autocomplete';
 
 interface UseDefaultSearchComponentProps<T> {
   options: T[];
   getOptionLabel: (option: T) => string;
+  searchText: string;
+  setSearchText: (text: string) => void;
 }
 
 export function useDefaultSearchComponent<T>({
   options,
   getOptionLabel,
+  searchText,
+  setSearchText,
 }: UseDefaultSearchComponentProps<T>) {
   const [filteredOptions, setFilteredOptions] = useState<T[]>([]);
   const autoCompleteRef = useRef<AutoComplete>(null);
-  const [searchText, setSearchText] = useState<string>('');
 
-  const searchOptions = (event: { query: string }) => {
-    if (!event.query || event.query.trim() === '') {
+  useEffect(() => {
+    if (!searchText || searchText.trim() === '') {
       setFilteredOptions(options);
       return;
     }
 
-    setFilteredOptions(
-      options.filter(option =>
-        getOptionLabel(option)
-          .toLowerCase()
-          .includes(event.query.toLowerCase()),
-      ),
+    const filtered = options.filter(option =>
+      getOptionLabel(option).toLowerCase().includes(searchText.toLowerCase()),
     );
+    setFilteredOptions(filtered);
+  }, [searchText, options, getOptionLabel]);
+
+  const searchOptions = (event: { query: string }) => {
+    if (event.query !== searchText) {
+      setSearchText(event.query);
+    }
   };
 
   const handleFocus = () => {
-    searchOptions({ query: '' });
+    searchOptions({ query: searchText });
     autoCompleteRef.current?.show();
   };
 
@@ -39,7 +45,5 @@ export function useDefaultSearchComponent<T>({
     filteredOptions,
     searchOptions,
     handleFocus,
-    setSearchText,
-    searchText,
   };
 }
