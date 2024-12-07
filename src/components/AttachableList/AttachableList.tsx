@@ -6,9 +6,9 @@ import styles from '@styles/components/AttachableList.module.scss';
 interface AttachableListProps {
   label: string;
   emptyText: string;
-  entities: { name: string }[];
+  entities: { id: number; name: string }[];
   onAttach: () => void;
-  onDetach: (name: string) => void;
+  onDetach: (id: number) => void;
   attachIcon: string;
   detachIcon: string;
 }
@@ -30,10 +30,10 @@ export default function AttachableList({
       </div>
       {entities.length > 0 ? (
         <div>
-          {entities.map(({ name }) => (
+          {entities.map(({ id, name }) => (
             <div className={styles.list} key={name}>
               <div className={styles.listItem}>{name}</div>
-              <IconButton icon={detachIcon} onClick={() => onDetach(name)} />
+              <IconButton icon={detachIcon} onClick={() => onDetach(id)} />
             </div>
           ))}
         </div>
