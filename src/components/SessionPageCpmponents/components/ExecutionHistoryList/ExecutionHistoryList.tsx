@@ -28,6 +28,7 @@ export default function ExecutionHistoryList({
             <AttemptBlock
               number={attempt.sequenceOrder}
               status={attempt.status}
+              attemptId={attempt.id}
               key={attempt.sequenceOrder}
               onClick={() =>
                 handleAttemptClick(attempt.id, attempt.sequenceOrder)

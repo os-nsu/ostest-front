@@ -1,14 +1,9 @@
 export enum AttemptStatus {
-  IN_QUEUE = 'В очереди',
-  IN_PROGRESS = 'В процессе',
-  SUCCESS = 'Принято',
-  FAILURE = 'Не принято',
-  ERROR = 'Ошибка',
-}
-
-export enum TestStatus {
-  SUCCESS = 'Пройден',
-  FAILURE = 'Не пройден',
+  IN_QUEUE = 'IN_QUEUE',
+  IN_PROGRESS = 'IN_PROGRESS',
+  SUCCESS = 'SUCCESS',
+  FAILURE = 'FAILURE',
+  ERROR = 'ERROR',
 }
 
 export interface MinimizedAttempt {
@@ -17,10 +12,20 @@ export interface MinimizedAttempt {
   status: AttemptStatus;
 }
 
+export interface TestResult {
+  isPassed: boolean;
+  description: string;
+  memoryUsed: number;
+  duration: number;
+  name: string;
+}
+
 export interface Attempt extends MinimizedAttempt {
   repositoryUrl: string;
   branch: string;
-  testResults: {
-    status: TestStatus;
+  attemptResult: {
+    testResults: TestResult[];
+    duration: number;
+    errorDetails: string;
   };
 }

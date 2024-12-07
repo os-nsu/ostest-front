@@ -32,7 +32,7 @@ export default function SessionPageContent() {
   return (
     <div className={styles.container}>
       <SessionPageTitle
-        name={session.labarotory.name}
+        name={session.laboratory.name}
         status="К выполнению"
         id={id}
         onUpload={() => setModalVisible(true)}
