@@ -27,18 +27,10 @@ export const useGroupForm = (group: Group, onUpdate: () => void) => {
   const students = group.users.filter(user =>
     user.roles.some(role => role.roleName === RoleTypes.STUDENT),
   );
-  // const studentNames = students.map(user => ({
-  //   id: user.id,
-  //   name: `${user.firstName} ${user.secondName}`,
-  // }));
 
   const teachers = group.users.filter(user =>
     user.roles.some(role => role.roleName === RoleTypes.TEACHER),
   );
-  // const teacherNames = teachers.map(user => ({
-  //   id: user.id,
-  //   name: `${user.firstName} ${user.secondName}`,
-  // }));
 
   const [formData, setFormData] = useState<GroupFormData>({
     id: group.id,
