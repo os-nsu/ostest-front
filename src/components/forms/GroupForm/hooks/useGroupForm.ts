@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Group, GroupStatus, User } from '@/types/Group';
 import { SelectItem } from 'primereact/selectitem';
 import { useAttachableListController } from './useAttachableListController';
@@ -41,29 +41,35 @@ export const useGroupForm = (group: Group, onUpdate: () => void) => {
     students,
   });
 
-  const studentsFilter: Filter[] = [
-    {
-      type: 'string',
-      fieldName: 'roleName',
-      exactSearch: true,
-      value: 'STUDENT',
-    },
-    {
-      type: 'string',
-      fieldName: 'groupName',
-      exactSearch: true,
-      value: '',
-    },
-  ];
+  const studentsFilter: Filter[] = useMemo(
+    () => [
+      {
+        type: 'string',
+        fieldName: 'roleName',
+        exactSearch: true,
+        value: 'STUDENT',
+      },
+      {
+        type: 'string',
+        fieldName: 'groupName',
+        exactSearch: true,
+        value: '',
+      },
+    ],
+    [],
+  );
 
-  const teachersFilter: Filter[] = [
-    {
-      type: 'string',
-      fieldName: 'roleName',
-      exactSearch: true,
-      value: 'TEACHER',
-    },
-  ];
+  const teachersFilter: Filter[] = useMemo(
+    () => [
+      {
+        type: 'string',
+        fieldName: 'roleName',
+        exactSearch: true,
+        value: 'TEACHER',
+      },
+    ],
+    [],
+  );
 
   const useTeachers = () =>
     useAttachableListController(teachers, teachersFilter);

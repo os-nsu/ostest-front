@@ -70,17 +70,18 @@ export default function GroupForm({
           <DefaultFieldLabel label="Число участников" />
           <span>{selectedStudents.length}</span>
         </div>
-        <DefaultSearchComponent
-          options={teacherNames}
-          label="Поиск преподавателей"
-          placeholder="Введите имя преподавателя"
-          field="name"
-          onSelect={handleTeacherSelect}
-          showSearch={showTeacherSearch}
-          getOptionLabel={teacher => teacher.name}
-          setSearchText={setTeacherSearchText}
-          searchText={TeacherSearchText}
-        />
+        {showTeacherSearch && (
+          <DefaultSearchComponent
+            options={teacherNames}
+            label="Поиск преподавателей"
+            placeholder="Введите фамилию преподавателя"
+            field="name"
+            onSelect={handleTeacherSelect}
+            getOptionLabel={teacher => teacher.name}
+            setSearchText={setTeacherSearchText}
+            searchText={TeacherSearchText}
+          />
+        )}
         <AttachableList
           label="Преподаватели"
           emptyText="Выберите преподавателей"
@@ -90,17 +91,18 @@ export default function GroupForm({
           attachIcon={IconPlus}
           detachIcon={IconBan}
         />
-        <DefaultSearchComponent
-          options={studentNames}
-          label="Поиск студентов"
-          placeholder="Введите имя студента"
-          field="name"
-          onSelect={handleStudentSelect}
-          showSearch={showStudentSearch}
-          getOptionLabel={student => student.name}
-          setSearchText={setStudentSearchText}
-          searchText={studentSearchText}
-        />
+        {showStudentSearch && (
+          <DefaultSearchComponent
+            options={studentNames}
+            label="Поиск студентов"
+            placeholder="Введите фамилию студента"
+            field="name"
+            onSelect={handleStudentSelect}
+            getOptionLabel={student => student.name}
+            setSearchText={setStudentSearchText}
+            searchText={studentSearchText}
+          />
+        )}
         <AttachableList
           label="Студенты"
           emptyText="Выберите студентов"

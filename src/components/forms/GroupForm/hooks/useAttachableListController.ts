@@ -12,13 +12,12 @@ export const useAttachableListController = (
   items: User[],
   filters?: Filter[],
 ) => {
-  const initialItems: AttachableItem[] = items.map(item => ({
+  const initialItems = items.map<AttachableItem>(item => ({
     id: item.id,
     name: `${item.firstName} ${item.secondName}`,
   }));
 
   const [searchText, setSearchText] = useState('');
-  const [selectedItem, setSelectedItem] = useState<AttachableItem | null>(null);
   const [selectedItems, setSelectedItems] =
     useState<AttachableItem[]>(initialItems);
   const [filteredItems, setFilteredItems] = useState<AttachableItem[]>([]);
@@ -28,64 +27,56 @@ export const useAttachableListController = (
     if (!selectedItems.some(selected => selected.id === item.id)) {
       setSelectedItems(prev => [...prev, item]);
     }
-    setSelectedItem(null);
     setSearchText('');
   };
 
   const toggleSearch = () => setShowItemSearch(prev => !prev);
 
-  const removeItem = (itemName: string) => {
-    setSelectedItems(prev => prev.filter(item => item.name !== itemName));
+  const removeItem = (itemId: number) => {
+    setSelectedItems(prev => prev.filter(item => item.id !== itemId));
   };
 
-  const fetchFilteredItems = useCallback(async () => {
+  const fetchFilteredItems = useCallback(() => {
     if (!searchText || !filters) {
       setFilteredItems([]);
       return;
     }
 
-    filters.push({
-      type: 'string',
-      fieldName: 'secondName',
-      exactSearch: false,
-      value: searchText,
-    });
-
-    let allItems: AttachableItem[] = [];
     const pagination: Pagination = {
       index: 1,
-      pageSize: 10,
+      pageSize: 20,
       totalRecords: 0,
       totalPages: 0,
     };
 
-    try {
-      while (true) {
-        const { status, data } = await useUserProvider().searchUsers({
-          filters,
-          pagination,
-        });
-
+    useUserProvider()
+      .searchUsers({
+        filters: [
+          ...filters,
+          {
+            type: 'string',
+            fieldName: 'secondName',
+            exactSearch: false,
+            value: searchText,
+          },
+        ],
+        pagination,
+      })
+      .then(response => {
+        const { status, data } = response;
         if (status === 200 && data) {
           const newItems = data.users.map(user => ({
             id: user.id,
             name: `${user.firstName} ${user.secondName}`,
           }));
-          allItems = [...allItems, ...newItems];
-
-          pagination.index++;
-          if (pagination.index > data.pagination.totalPages) break;
-        } else {
-          break;
+          setFilteredItems(newItems);
         }
-      }
-
-      setFilteredItems(allItems);
-    } catch (error) {
-      console.error('Ошибка загрузки данных:', error);
-      setFilteredItems([]);
-    }
-  }, [searchText]);
+      })
+      .catch(error => {
+        console.error('Ошибка загрузки данных:', error);
+        setFilteredItems([]);
+      });
+  }, [filters, searchText]);
 
   useEffect(() => {
     fetchFilteredItems();
