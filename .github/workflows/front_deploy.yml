@@ -3,7 +3,7 @@ name: deploy-front
 on:
   push:
     branches:
-      - 13269
+      - master
 
 jobs:
   connect_to_server:
@@ -45,8 +45,8 @@ jobs:
           ssh-add ~/.ssh/osplan_rsa
 
           git fetch --all
-          git checkout checkactions13269
-          git pull origin checkactions13269
+          git checkout master
+          git pull origin master
 
           if [ ! -f env.front_vm ]; then
             echo "env.front_vm not found. Cloning repository to fetch it..."
