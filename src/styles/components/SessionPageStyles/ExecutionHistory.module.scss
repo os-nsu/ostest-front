@@ -1,0 +1,20 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    gap: 32px;
+
+    & .title {
+        font-size: 36px;
+        font-weight: 400;
+        line-height: 36px;
+    }
+
+    & .empty {
+        font-size: 32px;
+        font-weight: 400;
+        line-height: 32px;
+        color: #00000099;
+
+    }
+}

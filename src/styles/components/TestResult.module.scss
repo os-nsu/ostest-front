@@ -1,0 +1,64 @@
+.container {
+    padding-top: 10px;
+    border-top: 1px solid #9FA9B7;
+
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    & .titleContainer {
+        display: flex;
+        justify-content: space-between;
+
+        & .title {
+            font-size: 28px;
+            font-weight: 400;
+            line-height: 36.4px;
+        }
+
+        & .status {
+            padding: 8px;
+            border-radius: 12px;
+
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 23.4px;
+            color: white;
+        }
+
+        & .accepted {
+            background-color: #22C55E;
+        }
+
+        & .error {
+            background-color: #EF4444;
+        }
+    }
+
+    & .descriptionContainer {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+
+        & .description {
+            display: flex;
+            gap: 16px;
+
+            & .title {
+                font-size: 22px;
+                font-weight: 600;
+                line-height: 28.6px;
+            }
+
+            & .text {
+                font-size: 18px;
+                font-weight: 400;
+                line-height: 23.4px;
+            }
+        }
+
+        & .column {
+            flex-direction: column;
+        }
+    }
+}

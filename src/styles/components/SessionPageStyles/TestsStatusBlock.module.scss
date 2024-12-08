@@ -1,0 +1,17 @@
+.testsStatusBlock {
+    display: flex;
+    gap: 8px;
+    flex-direction: column;
+
+    & .testsStatusLine {
+        display: flex;
+        gap: 8px;
+
+        & .testsStatus {
+            width: 8px;
+            height: 8px;
+            border-radius: 7px;
+            background: #22C55E;
+        }
+    }
+}

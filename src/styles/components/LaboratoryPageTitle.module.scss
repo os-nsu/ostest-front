@@ -17,4 +17,8 @@
 .buttons {
     display: flex;
     gap: 8px;
+
+    & .buttonNavigate {
+        max-height: 44px;
+    }
 }

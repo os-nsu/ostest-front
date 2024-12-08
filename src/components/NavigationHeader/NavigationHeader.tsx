@@ -6,7 +6,7 @@ import IconAvatar from '@public/avatar.svg';
 import { useNavigate } from 'react-router-dom';
 
 interface NavigationHeaderProps {
-  activeTab: string;
+  activeTab?: string;
   tabs?: boolean;
 }
 

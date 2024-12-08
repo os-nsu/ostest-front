@@ -1,27 +1,23 @@
 import styles from '@styles/components/LaboratoryPageContent.module.scss';
-import { Laboratory } from '../../../types/Laboratory.ts';
 import LaboratoryPageTitle from '../LaboratoryPageTitle/LaboratoryPageTitle.tsx';
 import LaboratoryDeadLine from '../LaboratoryDeadLine/LaboratoryDeadLine.tsx';
 import LaboratoryDescription from '../LaboratoryDescription/LaboratoryDescription.tsx';
 import LaboratoryAttachedTests from '../LaboratoryAttachedTests/LaboratoryAttachedTests.tsx';
-import { Test } from '@/types/Test.ts';
 import ModalEditLab from '@/components/modals/ModalEditLab/ModalEditLab.tsx';
 import ModalSubmitDelete from '@/components/modals/ModalSubmitDelete/ModalSubmitDelete.tsx';
+import { useLaboratory } from './hooks/useLaboratory.ts';
 import { useLaboratoryPageContent } from './hooks/useLaboratoryPageContent.ts';
+import DefaultLoader from '@/UI/loaders/DefaultLoader/DefaultLoader.tsx';
 
 interface LaboratoryPageContentProps {
-  laboratory: Laboratory;
-  id?: string;
-  tests: Test[];
-  onEditLab: () => void;
+  id: string;
 }
 
 export default function LaboratoryPageContent({
-  laboratory,
-  tests,
   id,
-  onEditLab,
 }: LaboratoryPageContentProps) {
+  const { laboratory, isLoading, isError, onEditLab } = useLaboratory(id);
+
   const {
     isModalVisible,
     setModalVisible,
@@ -30,10 +26,27 @@ export default function LaboratoryPageContent({
     deleteLaboratory,
   } = useLaboratoryPageContent(id);
 
+  if (isLoading) {
+    return (
+      <div className={styles.wrapper}>
+        <DefaultLoader />
+      </div>
+    );
+  }
+
+  if (isError) {
+    return <div>{isError}</div>;
+  }
+
+  if (!laboratory) {
+    return <div>Лабораторная не найдена</div>;
+  }
+
   return (
     <div className={styles.wrapper}>
       <LaboratoryPageTitle
         name={laboratory.name}
+        id={id}
         onDelete={() => {
           setModalVisible(true);
           setModalType('delete');
@@ -47,7 +60,9 @@ export default function LaboratoryPageContent({
         <LaboratoryDeadLine deadline={laboratory.deadline} />
       ) : null}
       <LaboratoryDescription description={laboratory.description} />
-      {tests && tests.length ? <LaboratoryAttachedTests tests={tests} /> : null}
+      {laboratory.tests && laboratory.tests.length ? (
+        <LaboratoryAttachedTests tests={laboratory.tests} />
+      ) : null}
       <ModalSubmitDelete
         displayed={isModalVisible && modalType === 'delete'}
         name={laboratory.name}

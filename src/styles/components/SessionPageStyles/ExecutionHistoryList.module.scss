@@ -1,0 +1,12 @@
+.container {
+    display: flex;
+    gap: 32px;
+}
+
+.attemptBlock {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+
+    width: min(720px, 50%);
+}

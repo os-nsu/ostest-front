@@ -50,7 +50,7 @@ export const useGroupsPageContent = () => {
     const requestData = {
       page,
       size: pageSize,
-      sort: 'name',
+      sort: 'groupName',
     };
 
     useGroupProvider()

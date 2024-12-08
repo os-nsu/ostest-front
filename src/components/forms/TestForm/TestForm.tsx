@@ -35,6 +35,13 @@ export default function TestForm({
           required
           onChange={value => onFieldChange('name', value)}
         />
+        <DefaultInput
+          label="Код"
+          placeholder="Введите код теста"
+          value={formData?.code}
+          required
+          onChange={value => onFieldChange('code', value)}
+        />
         <DefaultTextArea
           label="Описание"
           placeholder="Опишите создаваемый тест"

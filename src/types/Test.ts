@@ -8,6 +8,7 @@ export interface MinimizedTest {
 }
 
 export interface Test extends MinimizedTest {
+  code: string;
   description: string;
   category: TestCategory;
 }
