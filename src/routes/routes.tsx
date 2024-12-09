@@ -5,6 +5,7 @@ import LaboratoryPage from '@/pages/LaboratoryPage/LaboratoryPage.tsx';
 import LoginPage from '@/pages/LoginPage.tsx';
 import GroupsPage from '@/pages/GroupsPage/GroupsPage';
 import SessionPage from '@/pages/SessionPage/SessionPage';
+import SessionsPage from '@/pages/SessionsPage/SessionsPage';
 
 export const routes = [
   {
@@ -22,6 +23,10 @@ export const routes = [
   {
     path: '/lab/:id',
     element: <PrivateRoute element={<LaboratoryPage />} />,
+  },
+  {
+    path: '/lab/attempts',
+    element: <PrivateRoute element={<SessionsPage />} />,
   },
   {
     path: '/lab/attempts/:id',
