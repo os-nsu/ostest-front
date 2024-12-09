@@ -2,8 +2,8 @@ import styles from '@styles/components/NavigationHeader.module.scss';
 import IconLabs from '@public/labs.svg';
 import IconTests from '@public/tests.svg';
 import IconGroups from '@public/groups.svg';
-import IconAvatar from '@public/avatar.svg';
-import { useNavigate } from 'react-router-dom';
+import { useNavigationHeaderState } from './hooks/useNavigationHeaderState';
+import { useAuthManagement } from './hooks/useAuthManagement';
 
 interface NavigationHeaderProps {
   activeTab?: string;
@@ -11,39 +11,72 @@ interface NavigationHeaderProps {
 }
 
 function NavigationHeader({ activeTab, tabs }: NavigationHeaderProps) {
-  const navigate = useNavigate();
+  const { isMenuOpen, toggleMenu, navigateTo, isActiveTab } =
+    useNavigationHeaderState(activeTab);
+  const { user, isLoading, handleLogout } = useAuthManagement();
 
   return (
     <div className={styles.header}>
       <div className={styles.header_navigation}>
-        <p className={styles.header_logo}>NSU OS TEST</p>
-        {tabs && (
-          <div className={styles.header_buttons}>
-            <button
-              type="button"
-              className={`${styles.header_button} ${activeTab === 'labs' ? styles.header_button_checked : ''}`}
-              onClick={() => navigate('/')}>
-              <img src={IconLabs} />
-              <span>Лабораторные</span>
-            </button>
-            <button
-              type="button"
-              className={`${styles.header_button} ${activeTab === 'tests' ? styles.header_button_checked : ''}`}
-              onClick={() => navigate('/tests')}>
-              <img src={IconTests} />
-              <span>Тесты</span>
-            </button>
-            <button
-              type="button"
-              className={`${styles.header_button} ${activeTab === 'groups' ? styles.header_button_checked : ''}`}
-              onClick={() => navigate('/groups')}>
-              <img src={IconGroups} />
-              <span>Группы</span>
-            </button>
-          </div>
-        )}
+        <div className={styles.leftGroup}>
+          <p className={styles.header_logo}>NSU OS TEST</p>
+          {tabs && (
+            <div className={styles.header_buttons}>
+              <button
+                type="button"
+                className={`${styles.header_button} ${
+                  isActiveTab('labs') ? styles.header_button_checked : ''
+                }`}
+                onClick={() => navigateTo('/')}>
+                <img src={IconLabs} />
+                <span>Лабораторные</span>
+              </button>
+              <button
+                type="button"
+                className={`${styles.header_button} ${
+                  isActiveTab('tests') ? styles.header_button_checked : ''
+                }`}
+                onClick={() => navigateTo('/tests')}>
+                <img src={IconTests} />
+                <span>Тесты</span>
+              </button>
+              <button
+                type="button"
+                className={`${styles.header_button} ${
+                  isActiveTab('groups') ? styles.header_button_checked : ''
+                }`}
+                onClick={() => navigateTo('/groups')}>
+                <img src={IconGroups} />
+                <span>Группы</span>
+              </button>
+            </div>
+          )}
+        </div>
+        <div className={styles.rightGroup}>
+          <button
+            className={`${styles.name} ${isMenuOpen ? styles.active : ''}`}
+            onClick={toggleMenu}>
+            {isLoading ? '...' : `${user?.firstName} ${user?.secondName}`}
+          </button>
+          {isMenuOpen && (
+            <div className={styles.menu}>
+              <button className={styles.menuButton}>Сменить пароль</button>
+              <button
+                type="button"
+                className={styles.menuButton}
+                onClick={() => navigateTo('/lab/attempts')}>
+                Мои сессии сдачи
+              </button>
+              <button
+                type="button"
+                className={styles.menuButton}
+                onClick={handleLogout}>
+                Выйти
+              </button>
+            </div>
+          )}
+        </div>
       </div>
-      <img className={styles.header_avatar} src={IconAvatar} alt="Аватар" />
     </div>
   );
 }

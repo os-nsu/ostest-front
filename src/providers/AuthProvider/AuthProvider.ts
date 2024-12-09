@@ -2,6 +2,7 @@ import { AxiosClient } from '@/providers/AxiosClient/AxiosClient.ts';
 import {
   LoginRequestData,
   LoginResponseData,
+  LogoutRequestData,
   UpdateSessionResponseData,
 } from '@/DTO/AuthDTO.ts';
 
@@ -22,5 +23,9 @@ export class AuthProvider {
     return this.instance.post<UpdateSessionResponseData>('/auth/token', {
       refreshToken,
     });
+  }
+
+  logout(requestData: LogoutRequestData) {
+    return this.instance.post('/logout', requestData);
   }
 }

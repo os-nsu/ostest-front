@@ -54,5 +54,6 @@ export const useAuthContextProvider = () => {
   return {
     isAuthenticated,
     onLogin,
+    onLogout,
   };
 };
