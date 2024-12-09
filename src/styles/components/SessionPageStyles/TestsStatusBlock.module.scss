@@ -11,7 +11,14 @@
             width: 8px;
             height: 8px;
             border-radius: 7px;
-            background: #22C55E;
+        }
+
+        & .success {
+            background-color: green;
+        }
+
+        & .failure {
+            background-color: red;
         }
     }
 }

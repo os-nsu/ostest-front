@@ -2,7 +2,7 @@ import { MinimizedAttempt } from './Attempt';
 
 export interface Session {
   id: number;
-  labarotory: {
+  laboratory: {
     name: string;
   };
   attempts: MinimizedAttempt[];

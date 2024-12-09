@@ -1,9 +1,8 @@
-import { TestStatus } from '@/types/Attempt';
 import styles from '@styles/components/TestResult.module.scss';
 
 interface TestResultProps {
   testNumber: number;
-  status: TestStatus;
+  isPassed: boolean;
   time: string;
   memory: string;
   description?: string;
@@ -11,13 +10,13 @@ interface TestResultProps {
 
 export default function TestResult({
   testNumber,
-  status,
+  isPassed,
   time,
   description,
   memory,
 }: TestResultProps) {
-  const statusClass =
-    status === TestStatus.SUCCESS ? styles.accepted : styles.error;
+  const statusClass = isPassed ? styles.accepted : styles.error;
+  const status = isPassed ? 'Пройден' : 'Не пройден';
 
   return (
     <div className={styles.container}>
