@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Group, GroupStatus, User } from '@/types/Group';
 import { SelectItem } from 'primereact/selectitem';
 import { useAttachableListController } from './useAttachableListController';
 import { RoleTypes } from '@/types/Role';
 import { useGroupProvider } from '@/providers/GroupProvider/useGroupProvider';
+import { Filter } from '@/DTO/UserDTO';
 
 interface GroupFormData {
   id: number;
@@ -24,20 +25,12 @@ export const useGroupForm = (group: Group, onUpdate: () => void) => {
   const [isButtonDisabled, setButtonDisabled] = useState(false);
 
   const students = group.users.filter(user =>
-    user.roles.some(role => role.roleName === RoleTypes.STEDENT),
+    user.roles.some(role => role.roleName === RoleTypes.STUDENT),
   );
-  const studentNames = students.map(user => ({
-    id: user.id,
-    name: `${user.firstName} ${user.secondName}`,
-  }));
 
   const teachers = group.users.filter(user =>
     user.roles.some(role => role.roleName === RoleTypes.TEACHER),
   );
-  const teacherNames = teachers.map(user => ({
-    id: user.id,
-    name: `${user.firstName} ${user.secondName}`,
-  }));
 
   const [formData, setFormData] = useState<GroupFormData>({
     id: group.id,
@@ -48,23 +41,61 @@ export const useGroupForm = (group: Group, onUpdate: () => void) => {
     students,
   });
 
-  const useTeachers = () => useAttachableListController(teachers);
-  const useStudents = () => useAttachableListController(students);
+  const studentsFilter: Filter[] = useMemo(
+    () => [
+      {
+        type: 'string',
+        fieldName: 'roleName',
+        exactSearch: true,
+        value: 'STUDENT',
+      },
+      {
+        type: 'string',
+        fieldName: 'groupName',
+        exactSearch: true,
+        value: '',
+      },
+    ],
+    [],
+  );
+
+  const teachersFilter: Filter[] = useMemo(
+    () => [
+      {
+        type: 'string',
+        fieldName: 'roleName',
+        exactSearch: true,
+        value: 'TEACHER',
+      },
+    ],
+    [],
+  );
+
+  const useTeachers = () =>
+    useAttachableListController(teachers, teachersFilter);
+  const useStudents = () =>
+    useAttachableListController(students, studentsFilter);
 
   const {
     selectedItems: selectedStudents,
     showItemSearch: showStudentSearch,
+    filteredItems: studentNames,
+    searchText: studentSearchText,
     handleSelect: handleStudentSelect,
     toggleSearch: toggleStudentSearch,
     removeItem: removeStudent,
+    setSearchText: setStudentSearchText,
   } = useStudents();
 
   const {
     selectedItems: selectedTeachers,
     showItemSearch: showTeacherSearch,
+    filteredItems: teacherNames,
+    searchText: TeacherSearchText,
     handleSelect: handleTeacherSelect,
     toggleSearch: toggleTeacherSearch,
     removeItem: removeTeacher,
+    setSearchText: setTeacherSearchText,
   } = useTeachers();
 
   useEffect(() => {
@@ -138,5 +169,9 @@ export const useGroupForm = (group: Group, onUpdate: () => void) => {
     handleTeacherSelect,
     toggleTeacherSearch,
     removeTeacher,
+    studentSearchText,
+    setStudentSearchText,
+    TeacherSearchText,
+    setTeacherSearchText,
   };
 };
