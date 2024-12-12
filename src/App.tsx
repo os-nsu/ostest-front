@@ -5,6 +5,8 @@ import { AuthContextProvider } from '@/contexts/AuthContext/AuthContext.tsx';
 
 const router = createBrowserRouter(routes);
 
+console.log(1234);
+
 function App() {
   return (
     <AuthContextProvider>
