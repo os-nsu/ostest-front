@@ -39,11 +39,7 @@ jobs:
           pwd
           ls -la
 
-          cd .git/objects
           sudo chown -R ${{ secrets.SSH_USER }}:${{ secrets.SSH_USER }} *
-
-          cd ..
-          cd ..
 
           ssh-keyscan -H github.com >> ~/.ssh/known_hosts
 
