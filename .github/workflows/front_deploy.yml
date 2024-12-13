@@ -46,6 +46,8 @@ jobs:
           eval "$(ssh-agent -s)"
           ssh-add ~/.ssh/osplan_rsa
 
+          git reset --hard HEAD
+          git clean -fd
           git fetch --all
           git checkout master
           git pull origin master
