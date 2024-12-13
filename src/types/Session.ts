@@ -11,7 +11,7 @@ export enum SessionStatus {
 
 export interface Session {
   id: number;
-  labarotory: {
+  laboratory: {
     name: string;
   };
   attempts: MinimizedAttempt[];
