@@ -3,7 +3,7 @@ name: deploy-front
 on:
   push:
     branches:
-      - feature-13269
+      - master
 
 jobs:
   connect_to_server:
