@@ -1,4 +1,8 @@
-import { UserSearchRequestData, UserSearchResponseData } from '@/DTO/UserDTO';
+import {
+  UserSearchRequestData,
+  UserSearchResponseData,
+  UserChangePasswordRequestData,
+} from '@/DTO/UserDTO';
 import { AxiosClient } from '@/providers/AxiosClient/AxiosClient.ts';
 import { User } from '@/types/User';
 
@@ -17,5 +21,9 @@ export class UserProvider {
 
   searchUsers(requestData: UserSearchRequestData) {
     return this.instance.post<UserSearchResponseData>('/search', requestData);
+  }
+
+  changePassword(requestData: UserChangePasswordRequestData) {
+    return this.instance.put('/change-password', requestData);
   }
 }
