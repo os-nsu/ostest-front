@@ -4,7 +4,7 @@ import { GroupFilters } from '@/types/Group';
 
 export const GroupFilterOptions: SelectItem[] = [
   { value: GroupFilters.ACTIVE, label: 'Только активные' },
-  { value: GroupFilters.INACTIVE, label: 'Только скрытые' },
+  { value: GroupFilters.ARCHIVED, label: 'Только скрытые' },
   { value: GroupFilters.ALL, label: 'Все' },
 ];
 

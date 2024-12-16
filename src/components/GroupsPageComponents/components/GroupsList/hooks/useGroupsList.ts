@@ -23,7 +23,7 @@ export const useGroupList = () => {
     studentsCount: rowData => getStudentsCount(rowData),
     teacher: rowData => getTeacherName(rowData),
     name: rowData => rowData.name,
-    status: rowData => rowData.status,
+    status: rowData => (rowData.isArchived ? 'Скрыта' : 'Активна'),
   };
 
   return {

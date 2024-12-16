@@ -11,7 +11,7 @@ export default function AboutGroup({ group }: AboutGroupProps) {
   const { studentNames, teacherNames, studentsCount } = useAboutGroup(group);
 
   const blocks = [
-    { title: 'Статус', text: group.status },
+    { title: 'Статус', text: group.isArchived ? 'Скрыта' : 'Активна' },
     { title: 'Число участников', text: studentsCount },
     { title: 'Преподаватели', text: teacherNames },
     { title: 'Студенты', text: studentNames },
