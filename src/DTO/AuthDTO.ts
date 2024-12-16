@@ -14,3 +14,8 @@ export interface UpdateSessionResponseData
   extends Omit<LoginResponseData, 'refreshToken'> {
   refreshToken: null;
 }
+
+export interface LogoutRequestData {
+  accessToken: string;
+  refreshToken: string;
+}

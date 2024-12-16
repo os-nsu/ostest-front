@@ -1,51 +1,66 @@
+import React from 'react';
 import styles from '@styles/components/NavigationHeader.module.scss';
 import IconLabs from '@public/labs.svg';
 import IconTests from '@public/tests.svg';
 import IconGroups from '@public/groups.svg';
-import IconAvatar from '@public/avatar.svg';
-import { useNavigate } from 'react-router-dom';
+import { useNavigationHeaderState } from './hooks/useNavigationHeaderState';
+import { useAuthManagement } from './hooks/useAuthManagement';
+import HeaderButton from './components/HeaderButton/HeaderButton';
+import HeaderMenu from './components/HeaderMenu/HeaderMenu';
 
 interface NavigationHeaderProps {
   activeTab?: string;
   tabs?: boolean;
 }
 
-function NavigationHeader({ activeTab, tabs }: NavigationHeaderProps) {
-  const navigate = useNavigate();
+const NavigationHeader: React.FC<NavigationHeaderProps> = ({
+  activeTab,
+  tabs,
+}) => {
+  const { isMenuOpen, toggleMenu, isActiveTab } =
+    useNavigationHeaderState(activeTab);
+  const { user, isLoading, handleLogout } = useAuthManagement();
 
   return (
     <div className={styles.header}>
       <div className={styles.header_navigation}>
-        <p className={styles.header_logo}>NSU OS TEST</p>
-        {tabs && (
-          <div className={styles.header_buttons}>
-            <button
-              type="button"
-              className={`${styles.header_button} ${activeTab === 'labs' ? styles.header_button_checked : ''}`}
-              onClick={() => navigate('/')}>
-              <img src={IconLabs} />
-              <span>Лабораторные</span>
-            </button>
-            <button
-              type="button"
-              className={`${styles.header_button} ${activeTab === 'tests' ? styles.header_button_checked : ''}`}
-              onClick={() => navigate('/tests')}>
-              <img src={IconTests} />
-              <span>Тесты</span>
-            </button>
-            <button
-              type="button"
-              className={`${styles.header_button} ${activeTab === 'groups' ? styles.header_button_checked : ''}`}
-              onClick={() => navigate('/groups')}>
-              <img src={IconGroups} />
-              <span>Группы</span>
-            </button>
-          </div>
-        )}
+        <div className={styles.leftGroup}>
+          <p className={styles.header_logo}>NSU OS TEST</p>
+          {tabs && (
+            <div className={styles.header_buttons}>
+              <HeaderButton
+                icon={IconLabs}
+                label="Лабораторные"
+                isActive={isActiveTab('labs')}
+                navigateTo="/"
+              />
+              <HeaderButton
+                icon={IconTests}
+                label="Тесты"
+                isActive={isActiveTab('tests')}
+                navigateTo="/tests"
+              />
+              <HeaderButton
+                icon={IconGroups}
+                label="Группы"
+                isActive={isActiveTab('groups')}
+                navigateTo="/groups"
+              />
+            </div>
+          )}
+        </div>
+        <div className={styles.rightGroup}>
+          <HeaderMenu
+            isMenuOpen={isMenuOpen}
+            toggleMenu={toggleMenu}
+            userName={`${user?.firstName || ''} ${user?.secondName || ''}`}
+            isLoading={isLoading}
+            handleLogout={handleLogout}
+          />
+        </div>
       </div>
-      <img className={styles.header_avatar} src={IconAvatar} alt="Аватар" />
     </div>
   );
-}
+};
 
 export default NavigationHeader;
