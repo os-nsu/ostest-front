@@ -1,7 +1,7 @@
 import styles from '@styles/components/TestResult.module.scss';
 
 interface TestResultProps {
-  testNumber: number;
+  testName: string;
   isPassed: boolean;
   time: string;
   memory: string;
@@ -9,7 +9,7 @@ interface TestResultProps {
 }
 
 export default function TestResult({
-  testNumber,
+  testName,
   isPassed,
   time,
   description,
@@ -17,11 +17,12 @@ export default function TestResult({
 }: TestResultProps) {
   const statusClass = isPassed ? styles.accepted : styles.error;
   const status = isPassed ? 'Пройден' : 'Не пройден';
+  const splitDescription = description ? description.split(/\sE\s/) : [];
 
   return (
     <div className={styles.container}>
       <div className={styles.titleContainer}>
-        <span className={styles.title}>Тест {testNumber}</span>
+        <span className={styles.title}>Тест {testName}</span>
         <div className={`${styles.status} ${statusClass}`}>{status}</div>
       </div>
       <div className={styles.descriptionContainer}>
@@ -35,7 +36,11 @@ export default function TestResult({
         </div>
         <div className={`${styles.description} ${styles.column}`}>
           <span className={styles.title}>Описание</span>
-          <span className={styles.text}>{description}</span>
+          {splitDescription.map((el, index) => (
+            <span key={index} className={styles.text}>
+              {el}
+            </span>
+          ))}
         </div>
       </div>
     </div>

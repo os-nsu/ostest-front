@@ -36,7 +36,7 @@ export default function AttemptResult({
           attempt.attemptResult.testResults.map((result, index) => (
             <TestResult
               key={index}
-              testNumber={+result.name}
+              testName={result.name}
               memory={result.memoryUsed.toString()}
               time={result.duration.toString()}
               isPassed={result.isPassed}
