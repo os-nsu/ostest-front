@@ -24,3 +24,8 @@ export interface UserSearchResponseData {
   pagination: Pagination;
   users: User[];
 }
+
+export interface UserChangePasswordRequestData {
+  oldPassword: string;
+  newPassword: string;
+}

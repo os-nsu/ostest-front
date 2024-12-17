@@ -1,6 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from '@styles/components/NavigationHeader.module.scss';
+import { useChangePassword } from './hooks/useChangePassword';
+import ModalChangePassword from '../../../modals/ModalChangePassword/ModalChangePassword';
 
 interface HeaderMenuProps {
   isMenuOpen: boolean;
@@ -18,6 +20,7 @@ const HeaderMenu: React.FC<HeaderMenuProps> = ({
   handleLogout,
 }) => {
   const navigate = useNavigate();
+  const { isModalVisible, setModalVisible } = useChangePassword();
 
   return (
     <>
@@ -28,7 +31,12 @@ const HeaderMenu: React.FC<HeaderMenuProps> = ({
       </button>
       {isMenuOpen && (
         <div className={styles.menu}>
-          <button className={styles.menuButton}>Сменить пароль</button>
+          <button
+            type="button"
+            className={styles.menuButton}
+            onClick={() => setModalVisible(true)}>
+            Сменить пароль
+          </button>
           <button
             type="button"
             className={styles.menuButton}
@@ -43,6 +51,13 @@ const HeaderMenu: React.FC<HeaderMenuProps> = ({
           </button>
         </div>
       )}
+      <ModalChangePassword
+        displayed={isModalVisible}
+        onChange={() => {
+          setModalVisible(false);
+        }}
+        onPrevent={() => setModalVisible(false)}
+      />
     </>
   );
 };
