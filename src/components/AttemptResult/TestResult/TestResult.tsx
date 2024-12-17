@@ -17,6 +17,7 @@ export default function TestResult({
 }: TestResultProps) {
   const statusClass = isPassed ? styles.accepted : styles.error;
   const status = isPassed ? 'Пройден' : 'Не пройден';
+  const splitDescription = description ? description.split(/\sE\s/) : [];
 
   return (
     <div className={styles.container}>
@@ -35,7 +36,11 @@ export default function TestResult({
         </div>
         <div className={`${styles.description} ${styles.column}`}>
           <span className={styles.title}>Описание</span>
-          <span className={styles.text}>{description}</span>
+          {splitDescription.map((el, index) => (
+            <span key={index} className={styles.text}>
+              {el}
+            </span>
+          ))}
         </div>
       </div>
     </div>
