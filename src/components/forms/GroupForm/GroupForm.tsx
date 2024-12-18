@@ -63,8 +63,8 @@ export default function GroupForm({
           options={groupOptions}
           label="Статус группы"
           placeholder="Выберите статус группы"
-          value={formData?.status}
-          onSelect={value => onFieldChange('status', value || '')}
+          value={formData?.isArchived ? 'archived' : 'active'}
+          onSelect={value => onFieldChange('isArchived', value === 'archived')}
         />
         <div className={styles.fieldContainer}>
           <DefaultFieldLabel label="Число участников" />

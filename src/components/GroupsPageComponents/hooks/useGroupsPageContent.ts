@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Group, GroupFilters, GroupStatus } from '@/types/Group';
+import { Group, GroupFilters } from '@/types/Group';
 import { useGroupProvider } from '@/providers/GroupProvider/useGroupProvider';
 import { usePagination } from './usePagination';
 
@@ -13,10 +13,10 @@ export const useGroupsPageContent = () => {
 
   const filteredGroups = () => {
     if (filter === GroupFilters.ACTIVE) {
-      return groups.filter(group => group.status === GroupStatus.ACTIVE);
+      return groups.filter(group => group.isArchived === false);
     }
-    if (filter === GroupFilters.INACTIVE) {
-      return groups.filter(group => group.status === GroupStatus.INACTIVE);
+    if (filter === GroupFilters.ARCHIVED) {
+      return groups.filter(group => group.isArchived === true);
     }
     return groups;
   };
@@ -66,7 +66,7 @@ export const useGroupsPageContent = () => {
                 .then(details => {
                   return validateAndFormatGroup({
                     ...details.data,
-                    status: GroupStatus.ACTIVE,
+                    // status: GroupStatus.ACTIVE,
                   });
                 });
             }),

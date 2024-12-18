@@ -1,14 +1,9 @@
 import { RoleTypes } from './Role';
 
-export enum GroupStatus {
-  ACTIVE = 'Активна',
-  INACTIVE = 'Скрыта',
-}
-
 export enum GroupFilters {
-  ACTIVE = GroupStatus.ACTIVE,
-  INACTIVE = GroupStatus.INACTIVE,
-  ALL = 'ALL',
+  ACTIVE = 'active',
+  ARCHIVED = 'archived',
+  ALL = 'all',
 }
 
 export interface MinimizedGroup {
@@ -31,6 +26,7 @@ export interface User {
 export interface Group {
   id: number;
   name: string;
-  status: GroupStatus;
+  // status: GroupStatus;
+  isArchived: boolean;
   users: User[];
 }

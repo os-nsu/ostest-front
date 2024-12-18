@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Group, GroupStatus, User } from '@/types/Group';
+import { Group, User } from '@/types/Group';
 import { SelectItem } from 'primereact/selectitem';
 import { useAttachableListController } from './useAttachableListController';
 import { RoleTypes } from '@/types/Role';
@@ -8,7 +8,7 @@ import { Filter } from '@/DTO/UserDTO';
 
 interface GroupFormData {
   id: number;
-  status: GroupStatus;
+  isArchived: boolean;
   name: string;
   studentsCount: number;
   teachers: User[];
@@ -16,8 +16,8 @@ interface GroupFormData {
 }
 
 const groupOptions: SelectItem[] = [
-  { value: GroupStatus.ACTIVE, label: 'Активна' },
-  { value: GroupStatus.INACTIVE, label: 'Скрыта' },
+  { value: 'active', label: 'Активна' },
+  { value: 'archived', label: 'Скрыта' },
 ];
 
 export const useGroupForm = (group: Group, onUpdate: () => void) => {
@@ -35,7 +35,7 @@ export const useGroupForm = (group: Group, onUpdate: () => void) => {
   const [formData, setFormData] = useState<GroupFormData>({
     id: group.id,
     name: group.name,
-    status: group.status,
+    isArchived: group.isArchived,
     studentsCount: students.length,
     teachers,
     students,
@@ -104,7 +104,7 @@ export const useGroupForm = (group: Group, onUpdate: () => void) => {
 
   const onFieldChange = (
     fieldType: keyof GroupFormData,
-    value: string | number | GroupStatus | User[],
+    value: string | number | boolean | User[],
   ) => setFormData({ ...formData, [fieldType]: value });
 
   const onSubmit = () => {
@@ -132,6 +132,7 @@ export const useGroupForm = (group: Group, onUpdate: () => void) => {
       .editGroup({
         id: formData.id,
         name: formData.name,
+        isArchived: formData.isArchived,
         addUsers: addUsers,
         deleteUsers: deleteUsers,
       })
