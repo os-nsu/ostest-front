@@ -52,8 +52,8 @@ export const useGroupForm = (group: Group, onUpdate: () => void) => {
       {
         type: 'string',
         fieldName: 'groupName',
-        exactSearch: true,
-        value: '',
+        exactSearch: false,
+        value: 'null',
       },
     ],
     [],
