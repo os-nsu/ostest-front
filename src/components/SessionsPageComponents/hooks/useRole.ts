@@ -1,4 +1,4 @@
-import { getRoleFromToken } from '@/contexts/AuthContext/AuthContext';
+import { getRoleFromToken } from '@/contexts/AuthContext/hooks/getRoleFromToken';
 
 export const useRole = () => {
   const roles = getRoleFromToken();

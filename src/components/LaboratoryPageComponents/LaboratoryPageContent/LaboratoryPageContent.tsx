@@ -1,4 +1,4 @@
-import styles from '@styles/components/LaboratoryPageContent.module.scss';
+import styles from '@styles/components/LaboratoryPageStyles/LaboratoryPageContent.module.scss';
 import LaboratoryPageTitle from '../LaboratoryPageTitle/LaboratoryPageTitle.tsx';
 import LaboratoryDeadLine from '../LaboratoryDeadLine/LaboratoryDeadLine.tsx';
 import LaboratoryDescription from '../LaboratoryDescription/LaboratoryDescription.tsx';

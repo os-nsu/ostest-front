@@ -4,6 +4,8 @@ import styles from '@styles/components/GroupsPageStyles/GroupsPageTitle.module.s
 import DefaultButton from '@UI/buttons/DefaultButton/DefaultButton.tsx';
 import { useGroupsPageTitle } from './hooks/useGroupsPageTitle';
 import { GroupFilters } from '@/types/Group';
+import { useUserRole } from '@/hooks/useUserRole';
+import { RoleTypes } from '@/types/Role';
 
 interface GroupsPageTitleProps {
   setFilter: (filter: GroupFilters) => void;
@@ -16,11 +18,14 @@ export default function GroupsPageTitle({
 }: GroupsPageTitleProps) {
   const { options, selectedOption, handleOptionSelect } =
     useGroupsPageTitle(setFilter);
+  const { role } = useUserRole();
 
   return (
     <div className={styles.container}>
       <span className={styles.title}>Группы</span>
-      <DefaultButton icon={IconPlus} label="Создать" onClick={onCreate} />
+      {role === RoleTypes.ADMIN ? (
+        <DefaultButton icon={IconPlus} label="Создать" onClick={onCreate} />
+      ) : undefined}
       <DefaultDropdown
         options={options}
         value={selectedOption}

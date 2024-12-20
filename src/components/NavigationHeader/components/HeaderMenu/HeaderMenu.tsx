@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import styles from '@styles/components/NavigationHeader.module.scss';
 import { useChangePassword } from './hooks/useChangePassword';
 import ModalChangePassword from '../../../modals/ModalChangePassword/ModalChangePassword';
+import { useUserRole } from '@/hooks/useUserRole';
+import { RoleTypes } from '@/types/Role';
 
 interface HeaderMenuProps {
   isMenuOpen: boolean;
@@ -21,6 +23,11 @@ const HeaderMenu: React.FC<HeaderMenuProps> = ({
 }) => {
   const navigate = useNavigate();
   const { isModalVisible, setModalVisible } = useChangePassword();
+  const { role } = useUserRole();
+  const sessionsText =
+    role === RoleTypes.STUDENT
+      ? 'Мои сессии сдачи'
+      : 'Информация о выполняемых работах';
 
   return (
     <>
@@ -41,7 +48,7 @@ const HeaderMenu: React.FC<HeaderMenuProps> = ({
             type="button"
             className={styles.menuButton}
             onClick={() => navigate('/lab/attempts')}>
-            Мои сессии сдачи
+            {sessionsText}
           </button>
           <button
             type="button"
