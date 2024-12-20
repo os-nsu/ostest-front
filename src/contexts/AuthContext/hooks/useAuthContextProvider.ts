@@ -1,8 +1,11 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useAuthProvider } from '@/providers/AuthProvider/useAuthProvider.ts';
+import { useDispatch } from 'react-redux';
+import { removeUser } from '@/store/user/userSlise';
 
 export const useAuthContextProvider = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(true);
+  const dispatch = useDispatch();
 
   const getTokens = () => {
     return {
@@ -26,7 +29,8 @@ export const useAuthContextProvider = () => {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');
     setIsAuthenticated(false);
-  }, []);
+    dispatch(removeUser());
+  }, [dispatch]);
 
   const updateAccessToken = useCallback(
     (refreshToken: string) => {

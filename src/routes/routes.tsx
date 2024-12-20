@@ -1,24 +1,32 @@
 import PrivateRoute from '@/components/PrivateRoute/PrivateRoute';
-import LabsPage from '@/pages/LabsPage';
 import TestsPage from '@/pages/TestsPage/TestsPage.tsx';
 import LaboratoryPage from '@/pages/LaboratoryPage/LaboratoryPage.tsx';
 import LoginPage from '@/pages/LoginPage.tsx';
 import GroupsPage from '@/pages/GroupsPage/GroupsPage';
 import SessionPage from '@/pages/SessionPage/SessionPage';
 import SessionsPage from '@/pages/SessionsPage/SessionsPage';
+import HomeRedirect from '../components/HomeRedirect/HomeRedirect';
+import { RoleTypes } from '@/types/Role';
 
 export const routes = [
   {
     path: '/',
-    element: <PrivateRoute element={<LabsPage />} />,
+    element: <HomeRedirect />,
   },
   {
     path: '/tests',
-    element: <PrivateRoute element={<TestsPage />} />,
+    element: (
+      <PrivateRoute element={<TestsPage />} allowedRoles={[RoleTypes.ADMIN]} />
+    ),
   },
   {
     path: '/groups',
-    element: <PrivateRoute element={<GroupsPage />} />,
+    element: (
+      <PrivateRoute
+        element={<GroupsPage />}
+        allowedRoles={[RoleTypes.ADMIN, RoleTypes.TEACHER]}
+      />
+    ),
   },
   {
     path: '/lab/:id',

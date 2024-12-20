@@ -7,6 +7,8 @@ import { useNavigationHeaderState } from './hooks/useNavigationHeaderState';
 import { useAuthManagement } from './hooks/useAuthManagement';
 import HeaderButton from './components/HeaderButton/HeaderButton';
 import HeaderMenu from './components/HeaderMenu/HeaderMenu';
+import { useUserRole } from '@/hooks/useUserRole';
+import { RoleTypes } from '@/types/Role';
 
 interface NavigationHeaderProps {
   activeTab?: string;
@@ -20,6 +22,10 @@ const NavigationHeader: React.FC<NavigationHeaderProps> = ({
   const { isMenuOpen, toggleMenu, isActiveTab } =
     useNavigationHeaderState(activeTab);
   const { user, isLoading, handleLogout } = useAuthManagement();
+  const { role } = useUserRole();
+
+  const isAdmin = role === RoleTypes.ADMIN;
+  const isTeacher = role === RoleTypes.TEACHER;
 
   return (
     <div className={styles.header}>
@@ -34,18 +40,22 @@ const NavigationHeader: React.FC<NavigationHeaderProps> = ({
                 isActive={isActiveTab('labs')}
                 navigateTo="/"
               />
-              <HeaderButton
-                icon={IconTests}
-                label="Тесты"
-                isActive={isActiveTab('tests')}
-                navigateTo="/tests"
-              />
-              <HeaderButton
-                icon={IconGroups}
-                label="Группы"
-                isActive={isActiveTab('groups')}
-                navigateTo="/groups"
-              />
+              {isAdmin ? (
+                <HeaderButton
+                  icon={IconTests}
+                  label="Тесты"
+                  isActive={isActiveTab('tests')}
+                  navigateTo="/tests"
+                />
+              ) : undefined}
+              {isAdmin || isTeacher ? (
+                <HeaderButton
+                  icon={IconGroups}
+                  label="Группы"
+                  isActive={isActiveTab('groups')}
+                  navigateTo="/groups"
+                />
+              ) : undefined}
             </div>
           )}
         </div>

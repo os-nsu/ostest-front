@@ -1,4 +1,4 @@
-import styles from '@styles/components/LaboratoryPageContent.module.scss';
+import styles from '@styles/components/LaboratoryPageStyles/LaboratoryPageContent.module.scss';
 
 interface LaboratoryDescriptionProps {
   description: string;

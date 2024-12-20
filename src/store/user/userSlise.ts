@@ -17,7 +17,11 @@ const initialState: UserState = {
 export const userSlice = createSlice({
   name: 'user',
   initialState,
-  reducers: {},
+  reducers: {
+    removeUser: state => {
+      state.user = null;
+    },
+  },
   extraReducers: builder => {
     builder.addCase(getCurrentUser.pending, state => {
       state.loading = true;
@@ -33,5 +37,7 @@ export const userSlice = createSlice({
     });
   },
 });
+
+export const { removeUser } = userSlice.actions;
 
 export default userSlice.reducer;

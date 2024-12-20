@@ -6,6 +6,8 @@ import IconButton from '@/UI/buttons/IconButton/IconButton';
 import DefaultButton from '@/UI/buttons/DefaultButton/DefaultButton';
 import IconLeft from '@/UI/icons/IconLeft/IconLeft';
 import { ProcessStatus } from '@/types/ProcessStatus';
+import { useUserRole } from '@/hooks/useUserRole';
+import { RoleTypes } from '@/types/Role';
 
 interface SessionPageTitleProps {
   id: string;
@@ -21,6 +23,7 @@ export default function SessionPageTitle({
   onUpload,
 }: SessionPageTitleProps) {
   const navigate = useNavigate();
+  const { role } = useUserRole();
 
   return (
     <div className={styles.container}>
@@ -39,7 +42,9 @@ export default function SessionPageTitle({
           />
           <WorkStatus text={status} status={ProcessStatus.INPROGRESS} />
         </div>
-        <DefaultButton label="Загрузить решение" onClick={onUpload} />
+        {role !== RoleTypes.STUDENT ? undefined : (
+          <DefaultButton label="Загрузить решение" onClick={onUpload} />
+        )}
       </div>
     </div>
   );

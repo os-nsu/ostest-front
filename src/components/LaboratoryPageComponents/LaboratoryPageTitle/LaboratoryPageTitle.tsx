@@ -1,4 +1,4 @@
-import styles from '@styles/components/LaboratoryPageTitle.module.scss';
+import styles from '@styles/components/LaboratoryPageStyles/LaboratoryPageTitle.module.scss';
 import IconButton from '@/UI/buttons/IconButton/IconButton.tsx';
 import IconPebcil from '@public/pencil_line.svg';
 import IconTrash from '@public/trash.svg';
@@ -6,6 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import IconLeft from '@/UI/icons/IconLeft/IconLeft';
 import DefaultButton from '@/UI/buttons/DefaultButton/DefaultButton';
 import { useLaboratoryPageTitle } from './hooks/useLaboratoryPageTitle';
+import { RoleTypes } from '@/types/Role';
+import { useUserRole } from '@/hooks/useUserRole';
 
 interface LaboratoryPageTitleProps {
   name: string;
@@ -22,6 +24,7 @@ export default function LaboratoryPageTitle({
 }: LaboratoryPageTitleProps) {
   const navigate = useNavigate();
   const { onClick } = useLaboratoryPageTitle(+id);
+  const { role } = useUserRole();
 
   return (
     <div className={styles.header}>
@@ -33,13 +36,19 @@ export default function LaboratoryPageTitle({
         <div>{name}</div>
       </div>
       <div className={styles.buttons}>
-        <DefaultButton
-          label="Начать выполнять"
-          onClick={onClick}
-          buttonClass={styles.buttonNavigate}
-        />
-        <IconButton icon={IconPebcil} onClick={onEdit} />
-        <IconButton icon={IconTrash} onClick={onDelete} />
+        {role === RoleTypes.STUDENT ? (
+          <DefaultButton
+            label="Начать выполнять"
+            onClick={onClick}
+            buttonClass={styles.buttonNavigate}
+          />
+        ) : undefined}
+        {role === RoleTypes.ADMIN ? (
+          <>
+            <IconButton icon={IconPebcil} onClick={onEdit} />
+            <IconButton icon={IconTrash} onClick={onDelete} />
+          </>
+        ) : undefined}
       </div>
     </div>
   );

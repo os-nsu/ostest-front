@@ -6,6 +6,8 @@ import DefaultAside from '../asides/DefaultAside/DefaultAside';
 import GroupAsideContent from '../GroupAsideContent/GroupAsideContent';
 import ModalCreateGroup from '../modals/ModalCreateGroup/ModalCreateGroup';
 import PaginationButtons from '../PaginationButtons/PaginationButtons';
+import { useUserRole } from '@/hooks/useUserRole';
+import { RoleTypes } from '@/types/Role';
 
 export default function GroupsPageContent() {
   const {
@@ -28,6 +30,11 @@ export default function GroupsPageContent() {
     onUpdate,
     onDelete,
   } = useGroupsPageContent();
+  const { role } = useUserRole();
+  const placeholder =
+    role === RoleTypes.ADMIN
+      ? 'Создайте первую группу'
+      : 'На данный момент нет групп';
 
   return (
     <div className={styles.container}>
@@ -36,7 +43,7 @@ export default function GroupsPageContent() {
         onCreate={() => setModalVisible(true)}
       />
       {!groups.length ? (
-        <span className={styles.placeholder}>Создайте первую группу</span>
+        <span className={styles.placeholder}>{placeholder}</span>
       ) : (
         <>
           <GroupsList
