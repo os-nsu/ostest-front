@@ -3,7 +3,7 @@ name: deploy-front
 on:
   push:
     branches:
-      - master
+      - feature/14348/fixes-deploy
 
 jobs:
   connect_to_server:
@@ -49,8 +49,8 @@ jobs:
           git reset --hard HEAD
           git clean -fd
           git fetch --all
-          git checkout master
-          git pull origin master
+          git checkout 14348
+          git pull 14348
 
           if [ ! -f env.front_vm ]; then
             echo "env.front_vm not found. Cloning repository to fetch it..."
