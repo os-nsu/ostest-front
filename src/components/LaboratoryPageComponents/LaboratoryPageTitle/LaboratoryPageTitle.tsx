@@ -7,7 +7,8 @@ import IconLeft from '@/UI/icons/IconLeft/IconLeft';
 import DefaultButton from '@/UI/buttons/DefaultButton/DefaultButton';
 import { useLaboratoryPageTitle } from './hooks/useLaboratoryPageTitle';
 import { RoleTypes } from '@/types/Role';
-import { useUserRole } from '@/hooks/useUserRole';
+import { useAppSelector } from '@/store/hooks';
+import { selectRole } from '@/store/role/roleSelectors';
 
 interface LaboratoryPageTitleProps {
   name: string;
@@ -24,7 +25,7 @@ export default function LaboratoryPageTitle({
 }: LaboratoryPageTitleProps) {
   const navigate = useNavigate();
   const { onClick } = useLaboratoryPageTitle(+id);
-  const { role } = useUserRole();
+  const role = useAppSelector(selectRole);
 
   return (
     <div className={styles.header}>

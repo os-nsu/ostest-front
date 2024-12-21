@@ -6,8 +6,9 @@ import DefaultAside from '../asides/DefaultAside/DefaultAside';
 import GroupAsideContent from '../GroupAsideContent/GroupAsideContent';
 import ModalCreateGroup from '../modals/ModalCreateGroup/ModalCreateGroup';
 import PaginationButtons from '../PaginationButtons/PaginationButtons';
-import { useUserRole } from '@/hooks/useUserRole';
 import { RoleTypes } from '@/types/Role';
+import { useAppSelector } from '@/store/hooks';
+import { selectRole } from '@/store/role/roleSelectors';
 
 export default function GroupsPageContent() {
   const {
@@ -30,7 +31,7 @@ export default function GroupsPageContent() {
     onUpdate,
     onDelete,
   } = useGroupsPageContent();
-  const { role } = useUserRole();
+  const role = useAppSelector(selectRole);
   const placeholder =
     role === RoleTypes.ADMIN
       ? 'Создайте первую группу'

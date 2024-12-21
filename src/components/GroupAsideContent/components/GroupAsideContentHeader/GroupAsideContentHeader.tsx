@@ -3,8 +3,9 @@ import IconTrash from '@public/trash.svg';
 import IconPencil from '@public/pencil_line.svg';
 import IconClose from '@public/close.svg';
 import styles from '@styles/components/TestsPageStyles/TestAsideContentHeader.module.scss';
-import { useUserRole } from '@/hooks/useUserRole';
 import { RoleTypes } from '@/types/Role';
+import { useAppSelector } from '@/store/hooks';
+import { selectRole } from '@/store/role/roleSelectors';
 
 interface GroupAsideContentHeaderProps {
   groupName: string;
@@ -19,7 +20,7 @@ export default function GroupAsideContentHeader({
   onEditIconClick,
   onDeleteIconClick,
 }: GroupAsideContentHeaderProps) {
-  const { role } = useUserRole();
+  const role = useAppSelector(selectRole);
 
   return (
     <div className={styles.container}>

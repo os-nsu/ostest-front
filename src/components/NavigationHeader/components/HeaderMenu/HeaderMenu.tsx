@@ -3,8 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import styles from '@styles/components/NavigationHeader.module.scss';
 import { useChangePassword } from './hooks/useChangePassword';
 import ModalChangePassword from '../../../modals/ModalChangePassword/ModalChangePassword';
-import { useUserRole } from '@/hooks/useUserRole';
 import { RoleTypes } from '@/types/Role';
+import { useAppSelector } from '@/store/hooks';
+import { selectRole } from '@/store/role/roleSelectors';
 
 interface HeaderMenuProps {
   isMenuOpen: boolean;
@@ -12,6 +13,7 @@ interface HeaderMenuProps {
   userName: string;
   isLoading: boolean;
   handleLogout: () => void;
+  menuRef?: React.RefObject<HTMLDivElement>;
 }
 
 const HeaderMenu: React.FC<HeaderMenuProps> = ({
@@ -20,10 +22,11 @@ const HeaderMenu: React.FC<HeaderMenuProps> = ({
   userName,
   isLoading,
   handleLogout,
+  menuRef,
 }) => {
   const navigate = useNavigate();
   const { isModalVisible, setModalVisible } = useChangePassword();
-  const { role } = useUserRole();
+  const role = useAppSelector(selectRole);
   const sessionsText =
     role === RoleTypes.STUDENT
       ? 'Мои сессии сдачи'
@@ -37,7 +40,7 @@ const HeaderMenu: React.FC<HeaderMenuProps> = ({
         {isLoading ? '...' : userName}
       </button>
       {isMenuOpen && (
-        <div className={styles.menu}>
+        <div className={styles.menu} ref={menuRef}>
           <button
             type="button"
             className={styles.menuButton}

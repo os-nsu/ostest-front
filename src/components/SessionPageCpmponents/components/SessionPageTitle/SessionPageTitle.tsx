@@ -6,8 +6,9 @@ import IconButton from '@/UI/buttons/IconButton/IconButton';
 import DefaultButton from '@/UI/buttons/DefaultButton/DefaultButton';
 import IconLeft from '@/UI/icons/IconLeft/IconLeft';
 import { ProcessStatus } from '@/types/ProcessStatus';
-import { useUserRole } from '@/hooks/useUserRole';
 import { RoleTypes } from '@/types/Role';
+import { useAppSelector } from '@/store/hooks';
+import { selectRole } from '@/store/role/roleSelectors';
 
 interface SessionPageTitleProps {
   id: string;
@@ -23,7 +24,7 @@ export default function SessionPageTitle({
   onUpload,
 }: SessionPageTitleProps) {
   const navigate = useNavigate();
-  const { role } = useUserRole();
+  const role = useAppSelector(selectRole);
 
   return (
     <div className={styles.container}>

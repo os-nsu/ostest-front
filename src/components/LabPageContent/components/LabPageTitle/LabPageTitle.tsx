@@ -1,5 +1,6 @@
 import ModalCreateLab from '@/components/modals/ModalCreateLab/ModalCreateLab';
-import { useUserRole } from '@/hooks/useUserRole';
+import { useAppSelector } from '@/store/hooks';
+import { selectRole } from '@/store/role/roleSelectors';
 import { RoleTypes } from '@/types/Role';
 import PlusIcon from '@public/plus.svg';
 import styles from '@styles/components/LabPageTitle.module.scss';
@@ -8,7 +9,7 @@ import { useState } from 'react';
 
 export default function LabPageTitle({ onUpdate }: { onUpdate: () => void }) {
   const [isModalVisible, setModalVisible] = useState(false);
-  const { role } = useUserRole();
+  const role = useAppSelector(selectRole);
 
   return (
     <div className={styles.container}>

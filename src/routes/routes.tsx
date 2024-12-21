@@ -7,6 +7,7 @@ import SessionPage from '@/pages/SessionPage/SessionPage';
 import SessionsPage from '@/pages/SessionsPage/SessionsPage';
 import HomeRedirect from '../components/HomeRedirect/HomeRedirect';
 import { RoleTypes } from '@/types/Role';
+import LabsPage from '@/pages/LabsPage';
 
 export const routes = [
   {
@@ -27,6 +28,10 @@ export const routes = [
         allowedRoles={[RoleTypes.ADMIN, RoleTypes.TEACHER]}
       />
     ),
+  },
+  {
+    path: '/labs',
+    element: <PrivateRoute element={<LabsPage />} />,
   },
   {
     path: '/lab/:id',
