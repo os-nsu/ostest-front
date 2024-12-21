@@ -4,11 +4,17 @@ import styles from '@styles/components/LoginForm.module.scss';
 import { useLoginForm } from '@/components/forms/LoginForm/hooks/useLoginForm.ts';
 
 export default function LoginForm() {
-  const { isLoading, isUserError, isPasswordError, onSubmit, onFieldChange } =
-    useLoginForm();
+  const {
+    isLoading,
+    isUserError,
+    isPasswordError,
+    onSubmit,
+    onFieldChange,
+    handleKeyDown,
+  } = useLoginForm();
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} onKeyDown={handleKeyDown}>
       <span className={styles.title}>Вход в систему</span>
       <DefaultInput
         label="Логин"

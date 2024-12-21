@@ -3,11 +3,12 @@ import PrivateRoute from '@/components/PrivateRoute/PrivateRoute';
 import GroupsPage from '@/pages/GroupsPage/GroupsPage';
 import SessionsPage from '@/pages/SessionsPage/SessionsPage';
 import LabsPage from '@/pages/LabsPage';
-import { useUserRole } from '@/hooks/useUserRole';
 import { RoleTypes } from '@/types/Role';
+import { useAppSelector } from '@/store/hooks';
+import { selectRole } from '@/store/role/roleSelectors';
 
 const HomeRedirect: React.FC = () => {
-  const { role } = useUserRole();
+  const role = useAppSelector(selectRole);
 
   if (role === RoleTypes.ADMIN) {
     return <PrivateRoute element={<GroupsPage />} />;

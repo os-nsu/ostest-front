@@ -58,11 +58,18 @@ export const useLoginForm = () => {
       .finally(() => setLoading(false));
   };
 
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === 'Enter') {
+      onSubmit();
+    }
+  };
+
   return {
     isLoading,
     isUserError,
     isPasswordError,
     onFieldChange,
     onSubmit,
+    handleKeyDown,
   };
 };

@@ -7,8 +7,9 @@ import { useNavigationHeaderState } from './hooks/useNavigationHeaderState';
 import { useAuthManagement } from './hooks/useAuthManagement';
 import HeaderButton from './components/HeaderButton/HeaderButton';
 import HeaderMenu from './components/HeaderMenu/HeaderMenu';
-import { useUserRole } from '@/hooks/useUserRole';
 import { RoleTypes } from '@/types/Role';
+import { useAppSelector } from '@/store/hooks';
+import { selectRole } from '@/store/role/roleSelectors';
 
 interface NavigationHeaderProps {
   activeTab?: string;
@@ -19,10 +20,10 @@ const NavigationHeader: React.FC<NavigationHeaderProps> = ({
   activeTab,
   tabs,
 }) => {
-  const { isMenuOpen, toggleMenu, isActiveTab } =
+  const { isMenuOpen, menuRef, toggleMenu, isActiveTab } =
     useNavigationHeaderState(activeTab);
   const { user, isLoading, handleLogout } = useAuthManagement();
-  const { role } = useUserRole();
+  const role = useAppSelector(selectRole);
 
   const isAdmin = role === RoleTypes.ADMIN;
   const isTeacher = role === RoleTypes.TEACHER;
@@ -38,7 +39,7 @@ const NavigationHeader: React.FC<NavigationHeaderProps> = ({
                 icon={IconLabs}
                 label="Лабораторные"
                 isActive={isActiveTab('labs')}
-                navigateTo="/"
+                navigateTo="/labs"
               />
               {isAdmin ? (
                 <HeaderButton
@@ -61,6 +62,7 @@ const NavigationHeader: React.FC<NavigationHeaderProps> = ({
         </div>
         <div className={styles.rightGroup}>
           <HeaderMenu
+            menuRef={menuRef}
             isMenuOpen={isMenuOpen}
             toggleMenu={toggleMenu}
             userName={`${user?.firstName || ''} ${user?.secondName || ''}`}
