@@ -61,7 +61,7 @@ jobs:
             fi
 
             git checkout 14348
-            git pull
+            git pull origin 14348
 
             mv ostest-plan/env.front_vm .
             rm -rf ostest-plan
