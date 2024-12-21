@@ -12,7 +12,7 @@ export const useGroupsPageTitle = (
   setFilter: (filter: GroupFilters) => void,
 ) => {
   const [selectedOption, setSelectedOption] = useState<GroupFilters>(
-    GroupFilters.ACTIVE,
+    GroupFilters.ALL,
   );
   const [options] = useState<SelectItem[]>(GroupFilterOptions);
 

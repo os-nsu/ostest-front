@@ -22,7 +22,9 @@ export default function TestResult({
   return (
     <div className={styles.container}>
       <div className={styles.titleContainer}>
-        <span className={styles.title}>Тест {testName}</span>
+        <span className={[styles.title, styles.name].join(' ')}>
+          Тест {testName}
+        </span>
         <div className={`${styles.status} ${statusClass}`}>{status}</div>
       </div>
       <div className={styles.descriptionContainer}>
