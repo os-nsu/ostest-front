@@ -109,8 +109,8 @@ jobs:
           docker-compose down
           docker compose --env-file env.front_vm up --build -d
 
-          sleep 20
-          
+          sleep 35
+
           docker logs ostest-front-frontend-1
           EOF
 
