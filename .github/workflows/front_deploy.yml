@@ -3,7 +3,7 @@ name: deploy-front
 on:
   push:
     branches:
-      - feature/14348/fixes-deploy
+      - master
 
 jobs:
   connect_to_server:
@@ -66,8 +66,8 @@ jobs:
             fi
 
             cd ostest-plan
-            git checkout 14348
-            git pull origin 14348
+            git checkout master
+            git pull origin master
             cd ..
 
             mv ostest-plan/env.front_vm .
