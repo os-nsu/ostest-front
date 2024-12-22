@@ -15,9 +15,16 @@ export default function UploadAttemptForm({
   const { isButtonDisabled, onFieldChange, onSubmit } =
     useUploadAttemptForm(id);
 
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === 'Enter' && !isButtonDisabled) {
+      onSubmit();
+      onUpload();
+    }
+  };
+
   return (
     <>
-      <div className={styles.container}>
+      <div className={styles.container} onKeyDown={handleKeyDown}>
         <DefaultInput
           label="Ссылка на репозиторий"
           placeholder="Укажите репозиторий"

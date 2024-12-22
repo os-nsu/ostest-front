@@ -7,7 +7,7 @@ export const useGroupsPageContent = () => {
   const [isAsideDisplayed, setAsideDisplayed] = useState(false);
   const [isModalVisible, setModalVisible] = useState(false);
   const [selectedGroup, setSelectedGroup] = useState<Group | null>(null);
-  const [filter, setFilter] = useState(GroupFilters.ACTIVE);
+  const [filter, setFilter] = useState(GroupFilters.ALL);
   const [isLoading, setIsLoading] = useState(false);
   const [groups, setGroups] = useState<Group[]>([]);
 

@@ -11,8 +11,14 @@ export default function CreateGroupForm({ onUpdate }: CreateGroupFormProps) {
   const { isButtonDisabled, onFieldChange, onSubmit, isNameError } =
     useCreateGroupForm(onUpdate);
 
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === 'Enter' && !isButtonDisabled) {
+      onSubmit();
+    }
+  };
+
   return (
-    <div className={styles.container}>
+    <div className={styles.container} onKeyDown={handleKeyDown}>
       <DefaultInput
         label="Номер группы"
         placeholder="Укажите номер группы"

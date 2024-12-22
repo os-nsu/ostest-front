@@ -54,6 +54,11 @@ export const useLoginForm = () => {
           setPasswordError(response.data.message);
           return;
         }
+
+        if (response.status === 400) {
+          setUserError(response.data.message);
+          return;
+        }
       })
       .finally(() => setLoading(false));
   };
