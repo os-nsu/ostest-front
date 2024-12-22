@@ -25,9 +25,15 @@ export default function TestForm({
   const { formData, isButtonDisabled, testOptions, onFieldChange, onSubmit } =
     useTestForm(test, isEditing, onResponded);
 
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === 'Enter' && !isButtonDisabled) {
+      onSubmit();
+    }
+  };
+
   return (
     <div className={[styles.container, containerClass].join(' ')}>
-      <div className={styles.fieldContainer}>
+      <div className={styles.fieldContainer} onKeyDown={handleKeyDown}>
         <DefaultInput
           label="Название"
           placeholder="Введите название"

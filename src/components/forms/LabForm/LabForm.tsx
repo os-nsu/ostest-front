@@ -42,8 +42,14 @@ export default function LabForm({
     isNameError,
   } = useLabForm(isEditing, labData, onUpdate);
 
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === 'Enter' && !(formData.name.trim() === '')) {
+      onSubmit();
+    }
+  };
+
   return (
-    <div className={styles.container}>
+    <div className={styles.container} onKeyDown={handleKeyDown}>
       <DefaultInput
         label="Название"
         value={formData.name}
