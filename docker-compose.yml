@@ -3,11 +3,14 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      target: ${BUILD_STAGE:-development}
     environment:
       VITE_SERVER_DOMAIN: ${VITE_SERVER_DOMAIN:-http://localhost:8080}
+      NODE_ENV: ${NODE_ENV:-development}
     ports:
       - "${PORT:-80}:5173"
     volumes:
       - .:/app
       - /app/node_modules
-    command: npm run dev
+    command: |
+      /bin/bash -c "if [ \"${NODE_ENV}\" = \"production\" ]; then npm run preview; else npm run dev; fi"

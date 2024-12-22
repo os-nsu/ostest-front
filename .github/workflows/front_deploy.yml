@@ -55,18 +55,28 @@ jobs:
           if [ ! -f env.front_vm ]; then
             echo "env.front_vm not found. Cloning repository to fetch it..."
 
+            if [ -d "ostest-plan" ]; then
+              echo "Directory ostest-plan already exists. Removing it..."
+              rm -rf ostest-plan
+            fi
+
             if ! git clone https://github.com/os-nsu/ostest-plan.git; then
               echo "Failed to clone repository"
               exit 1
             fi
 
+            cd ostest-plan
+            git checkout master
+            git pull origin master
+            cd ..
+
             mv ostest-plan/env.front_vm .
             rm -rf ostest-plan
 
-            echo "moved env file"
-          else
+            echo "Moved env file"
+            else
             echo "env.front_vm already exists"
-          fi
+            fi
 
           exit
         '
@@ -98,8 +108,10 @@ jobs:
           git pull
           docker-compose down
           docker compose --env-file env.front_vm up --build -d
-          sleep 10
-          docker logs $(docker ps -q --filter "ancestor=ostest-front-frontend")
+
+          sleep 45
+
+          docker logs ostest-front-frontend-1
           EOF
 
       - name: See logs
